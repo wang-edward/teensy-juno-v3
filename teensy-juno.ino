@@ -38,8 +38,10 @@ Oscillator oscs[NVOICES] = {
 //////////////////////////////////////////////////////////////////////
 // Global variables
 //////////////////////////////////////////////////////////////////////
-float   masterVolume   = 0.3;
+float   masterVolume   = 0.6;
 //uint8_t currentProgram = WAVEFORM_SAWTOOTH;
+
+bool portamentoOn = false; // CHANGE ///////////////////////////////////////////!!!!
 
 bool  polyOn;
 bool  omniOn;
@@ -116,14 +118,62 @@ inline bool notesFind(int8_t* notes, uint8_t note) {
   return false;
 }
 
-void setup() {
-  // put your setup code here, to run once:
+//////////////////////////////////////////////////////////////////////
+// Parameter control functions
+//////////////////////////////////////////////////////////////////////
 
-}
+//updateFilterMode(), updateFilter(), updateEnvelope(), updateEnvelopeMode(), updateFlanger()
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void resetAll() {
+  polyOn     = true;
+  omniOn     = false;
+  velocityOn = true;
 
+  bool squareOn = true; //default to true
+  bool sawOn = true;
+  bool noiseOn = false; //start with false
+
+  filterMode     = FILTEROFF;
+  sustainPressed = false;
+  channelVolume  = 1.0;
+  panorama       = 0.5;
+  pulseWidth     = 0.5;
+  pitchBend      = 0;
+  pitchScale     = 1;
+  octCorr        = currentProgram == WAVEFORM_PULSE ? 1 : 0;
+
+  // filter
+  filtFreq = 15000.;
+  filtReso = 0.9;
+  filtAtt  = 1.;
+
+  // envelope
+  envOn      = true;
+  envDelay   = 0;
+  envAttack  = 20;
+  envHold    = 0;
+  envDecay   = 0;
+  envSustain = 1;
+  envRelease = 20;
+
+//  // FX
+//  flangerOn         = false;
+//  flangerOffset     = DELAY_LENGTH/4;
+//  flangerDepth      = DELAY_LENGTH/16;
+//  flangerFreqCoarse = 0;
+//  flangerFreqFine   = .5;
+//
+//  // portamento
+//  portamentoOn   = false;
+//  portamentoTime = 1000;
+//  portamentoDir  = 0;
+//  portamentoStep = 0;
+//  portamentoPos  = -1;
+
+//  updatePolyMode();
+//  updateFilterMode();
+//  updateEnvelope();
+//  updatePan();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -131,8 +181,9 @@ void loop() {
 //////////////////////////////////////////////////////////////////////
 inline float noteToFreq(float note) {
   // Sets all notes as an offset of A4 (#69)
-  if (portamentoOn) note = portamentoPos;
-  return SYNTH_TUNING*pow(2,(note - 69)/12.+pitchBend/pitchScale+octCorr);
+//  if (portamentoOn) note = portamentoPos;     no portamento for now
+//  return SYNTH_TUNING*pow(2,(note - 69)/12.+pitchBend/pitchScale+octCorr);
+  return SYNTH_TUNING*pow(2,(note - 69)/12.); //no pitch bend for now
 }
 
 inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
@@ -148,19 +199,27 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
     //turn oscillators on
     if (squareOn) osc.squareLFO->amplitude(v*channelVolume*GAIN_OSC);
     if (sawOn) osc.saw->amplitude(v*channelVolume*GAIN_OSC);
-    if (noiseOn) osc.saw->amplitude(v*channelVolume*GAIN_OSC);
+    if (noiseOn) osc.noise->amplitude(v*channelVolume*GAIN_OSC);
     
     osc.velocity = velocity;
     osc.note = note;
   } else if (velocity > osc.velocity) {
-    osc.wf->amplitude(v*channelVolume*GAIN_OSC);
+    //turn oscillators on
+    if (squareOn) osc.squareLFO->amplitude(v*channelVolume*GAIN_OSC);
+    if (sawOn) osc.saw->amplitude(v*channelVolume*GAIN_OSC);
+    if (noiseOn) osc.noise->amplitude(v*channelVolume*GAIN_OSC);
     osc.velocity = velocity;
   }
 }
 
 inline void oscOff(Oscillator& osc) {
   if (envOn) osc.env->noteOff();
-  else       osc.wf->amplitude(0);
+  else {
+    //turn oscillators off
+    if (squareOn) osc.squareLFO->amplitude(0);
+    if (sawOn) osc.saw->amplitude(0);
+    if (noiseOn) osc.noise->amplitude(0);
+  }
   notesDel(notesOn,osc.note);
   osc.note = -1;
   osc.velocity = 0;
@@ -171,7 +230,198 @@ inline void allOff() {
   do {
     oscOff(*o);
     o->wf->amplitude(0);
+    o->squareLFO->amplitude(0);
+    o->saw->amplitude(0);
+    o->noise->amplitude(0);
     o->env->noteOff();
   } while(++o < end);
   notesReset(notesOn);
+}
+
+//////////////////////////////////////////////////////////////////////
+// MIDI handlers
+//////////////////////////////////////////////////////////////////////
+void OnNoteOn(uint8_t channel, uint8_t note, uint8_t velocity) {
+  if (!omniOn && channel != SYNTH_MIDICHANNEL) return;
+
+#if SYNTH_DEBUG > 1
+  SYNTH_COM.println("NoteOn");
+#endif
+
+  notesAdd(notesPressed,note);
+
+  Oscillator *o=oscs;
+  if (portamentoOn) {
+    if (portamentoTime == 0 || portamentoPos < 0) {
+      portamentoPos = note;
+      portamentoDir = 0;
+    } else if (portamentoPos > -1) {
+      portamentoDir  = note > portamentoPos ? 1 : -1;
+      portamentoStep = fabs(note-portamentoPos)/(portamentoTime);
+    }
+    *notesOn = -1;
+    oscOn(*o, note, velocity);
+  }
+  else if (polyOn) {
+    Oscillator *curOsc=0, *end=oscs+NVOICES;
+    if (sustainPressed && notesFind(notesOn,note)) {
+      do {
+        if (o->note == note) {
+          curOsc = o;
+          break;
+        }
+      } while (++o < end);
+    }
+    for (o=oscs; o < end && !curOsc; ++o) {
+      if (o->note < 0) {
+        curOsc = o;
+        break;
+      }
+    }
+    if (!curOsc && *notesOn != -1) {
+#if SYNTH_DEBUG > 0
+      SYNTH_COM.println("Stealing voice");
+#endif
+      curOsc = OnNoteOffReal(channel,*notesOn,velocity,true);
+    }
+    if (!curOsc) return;
+    oscOn(*curOsc, note, velocity);
+  }
+  else
+  {
+    *notesOn = -1;
+    oscOn(*o, note, velocity);
+  }
+
+  return;
+}
+
+Oscillator* OnNoteOffReal(uint8_t channel, uint8_t note, uint8_t velocity, bool ignoreSustain) {
+  if (!omniOn && channel != SYNTH_MIDICHANNEL) return 0;
+
+#if SYNTH_DEBUG > 1
+  SYNTH_COM.println("NoteOff");
+#endif
+  int8_t lastNote = notesDel(notesPressed,note);
+
+  if (sustainPressed && !ignoreSustain) return 0;
+
+  Oscillator *o=oscs;
+  if (portamentoOn) {
+    if (o->note == note) {
+      if (lastNote != -1) {
+        notesDel(notesOn,note);
+        if (portamentoTime == 0) {
+          portamentoPos = lastNote;
+          portamentoDir = 0;
+        } else {
+          portamentoDir = lastNote > portamentoPos? 1 : -1;
+          portamentoStep = fabs(lastNote-portamentoPos)/(portamentoTime);
+        }
+        oscOn(*o, lastNote, velocity);
+      }
+      else
+      {
+        oscOff(*o);
+        portamentoPos = -1;
+        portamentoDir = 0;
+      }
+    }
+    if (oscs->note == note) {
+      if (lastNote != -1) {
+        notesDel(notesOn,o->note);
+        oscOn(*o, lastNote, velocity);
+      } else {
+        oscOff(*o);
+      }
+    }
+  }
+  else if (polyOn) {
+    Oscillator *end=oscs+NVOICES;
+    do {
+      if (o->note == note) break;
+    } while (++o < end);
+    if (o == end) return 0;
+    oscOff(*o);
+  } else {
+    if (oscs->note == note) {
+      if (lastNote != -1) {
+        notesDel(notesOn,o->note);
+        oscOn(*o, lastNote, velocity);
+      } else {
+        oscOff(*o);
+      }
+    }
+  }
+
+  return o;
+}
+
+inline void OnNoteOff(uint8_t channel, uint8_t note, uint8_t velocity) {
+  OnNoteOffReal(channel,note,velocity,false);
+}
+
+void OnAfterTouchPoly(uint8_t channel, uint8_t note, uint8_t value) {
+#if SYNTH_DEBUG > 0
+  SYNTH_COM.print("AfterTouchPoly: channel ");
+  SYNTH_COM.print(channel);
+  SYNTH_COM.print(", note ");
+  SYNTH_COM.print(note);
+  SYNTH_COM.print(", value ");
+  SYNTH_COM.println(value);
+#endif
+}
+
+inline void printResources( float cpu, uint8_t mem) {
+  SYNTH_COM.print( "CPU Usage: ");
+  SYNTH_COM.print(cpu);
+  SYNTH_COM.print( "%, Memory: ");
+  SYNTH_COM.println(mem);
+}
+
+void performanceCheck() {
+  static unsigned long last = 0;
+  unsigned long now = millis();
+  if ((now-last)>1000) {
+    last = now;
+    float cpu = AudioProcessorUsageMax();
+    uint8_t mem = AudioMemoryUsageMax();
+    if( (statsMem!=mem) || fabs(statsCpu-cpu)>1) {
+      printResources( cpu, mem);
+    }
+    AudioProcessorUsageMaxReset();
+    AudioMemoryUsageMaxReset();
+    last = now;
+    statsCpu = cpu;
+    statsMem = mem;
+  }
+}
+
+//////////////////////////////////////////////////////////////////////
+// setup() and loop()
+//////////////////////////////////////////////////////////////////////
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+  AudioMemory(AMEMORY);
+  sgtl5000_1.enable();
+  sgtl5000_1.volume(masterVolume);
+
+
+  usbMIDI.setHandleNoteOff(OnNoteOff);
+  usbMIDI.setHandleNoteOn(OnNoteOn);
+  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
+  usbMIDI.setHandleControlChange(OnControlChange);
+  usbMIDI.setHandlePitchChange(OnPitchChange);
+  usbMIDI.setHandleProgramChange(OnProgramChange);
+  usbMIDI.setHandleAfterTouch(OnAfterTouch);
+  usbMIDI.setHandleSysEx(OnSysEx);
+  //usbMIDI.setHandleRealTimeSystem(OnRealTimeSystem);
+  usbMIDI.setHandleTimeCodeQuarterFrame(OnTimeCodeQFrame);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
 }
