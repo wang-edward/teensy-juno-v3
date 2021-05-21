@@ -1,4 +1,45 @@
 #include <Audio.h>
+
+// set SYNTH_DEBUG to enable debug logging (0=off,1=most,2=all messages)
+#define SYNTH_DEBUG 2
+
+// define MIDI channel
+#define SYNTH_MIDICHANNEL 1
+
+// inital poly mode (POLY, MONO or PORTAMENTO)
+#define SYNTH_INITIALMODE POLY
+
+// define tuning of A4 in Hz
+#define SYNTH_TUNING 440
+
+// gain at oscillator/filter input stage (1:1)
+// keep low so filter does not saturate with resonance
+#define GAIN_OSC 0.5
+
+// gain in final mixer stage for polyphonic mode (4:1)
+// (0.25 is the safe value but larger sounds better :) )
+#define GAIN_POLY 1.
+//#define GAIN_POLY 0.25
+
+// gain in final mixer stage for monophonic modes
+//#define GAIN_MONO 1.
+#define GAIN_MONO 0.25
+
+// define delay lines for modulation effects
+#define DELAY_LENGTH (16*AUDIO_BLOCK_SAMPLES)
+short delaylineL[DELAY_LENGTH];
+short delaylineR[DELAY_LENGTH];
+
+// audio memory
+#define AMEMORY 50
+
+// switch between USB and UART MIDI
+#if defined USB_MIDI || defined USB_MIDI_SERIAL
+#define SYNTH_USBMIDI
+#endif
+
+#define SYNTH_COM Serial
+
 #include <MIDI.h>
 MIDI_CREATE_DEFAULT_INSTANCE();
 
@@ -9,11 +50,13 @@ struct Oscillator {
   AudioSynthWaveformModulated*  squareLFO;
   AudioSynthWaveformModulated*  saw;
   AudioSynthWaveformModulated*  squarePWM;
-  AudioSynthNoiseWhite          noise;
+  AudioSynthNoiseWhite*          noise;
+
+  AudioMixer4*                  oscMixer;
   
   AudioFilterStateVariable*     hpf;
   AudioFilterStateVariable*     lpf;
-  AudioMixer4*                  oscMixer;
+
   AudioEffectEnvelope*          env;
   
   int8_t  note;
@@ -21,18 +64,18 @@ struct Oscillator {
 };
 
 // synth architecture in separate file
-#include "SynthArch.h"
+#include "TestSynthArch.h"
 
 #define NVOICES 8
 Oscillator oscs[NVOICES] = {
-  { &squareLFO0, &saw0, &squarePWM0, &noise0, &hpf0, &lpf0, &env0, -1, 0},
-  { &squareLFO1, &saw1, &squarePWM1, &noise1, &hpf1, &lpf1, &env1, -1, 0},
-  { &squareLFO2, &saw2, &squarePWM2, &noise2, &hpf2, &lpf2, &env2, -1, 0},
-  { &squareLFO3, &saw3, &squarePWM3, &noise3, &hpf3, &lpf3, &env3, -1, 0},
-  { &squareLFO4, &saw4, &squarePWM4, &noise4, &hpf4, &lpf4, &env4, -1, 0},
-  { &squareLFO5, &saw5, &squarePWM5, &noise5, &hpf5, &lpf5, &env5, -1, 0},
-  { &squareLFO6, &saw6, &squarePWM6, &noise6, &hpf6, &lpf6, &env6, -1, 0},
-  { &squareLFO7, &saw7, &squarePWM7, &noise7, &hpf7, &lpf7, &env7, -1, 0},
+  { &squareLFO0, &saw0, &squarePWM0, &noise0, &oscMixer0, &hpf0, &lpf0, &env0, -1, 0},
+  { &squareLFO1, &saw1, &squarePWM1, &noise1, &oscMixer1, &hpf1, &lpf1, &env1, -1, 0},
+  { &squareLFO2, &saw2, &squarePWM2, &noise2, &oscMixer2, &hpf2, &lpf2, &env2, -1, 0},
+  { &squareLFO3, &saw3, &squarePWM3, &noise3, &oscMixer3, &hpf3, &lpf3, &env3, -1, 0},
+  { &squareLFO4, &saw4, &squarePWM4, &noise4, &oscMixer4, &hpf4, &lpf4, &env4, -1, 0},
+  { &squareLFO5, &saw5, &squarePWM5, &noise5, &oscMixer5, &hpf5, &lpf5, &env5, -1, 0},
+  { &squareLFO6, &saw6, &squarePWM6, &noise6, &oscMixer6, &hpf6, &lpf6, &env6, -1, 0},
+  { &squareLFO7, &saw7, &squarePWM7, &noise7, &oscMixer7, &hpf7, &lpf7, &env7, -1, 0},
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -40,8 +83,6 @@ Oscillator oscs[NVOICES] = {
 //////////////////////////////////////////////////////////////////////
 float   masterVolume   = 0.6;
 //uint8_t currentProgram = WAVEFORM_SAWTOOTH;
-
-bool portamentoOn = false; // CHANGE ///////////////////////////////////////////!!!!
 
 bool  polyOn;
 bool  omniOn;
@@ -62,7 +103,7 @@ float pitchScale;
 int   octCorr;
 
 // filter
-FilterMode_t filterMode;
+//FilterMode_t filterMode;
 float filtFreq; // 20-AUDIO_SAMPLE_RATE_EXACT/2.5
 float filtReso; // 0.9-5.0
 float filtAtt;  // 0-1
@@ -75,6 +116,20 @@ float envHold;    // 0-200
 float envDecay;   // 0-200
 float envSustain; // 0-1
 float envRelease; // 0-200
+
+// FX
+bool  flangerOn;
+int   flangerOffset;
+int   flangerDepth;
+float flangerFreqCoarse;
+float flangerFreqFine;
+
+// portamento
+bool     portamentoOn = false;
+uint16_t portamentoTime;
+int8_t   portamentoDir;
+float    portamentoStep;
+float    portamentoPos;
 
 //////////////////////////////////////////////////////////////////////
 // Handling of sounding and pressed notes
@@ -122,59 +177,7 @@ inline bool notesFind(int8_t* notes, uint8_t note) {
 // Parameter control functions
 //////////////////////////////////////////////////////////////////////
 
-//updateFilterMode(), updateFilter(), updateEnvelope(), updateEnvelopeMode(), updateFlanger()
-
-void resetAll() {
-  polyOn     = true;
-  omniOn     = false;
-  velocityOn = true;
-
-  bool squareOn = true; //default to true
-  bool sawOn = true;
-  bool noiseOn = false; //start with false
-
-  filterMode     = FILTEROFF;
-  sustainPressed = false;
-  channelVolume  = 1.0;
-  panorama       = 0.5;
-  pulseWidth     = 0.5;
-  pitchBend      = 0;
-  pitchScale     = 1;
-  octCorr        = currentProgram == WAVEFORM_PULSE ? 1 : 0;
-
-  // filter
-  filtFreq = 15000.;
-  filtReso = 0.9;
-  filtAtt  = 1.;
-
-  // envelope
-  envOn      = true;
-  envDelay   = 0;
-  envAttack  = 20;
-  envHold    = 0;
-  envDecay   = 0;
-  envSustain = 1;
-  envRelease = 20;
-
-//  // FX
-//  flangerOn         = false;
-//  flangerOffset     = DELAY_LENGTH/4;
-//  flangerDepth      = DELAY_LENGTH/16;
-//  flangerFreqCoarse = 0;
-//  flangerFreqFine   = .5;
-//
-//  // portamento
-//  portamentoOn   = false;
-//  portamentoTime = 1000;
-//  portamentoDir  = 0;
-//  portamentoStep = 0;
-//  portamentoPos  = -1;
-
-//  updatePolyMode();
-//  updateFilterMode();
-//  updateEnvelope();
-//  updatePan();
-}
+//updateFilterMode(), updateFilter(), updateEnvelope(), updateEnvelopeMode(), updateFlanger(), resetAll()
 
 //////////////////////////////////////////////////////////////////////
 // Oscillator control functions
@@ -229,7 +232,6 @@ inline void allOff() {
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
     oscOff(*o);
-    o->wf->amplitude(0);
     o->squareLFO->amplitude(0);
     o->saw->amplitude(0);
     o->noise->amplitude(0);
@@ -379,23 +381,23 @@ inline void printResources( float cpu, uint8_t mem) {
   SYNTH_COM.println(mem);
 }
 
-void performanceCheck() {
-  static unsigned long last = 0;
-  unsigned long now = millis();
-  if ((now-last)>1000) {
-    last = now;
-    float cpu = AudioProcessorUsageMax();
-    uint8_t mem = AudioMemoryUsageMax();
-    if( (statsMem!=mem) || fabs(statsCpu-cpu)>1) {
-      printResources( cpu, mem);
-    }
-    AudioProcessorUsageMaxReset();
-    AudioMemoryUsageMaxReset();
-    last = now;
-    statsCpu = cpu;
-    statsMem = mem;
-  }
-}
+//void performanceCheck() {
+//  static unsigned long last = 0;
+//  unsigned long now = millis();
+//  if ((now-last)>1000) {
+//    last = now;
+//    float cpu = AudioProcessorUsageMax();
+//    uint8_t mem = AudioMemoryUsageMax();
+//    if( (statsMem!=mem) || fabs(statsCpu-cpu)>1) {
+//      printResources( cpu, mem);
+//    }
+//    AudioProcessorUsageMaxReset();
+//    AudioMemoryUsageMaxReset();
+//    last = now;
+//    statsCpu = cpu;
+//    statsMem = mem;
+//  }
+//}
 
 //////////////////////////////////////////////////////////////////////
 // setup() and loop()
@@ -411,17 +413,17 @@ void setup() {
 
   usbMIDI.setHandleNoteOff(OnNoteOff);
   usbMIDI.setHandleNoteOn(OnNoteOn);
-  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
-  usbMIDI.setHandleControlChange(OnControlChange);
-  usbMIDI.setHandlePitchChange(OnPitchChange);
-  usbMIDI.setHandleProgramChange(OnProgramChange);
-  usbMIDI.setHandleAfterTouch(OnAfterTouch);
-  usbMIDI.setHandleSysEx(OnSysEx);
+//  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
+//  usbMIDI.setHandleControlChange(OnControlChange);
+//  usbMIDI.setHandlePitchChange(OnPitchChange);
+//  usbMIDI.setHandleProgramChange(OnProgramChange);
+//  usbMIDI.setHandleAfterTouch(OnAfterTouch);
+//  usbMIDI.setHandleSysEx(OnSysEx);
   //usbMIDI.setHandleRealTimeSystem(OnRealTimeSystem);
-  usbMIDI.setHandleTimeCodeQuarterFrame(OnTimeCodeQFrame);
+//  usbMIDI.setHandleTimeCodeQuarterFrame(OnTimeCodeQFrame);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  usbMIDI.read();
 }
