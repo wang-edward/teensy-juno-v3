@@ -18,8 +18,8 @@
 
 // gain in final mixer stage for polyphonic mode (4:1)
 // (0.25 is the safe value but larger sounds better :) )
-#define GAIN_POLY 1.
-//#define GAIN_POLY 0.25
+//#define GAIN_POLY 1.
+#define GAIN_POLY 0.25
 
 // gain in final mixer stage for monophonic modes
 //#define GAIN_MONO 1.
@@ -93,7 +93,7 @@ enum FilterMode_t {
 //////////////////////////////////////////////////////////////////////
 // Global variables
 //////////////////////////////////////////////////////////////////////
-float   masterVolume   = 0.3;
+float   masterVolume   = 0.6;
 uint8_t currentProgram = WAVEFORM_SAWTOOTH;
 
 bool  polyOn;

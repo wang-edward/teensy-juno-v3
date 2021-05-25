@@ -18,8 +18,7 @@
 
 // gain in final mixer stage for polyphonic mode (4:1)
 // (0.25 is the safe value but larger sounds better :) )
-#define GAIN_POLY 1.
-//#define GAIN_POLY 0.25
+#define GAIN_POLY 0.25
 
 // gain in final mixer stage for monophonic modes
 //#define GAIN_MONO 1.
@@ -84,7 +83,7 @@ Oscillator oscs[NVOICES] = {
 float   masterVolume   = 0.6;
 //uint8_t currentProgram = WAVEFORM_SAWTOOTH;
 
-bool  polyOn;
+bool  polyOn = true;
 bool  omniOn;
 bool  velocityOn;
 
@@ -95,7 +94,7 @@ bool sawOn = true;
 bool noiseOn = false; //start with false
 
 bool  sustainPressed;
-float channelVolume;
+float channelVolume = 1.0;
 float panorama;
 float pulseWidth; // 0.05-0.95
 float pitchBend;  // -1/+1 oct
@@ -244,6 +243,7 @@ inline void allOff() {
 // MIDI handlers
 //////////////////////////////////////////////////////////////////////
 void OnNoteOn(uint8_t channel, uint8_t note, uint8_t velocity) {
+  Serial.println(note);
   if (!omniOn && channel != SYNTH_MIDICHANNEL) return;
 
 #if SYNTH_DEBUG > 1
@@ -400,6 +400,23 @@ inline void printResources( float cpu, uint8_t mem) {
 //}
 
 //////////////////////////////////////////////////////////////////////
+// test setup
+//////////////////////////////////////////////////////////////////////
+
+void testSetup() {
+  for (int i=0;i<4;i++) {
+    EnvMixer0.gain(i,1.0);
+    EnvMixer1.gain(i,1.0);
+  }
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->oscMixer->gain(1,1.0);
+    o->hpf->frequency(400);
+    o->lpf->frequency(10000);
+  } while (++o < end);
+}
+
+//////////////////////////////////////////////////////////////////////
 // setup() and loop()
 //////////////////////////////////////////////////////////////////////
 
@@ -410,9 +427,11 @@ void setup() {
   sgtl5000_1.enable();
   sgtl5000_1.volume(masterVolume);
 
-
   usbMIDI.setHandleNoteOff(OnNoteOff);
   usbMIDI.setHandleNoteOn(OnNoteOn);
+
+  testSetup();
+  
 //  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
 //  usbMIDI.setHandleControlChange(OnControlChange);
 //  usbMIDI.setHandlePitchChange(OnPitchChange);
