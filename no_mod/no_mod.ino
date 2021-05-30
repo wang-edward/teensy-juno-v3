@@ -46,9 +46,9 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 // Data types and lookup tables
 //////////////////////////////////////////////////////////////////////
 struct Oscillator {
-  AudioSynthWaveformModulated*  squareLFO;
-  AudioSynthWaveformModulated*  saw;
-  AudioSynthWaveformModulated*  squarePWM;
+  AudioSynthWaveform*  squareLFO;
+  AudioSynthWaveform*  saw;
+  AudioSynthWaveform*  squarePWM;
   AudioSynthNoiseWhite*          noise;
 
   AudioMixer4*                  oscMixer;
@@ -63,7 +63,7 @@ struct Oscillator {
 };
 
 // synth architecture in separate file
-#include "TestSynthArch.h"
+#include "TestSynthArch_no_mod.h"
 
 #define NVOICES 8
 Oscillator oscs[NVOICES] = {
@@ -108,7 +108,7 @@ float filtReso; // 0.9-5.0
 float filtAtt;  // 0-1
 
 // envelope
-bool  envOn = true;
+bool  envOn;
 float envDelay;   // 0-200
 float envAttack;  // 0-200
 float envHold;    // 0-200
