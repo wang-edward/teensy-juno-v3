@@ -413,6 +413,8 @@ void testSetup() {
     o->oscMixer->gain(1,1.0);
     o->hpf->frequency(400);
     o->lpf->frequency(10000);
+    o->saw->begin(WAVEFORM_SAWTOOTH);
+    o->squareLFO->begin(WAVEFORM_SQUARE);
   } while (++o < end);
 }
 
