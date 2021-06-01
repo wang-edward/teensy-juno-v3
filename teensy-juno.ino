@@ -87,9 +87,9 @@ bool  polyOn = true;
 bool  omniOn;
 bool  velocityOn = true;
 
-//bool squarePWM or LFO idk
+//bool pulsePWM or LFO idk
 
-bool squareOn = true; //default to true
+bool pulseOn = true; //default to true
 bool sawOn = true;
 bool noiseOn = false; //start with false
 
@@ -328,23 +328,23 @@ void resetAll() {
 //  updatePan();
 }
 
-inline void updateProgram() {
-//  if (currentProgram==WAVEFORM_PULSE) octCorr = 1;
-//  else                   octCorr = 0;
-
-  Oscillator *o=oscs,*end=oscs+NVOICES;
-  do {
-    o->->pulseWidth(pulseWidth);
-    o->wf->begin(progs[currentProgram]);
-  } while(++o < end);
-}
+//inline void updateProgram() {
+////  if (currentProgram==WAVEFORM_PULSE) octCorr = 1;
+////  else                   octCorr = 0;
+//
+//  Oscillator *o=oscs,*end=oscs+NVOICES;
+//  do {
+//    o->pulse->pulseWidth(pulseWidth);
+//    o->wf->begin(progs[currentProgram]);
+//  } while(++o < end);
+//}
 
 inline void updatePulseWidth() {
-  if (currentProgram!=WAVEFORM_PULSE) return;
+//  if (currentProgram!=WAVEFORM_PULSE) return;
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
     if (o->note < 0) continue;
-    o->wf->pulseWidth(pulseWidth);
+    o->pulseLFO->pulseWidth(pulseWidth);
   } while(++o < end);
 }
 
@@ -352,7 +352,8 @@ inline void updatePitch() {
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
     if (o->note < 0) continue;
-    o->wf->frequency(noteToFreq(o->note));
+    if (pulseOn) o->pulseLFO->frequency(noteToFreq(o->note));
+    if (sawOn) o->saw->frequency(noteToFreq(o->note));
   } while(++o < end);
 }
 
@@ -362,7 +363,8 @@ inline void updateVolume() {
   do {
     if (o->note < 0) continue;
     velocity = velocityOn ? o->velocity/127. : 1;
-    o->wf->amplitude(velocity*channelVolume*GAIN_OSC);
+    if (pulseOn) o->pulseLFO->amplitude(velocity*channelVolume*GAIN_OSC);
+    if (sawOn) o->saw->amplitude(velocity*channelVolume*GAIN_OSC);
   } while(++o < end);
 }
 
@@ -406,7 +408,8 @@ inline void updatePortamento()
       portamentoDir = 0;
     }
   }
-  oscs->wf->frequency(noteToFreq(portamentoPos));
+  if (pulseOn)oscs->pulse->frequency(noteToFreq(portamentoPos));
+  if (sawOn)oscs->saw->frequency(noteToFreq(portamentoPos));
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -423,7 +426,7 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
   float v = velocityOn ? velocity/127. : 1;
   if (osc.note!=note) {
     //set osc frequencies
-    if (squareOn) osc.squareLFO->frequency(noteToFreq(note));
+    if (pulseOn) osc.pulseLFO->frequency(noteToFreq(note));
     if (sawOn) osc.saw->frequency(noteToFreq(note));
     
     notesAdd(notesOn,note);
