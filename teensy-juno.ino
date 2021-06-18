@@ -241,42 +241,42 @@ inline void updateEnvelope() {
   } while (++o < end);
 }
 
-inline void updateEnvelopeMode() {
-  float env    = envOn ? 1 : 0;
-  float noenv  = envOn ? 0 : 1;
-  for (uint8_t i=0; i<2; ++i) {
-    // env
-    envmixer1.gain(i,env);
-    envmixer2.gain(i,env);
-    envmixer3.gain(i,env);
-    envmixer4.gain(i,env);
-    // no env
-    envmixer1.gain(i+2,noenv);
-    envmixer2.gain(i+2,noenv);
-    envmixer3.gain(i+2,noenv);
-    envmixer4.gain(i+2,noenv);
-  }
-}
+//inline void updateEnvelopeMode() {
+//  float env    = envOn ? 1 : 0;
+//  float noenv  = envOn ? 0 : 1;
+//  for (uint8_t i=0; i<2; ++i) {
+//    // env
+//    envmixer1.gain(i,env);
+//    envmixer2.gain(i,env);
+//    envmixer3.gain(i,env);
+//    envmixer4.gain(i,env);
+//    // no env
+//    envmixer1.gain(i+2,noenv);
+//    envmixer2.gain(i+2,noenv);
+//    envmixer3.gain(i+2,noenv);
+//    envmixer4.gain(i+2,noenv);
+//  }
+//}
 
-void updateFlanger() {
-  if (flangerOn) {
-    AudioNoInterrupts();
-    flangerL.voices(flangerOffset,flangerDepth,flangerFreqCoarse+flangerFreqFine);
-    flangerR.voices(flangerOffset,flangerDepth,flangerFreqCoarse+flangerFreqFine);
-    AudioInterrupts();
-#if SYNTH_DEBUG > 0
-    SYNTH_COM.print("Flanger: offset=");
-    SYNTH_COM.print(flangerOffset);
-    SYNTH_COM.print(", depth=");
-    SYNTH_COM.print(flangerDepth);
-    SYNTH_COM.print(", freq=");
-    SYNTH_COM.println(flangerFreqCoarse+flangerFreqFine);
-#endif
-  } else {
-    flangerL.voices(FLANGE_DELAY_PASSTHRU,0,0);
-    flangerR.voices(FLANGE_DELAY_PASSTHRU,0,0);
-  }
-}
+//void updateFlanger() {
+//  if (flangerOn) {
+//    AudioNoInterrupts();
+//    flangerL.voices(flangerOffset,flangerDepth,flangerFreqCoarse+flangerFreqFine);
+//    flangerR.voices(flangerOffset,flangerDepth,flangerFreqCoarse+flangerFreqFine);
+//    AudioInterrupts();
+//#if SYNTH_DEBUG > 0
+//    SYNTH_COM.print("Flanger: offset=");
+//    SYNTH_COM.print(flangerOffset);
+//    SYNTH_COM.print(", depth=");
+//    SYNTH_COM.print(flangerDepth);
+//    SYNTH_COM.print(", freq=");
+//    SYNTH_COM.println(flangerFreqCoarse+flangerFreqFine);
+//#endif
+//  } else {
+//    flangerL.voices(FLANGE_DELAY_PASSTHRU,0,0);
+//    flangerR.voices(FLANGE_DELAY_PASSTHRU,0,0);
+//  }
+//}
 
 void resetAll() {
   polyOn     = true;
@@ -290,14 +290,14 @@ void resetAll() {
   pulseWidth     = 0.5;
   pitchBend      = 0;
   pitchScale     = 1;
-  octCorr        = currentProgram == WAVEFORM_PULSE ? 1 : 0;
+//  octCorr        = currentProgram == WAVEFORM_PULSE ? 1 : 0;
 
   // filter
   lpfFreq = 15000.;
   lpfReso = 0.9;
 //  lpfAtt  = 1.;
-  lpfFreq = 50.;
-  lpfReso = 0.9;
+  hpfFreq = 50.;
+  hpfReso = 0.9;
 
   // envelope
   envOn      = true;
@@ -383,7 +383,7 @@ inline void updateMasterVolume() {
 
 inline void updatePolyMode() {
   allOff();
-  updateEnvelopeMode();
+//  updateEnvelopeMode();
 //  updatePan();
 }
 
@@ -408,7 +408,7 @@ inline void updatePortamento()
       portamentoDir = 0;
     }
   }
-  if (pulseOn)oscs->pulse->frequency(noteToFreq(portamentoPos));
+  if (pulseOn)oscs->pulseLFO->frequency(noteToFreq(portamentoPos));
   if (sawOn)oscs->saw->frequency(noteToFreq(portamentoPos));
 }
 
@@ -674,7 +674,7 @@ void setup() {
   testSetup();
   
 //  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
-//  usbMIDI.setHandleControlChange(OnControlChange);
+  usbMIDI.setHandleControlChange(OnControlChange);
 //  usbMIDI.setHandlePitchChange(OnPitchChange);
 //  usbMIDI.setHandleProgramChange(OnProgramChange);
 //  usbMIDI.setHandleAfterTouch(OnAfterTouch);
