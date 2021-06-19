@@ -16,22 +16,25 @@ struct Oscillator {
 };
 
 // GUItool: begin automatically generated code
-//AudioSynthWaveform       saw0;           //xy=939,347
-//AudioSynthNoiseWhite     noise0;         //xy=961,418
-//AudioSynthWaveform       square0;        //xy=969,280
-//AudioMixer4              mixer0;         //xy=1122,361
-//AudioFilterStateVariable hpf0;           //xy=1281,373
-//AudioFilterStateVariable lpf0;        //xy=1423.7500228881836,381.2500057220459
-//AudioOutputI2S           i2s1;           //xy=1606.0000228881836,384.2500057220459
-//AudioConnection          patchCord1(saw0, 0, mixer0, 1);
-//AudioConnection          patchCord2(noise0, 0, mixer0, 2);
-//AudioConnection          patchCord3(square0, 0, mixer0, 0);
-//AudioConnection          patchCord4(mixer0, 0, hpf0, 0);
-//AudioConnection          patchCord5(hpf0, 2, lpf0, 0);
-//AudioConnection          patchCord6(lpf0, 0, i2s1, 0);
-//AudioConnection          patchCord7(lpf0, 0, i2s1, 1);
-//AudioControlSGTL5000     sgtl5000_1;     //xy=1241,527
+AudioSynthWaveform       saw0;           //xy=171,171
+AudioSynthNoiseWhite     noise0;         //xy=193,242
+AudioSynthWaveform       square0;        //xy=201,104
+AudioMixer4              mixer0;         //xy=354,185
+AudioFilterStateVariable hpf0;           //xy=513,197
+AudioFilterStateVariable lpf0;           //xy=655,205
+AudioEffectChorus        chorus1;        //xy=828.75,208.75
+AudioOutputI2S           i2s1;           //xy=1013,230.50003051757812
+AudioConnection          patchCord1(saw0, 0, mixer0, 1);
+AudioConnection          patchCord2(noise0, 0, mixer0, 2);
+AudioConnection          patchCord3(square0, 0, mixer0, 0);
+AudioConnection          patchCord4(mixer0, 0, hpf0, 0);
+AudioConnection          patchCord5(hpf0, 2, lpf0, 0);
+AudioConnection          patchCord6(lpf0, 0, chorus1, 0);
+AudioConnection          patchCord7(chorus1, 0, i2s1, 0);
+AudioConnection          patchCord8(chorus1, 0, i2s1, 1);
+AudioControlSGTL5000     sgtl5000_1;     //xy=473,351
 // GUItool: end automatically generated code
+
 
 
 /////////////////////////////////////////////
@@ -55,25 +58,25 @@ struct Oscillator {
 
 //modulated square!
 // GUItool: begin automatically generated code
-AudioSynthWaveform       squareDC;      //xy=1358.5714285714284,1019.9999999999999
-AudioSynthNoiseWhite     noise0;         //xy=1402.142780303955,1171.571496963501
-AudioSynthWaveform       saw0;           //xy=1414.4286346435547,1100.5714626312256
-AudioSynthWaveformModulated square0;   //xy=1542.857135772705,1005.714277267456
-AudioMixer4              mixer0;         //xy=1606,1106
-AudioFilterStateVariable hpf0;           //xy=1765,1118
-AudioFilterStateVariable lpf0;           //xy=1902,1119
-AudioEffectEnvelope      envelope0;      //xy=2043,1126
-AudioOutputI2S           i2s1;           //xy=2245,1143
-AudioConnection          patchCord1(squareDC, 0, square0, 1);
-AudioConnection          patchCord2(noise0, 0, mixer0, 2);
-AudioConnection          patchCord3(saw0, 0, mixer0, 1);
-AudioConnection          patchCord4(square0, 0, mixer0, 0);
-AudioConnection          patchCord5(mixer0, 0, hpf0, 0);
-AudioConnection          patchCord6(hpf0, 2, lpf0, 0);
-AudioConnection          patchCord7(lpf0, 0, envelope0, 0);
-AudioConnection          patchCord8(envelope0, 0, i2s1, 0);
-AudioConnection          patchCord9(envelope0, 0, i2s1, 1);
-AudioControlSGTL5000     sgtl5000_1;     //xy=1725,1272
+//AudioSynthWaveform       squareDC;      //xy=1358.5714285714284,1019.9999999999999
+//AudioSynthNoiseWhite     noise0;         //xy=1402.142780303955,1171.571496963501
+//AudioSynthWaveform       saw0;           //xy=1414.4286346435547,1100.5714626312256
+//AudioSynthWaveformModulated square0;   //xy=1542.857135772705,1005.714277267456
+//AudioMixer4              mixer0;         //xy=1606,1106
+//AudioFilterStateVariable hpf0;           //xy=1765,1118
+//AudioFilterStateVariable lpf0;           //xy=1902,1119
+//AudioEffectEnvelope      envelope0;      //xy=2043,1126
+//AudioOutputI2S           i2s1;           //xy=2245,1143
+//AudioConnection          patchCord1(squareDC, 0, square0, 1);
+//AudioConnection          patchCord2(noise0, 0, mixer0, 2);
+//AudioConnection          patchCord3(saw0, 0, mixer0, 1);
+//AudioConnection          patchCord4(square0, 0, mixer0, 0);
+//AudioConnection          patchCord5(mixer0, 0, hpf0, 0);
+//AudioConnection          patchCord6(hpf0, 2, lpf0, 0);
+//AudioConnection          patchCord7(lpf0, 0, envelope0, 0);
+//AudioConnection          patchCord8(envelope0, 0, i2s1, 0);
+//AudioConnection          patchCord9(envelope0, 0, i2s1, 1);
+//AudioControlSGTL5000     sgtl5000_1;     //xy=1725,1272
 // GUItool: end automatically generated code
 
 

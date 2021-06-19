@@ -46,9 +46,9 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 // Data types and lookup tables
 //////////////////////////////////////////////////////////////////////
 struct Oscillator {
-  AudioSynthWaveformModulated*  pulseLFO;
-  AudioSynthWaveformModulated*  saw;
-  AudioSynthWaveformModulated*  pulsePWM;
+  AudioSynthWaveform*  pulseLFO;
+  AudioSynthWaveform*  saw;
+  AudioSynthWaveform*  pulsePWM;
   AudioSynthNoiseWhite*          noise;
 
   AudioMixer4*                  oscMixer;

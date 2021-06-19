@@ -1,0 +1,85 @@
+#N canvas -357 -977 1883 622 12;
+#X obj 85 107 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 900 1;
+#X floatatom 74 257 5 0 0 0 - - -;
+#X obj 72 292 ctlout 101;
+#X obj 168 107 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X floatatom 157 257 5 0 0 0 - - -;
+#X obj 155 292 ctlout 101;
+#X text 71 77 Rate;
+#X text 151 76 Delay Time;
+#X obj 315 116 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X text 118 40 LFO;
+#X text 448 42 DCO;
+#X obj 360 116 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X text 313 85 LFO;
+#X text 351 83 PWM;
+#X obj 416 156 vradio 15 1 0 2 empty empty empty 0 -8 0 10 -262144
+-1 -1 4;
+#X text 401 128 LFO;
+#X text 403 195 MAN;
+#X obj 479 157 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 526 160 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X text 466 122 pulse;
+#X text 518 122 triangle;
+#X obj 603 113 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X text 590 84 SUB;
+#X obj 653 113 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X text 636 82 NOISE;
+#X text 782 46 HPF;
+#X text 770 76 FREQ;
+#X obj 784 114 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X text 984 45 VCF;
+#X obj 886 114 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 922 116 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 1001 118 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 1036 118 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 1081 117 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 960 162 vradio 15 1 0 2 empty empty empty 0 -8 0 10 -262144
+-1 -1 4;
+#X text 867 79 FREQ;
+#X text 917 80 RES;
+#X text 984 86 ENV;
+#X text 1030 85 LFO;
+#X text 1070 85 KYBD;
+#X text 1193 47 VCA;
+#X obj 1171 141 vradio 15 1 0 2 empty empty empty 0 -8 0 10 -262144
+-1 -1 4;
+#X text 952 134 reg;
+#X text 951 196 inv;
+#X text 1161 113 ENV;
+#X text 1159 181 GATE;
+#X obj 1238 107 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X text 1232 78 LEVEL;
+#X text 1428 47 ENV;
+#X obj 1369 111 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 1406 116 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 1443 113 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 1479 115 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X text 1368 78 A;
+#X text 1404 80 D;
+#X text 1442 83 S;
+#X text 1477 83 R;
+#X text 1676 51 CHORUS;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
