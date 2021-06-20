@@ -16,43 +16,54 @@ struct Oscillator {
 };
 
 // GUItool: begin automatically generated code
-AudioSynthWaveform       saw0;           //xy=171,171
-AudioSynthNoiseWhite     noise0;         //xy=193,242
-AudioSynthWaveform       square0;        //xy=201,104
-AudioMixer4              mixer0;         //xy=354,185
-AudioFilterStateVariable hpf0;           //xy=513,197
-AudioFilterStateVariable lpf0;           //xy=655,205
-AudioEffectChorus        chorus1;        //xy=828.75,208.75
-AudioOutputI2S           i2s1;           //xy=1013,230.50003051757812
-AudioConnection          patchCord1(saw0, 0, mixer0, 1);
-AudioConnection          patchCord2(noise0, 0, mixer0, 2);
-AudioConnection          patchCord3(square0, 0, mixer0, 0);
-AudioConnection          patchCord4(mixer0, 0, hpf0, 0);
-AudioConnection          patchCord5(hpf0, 2, lpf0, 0);
-AudioConnection          patchCord6(lpf0, 0, chorus1, 0);
-AudioConnection          patchCord7(chorus1, 0, i2s1, 0);
-AudioConnection          patchCord8(chorus1, 0, i2s1, 1);
-AudioControlSGTL5000     sgtl5000_1;     //xy=473,351
+//AudioSynthWaveform       saw0;           //xy=171,171
+//AudioSynthNoiseWhite     noise0;         //xy=193,242
+//AudioSynthWaveform       square0;        //xy=201,104
+//AudioMixer4              mixer0;         //xy=354,185
+//AudioFilterStateVariable hpf0;           //xy=513,197
+//AudioFilterStateVariable lpf0;           //xy=655,205
+//AudioEffectChorus        chorus1;        //xy=828.75,208.75
+//AudioOutputI2S           i2s1;           //xy=1013,230.50003051757812
+//AudioConnection          patchCord1(saw0, 0, mixer0, 1);
+//AudioConnection          patchCord2(noise0, 0, mixer0, 2);
+//AudioConnection          patchCord3(square0, 0, mixer0, 0);
+//AudioConnection          patchCord4(mixer0, 0, hpf0, 0);
+//AudioConnection          patchCord5(hpf0, 2, lpf0, 0);
+//AudioConnection          patchCord6(lpf0, 0, chorus1, 0);
+//AudioConnection          patchCord7(chorus1, 0, i2s1, 0);
+//AudioConnection          patchCord8(chorus1, 0, i2s1, 1);
+//AudioControlSGTL5000     sgtl5000_1;     //xy=473,351
 // GUItool: end automatically generated code
 
 
 
 /////////////////////////////////////////////
 
-// GUItool: begin automatically generated code
-//AudioSynthWaveform       saw0;      //xy=306,217
-//AudioSynthNoiseWhite     noise0;         //xy=328,288
-//AudioSynthWaveform       square0;      //xy=336,150
-//AudioMixer4              mixer0;         //xy=476,238
-//AudioOutputI2S           i2s1;           //xy=665,239
-//AudioConnection          patchCord1(saw0, 0, mixer0, 1);
-//AudioConnection          patchCord2(noise0, 0, mixer0, 2);
-//AudioConnection          patchCord3(square0, 0, mixer0, 0);
-//AudioConnection          patchCord4(mixer0, 0, i2s1, 0);
-//AudioConnection          patchCord5(mixer0, 0, i2s1, 1);
-//AudioControlSGTL5000     sgtl5000_1;     //xy=608,397
-// GUItool: end automatically generated code
+// !CHORUS!
 
+// GUItool: begin automatically generated code
+AudioSynthWaveform       squareDC;       //xy=1060,544
+AudioSynthNoiseWhite     noise0;         //xy=1104,696
+AudioSynthWaveform       saw0;           //xy=1116,625
+AudioSynthWaveform       square0;        //xy=1244,530
+AudioMixer4              mixer0;         //xy=1308,631
+AudioFilterStateVariable hpf0;           //xy=1467,643
+AudioFilterStateVariable lpf0;           //xy=1604,644
+AudioEffectEnvelope      envelope0;      //xy=1745,651
+AudioEffectChorus        chorus1;        //xy=1931.4285714285713,677.1428571428571
+AudioOutputI2S           i2s1;           //xy=2092.7143478393555,672.2857093811035
+AudioConnection          patchCord1(squareDC, 0, square0, 1);
+AudioConnection          patchCord2(noise0, 0, mixer0, 2);
+AudioConnection          patchCord3(saw0, 0, mixer0, 1);
+AudioConnection          patchCord4(square0, 0, mixer0, 0);
+AudioConnection          patchCord5(mixer0, 0, hpf0, 0);
+AudioConnection          patchCord6(hpf0, 2, lpf0, 0);
+AudioConnection          patchCord7(lpf0, 0, envelope0, 0);
+AudioConnection          patchCord8(envelope0, chorus1);
+AudioConnection          patchCord9(chorus1, 0, i2s1, 0);
+AudioConnection          patchCord10(chorus1, 0, i2s1, 1);
+AudioControlSGTL5000     sgtl5000_1;     //xy=1427,797
+// GUItool: end automatically generated code
 
 //////////////////////////////////////////
 
@@ -144,7 +155,7 @@ void setup() {
   envelope0.attack(100);
   envelope0.release(100);
 
-  
+//  chorus1.begin(20,4,5);
 }
 boolean up = true;
   float x = 0.01;
@@ -152,20 +163,20 @@ boolean up = true;
 void loop() {
   // put your main code here, to run repeatedly:
   usbMIDI.read();
-  if (up) {
-    squareDC.pulseWidth(x);
-    if (x >= 1) {
-      up = false;
-      } else {
-      x = x+0.01;
-    }
-  } else {
-    squareDC.pulseWidth(x);
-    if (x <= 0.01) {
-      up = true;
-    } else {
-      x = x - 0.01;
-    }
-  }
+//  if (up) {
+//    squareDC.pulseWidth(x);
+//    if (x >= 1) {
+//      up = false;
+//      } else {
+//      x = x+0.01;
+//    }
+//  } else {
+//    squareDC.pulseWidth(x);
+//    if (x <= 0.01) {
+//      up = true;
+//    } else {
+//      x = x - 0.01;
+//    }
+//  }
   
 }
