@@ -10,19 +10,19 @@ AudioSynthNoiseWhite     noise4; //xy=522.1944389343262,2102.77587890625
 AudioSynthNoiseWhite     noise1; //xy=524.4166679382324,1574.9981689453125
 AudioSynthNoiseWhite     noise5; //xy=523.3055229187012,2273.886962890625
 AudioSynthNoiseWhite     noise2; //xy=525.5277519226074,1756.1092529296875
-AudioSynthWaveform pulsePWM0; //xy=528.4443969726562,1347.6685791015625
-AudioSynthWaveform pulsePWM4; //xy=525.6388359069824,2059.4444580078125
-AudioSynthWaveform pulsePWM1; //xy=527.8610649108887,1531.666748046875
+AudioSynthWaveform sub0; //xy=528.4443969726562,1347.6685791015625
+AudioSynthWaveform sub4; //xy=525.6388359069824,2059.4444580078125
+AudioSynthWaveform sub1; //xy=527.8610649108887,1531.666748046875
 AudioSynthNoiseWhite     noise6; //xy=524.4166679382324,2448.33154296875
 AudioSynthNoiseWhite     noise3; //xy=526.6388359069824,1929.442626953125
-AudioSynthWaveform pulsePWM5; //xy=526.7499198913574,2230.5555419921875
-AudioSynthWaveform pulsePWM2; //xy=528.9721488952637,1712.77783203125
+AudioSynthWaveform sub5; //xy=526.7499198913574,2230.5555419921875
+AudioSynthWaveform sub2; //xy=528.9721488952637,1712.77783203125
 AudioSynthWaveform pulseLFO0; //xy=531.3333129882812,1264.3629035949707
 AudioSynthWaveform pulseLFO4; //xy=528.5277519226074,1976.1387825012207
 AudioSynthWaveform pulseLFO1; //xy=530.7499809265137,1448.3610725402832
 AudioSynthNoiseWhite     noise7; //xy=526.6388359069824,2620.5537109375
-AudioSynthWaveform pulsePWM6; //xy=527.8610649108887,2405.0001220703125
-AudioSynthWaveform pulsePWM3; //xy=530.0832328796387,1886.1112060546875
+AudioSynthWaveform sub6; //xy=527.8610649108887,2405.0001220703125
+AudioSynthWaveform sub3; //xy=530.0832328796387,1886.1112060546875
 AudioSynthWaveform pulseLFO5; //xy=529.6388359069824,2147.2498664855957
 AudioSynthWaveform pulseLFO2; //xy=531.8610649108887,1629.4721565246582
 AudioSynthWaveform saw0; //xy=533.6666412353516,1300.1406784057617
@@ -30,7 +30,7 @@ AudioSynthWaveform saw4;  //xy=530.8610801696777,2011.9165573120117
 AudioSynthWaveform saw1; //xy=533.083309173584,1484.1388473510742
 AudioSynthWaveform pulseLFO6; //xy=530.7499809265137,2321.6944465637207
 AudioSynthWaveform pulseLFO3; //xy=532.9721488952637,1802.8055305480957
-AudioSynthWaveform pulsePWM7; //xy=530.0832328796387,2577.2222900390625
+AudioSynthWaveform sub7; //xy=530.0832328796387,2577.2222900390625
 AudioSynthWaveform saw5; //xy=531.9721641540527,2183.0276412963867
 AudioSynthWaveform saw2; //xy=534.194393157959,1665.2499313354492
 AudioSynthWaveform saw6;  //xy=533.083309173584,2357.4722213745117
@@ -79,19 +79,19 @@ AudioConnection          patchCord2(noise4, 0, oscMixer4, 3);
 AudioConnection          patchCord3(noise1, 0, oscMixer1, 3);
 AudioConnection          patchCord4(noise5, 0, oscMixer5, 3);
 AudioConnection          patchCord5(noise2, 0, oscMixer2, 3);
-AudioConnection          patchCord6(pulsePWM0, 0, oscMixer0, 2);
-AudioConnection          patchCord7(pulsePWM4, 0, oscMixer4, 2);
-AudioConnection          patchCord8(pulsePWM1, 0, oscMixer1, 2);
+AudioConnection          patchCord6(sub0, 0, oscMixer0, 2);
+AudioConnection          patchCord7(sub4, 0, oscMixer4, 2);
+AudioConnection          patchCord8(sub1, 0, oscMixer1, 2);
 AudioConnection          patchCord9(noise6, 0, oscMixer6, 3);
 AudioConnection          patchCord10(noise3, 0, oscMixer3, 3);
-AudioConnection          patchCord11(pulsePWM5, 0, oscMixer5, 2);
-AudioConnection          patchCord12(pulsePWM2, 0, oscMixer2, 2);
+AudioConnection          patchCord11(sub5, 0, oscMixer5, 2);
+AudioConnection          patchCord12(sub2, 0, oscMixer2, 2);
 AudioConnection          patchCord13(pulseLFO0, 0, oscMixer0, 0);
 AudioConnection          patchCord14(pulseLFO4, 0, oscMixer4, 0);
 AudioConnection          patchCord15(pulseLFO1, 0, oscMixer1, 0);
 AudioConnection          patchCord16(noise7, 0, oscMixer7, 3);
-AudioConnection          patchCord17(pulsePWM6, 0, oscMixer6, 2);
-AudioConnection          patchCord18(pulsePWM3, 0, oscMixer3, 2);
+AudioConnection          patchCord17(sub6, 0, oscMixer6, 2);
+AudioConnection          patchCord18(sub3, 0, oscMixer3, 2);
 AudioConnection          patchCord19(pulseLFO5, 0, oscMixer5, 0);
 AudioConnection          patchCord20(pulseLFO2, 0, oscMixer2, 0);
 AudioConnection          patchCord21(saw0, 0, oscMixer0, 1);
@@ -99,7 +99,7 @@ AudioConnection          patchCord22(saw4, 0, oscMixer4, 1);
 AudioConnection          patchCord23(saw1, 0, oscMixer1, 1);
 AudioConnection          patchCord24(pulseLFO6, 0, oscMixer6, 0);
 AudioConnection          patchCord25(pulseLFO3, 0, oscMixer3, 0);
-AudioConnection          patchCord26(pulsePWM7, 0, oscMixer7, 2);
+AudioConnection          patchCord26(sub7, 0, oscMixer7, 2);
 AudioConnection          patchCord27(saw5, 0, oscMixer5, 1);
 AudioConnection          patchCord28(saw2, 0, oscMixer2, 1);
 AudioConnection          patchCord29(saw6, 0, oscMixer6, 1);

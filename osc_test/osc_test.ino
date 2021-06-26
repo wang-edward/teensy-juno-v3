@@ -129,7 +129,7 @@ void setup() {
   usbMIDI.setHandleNoteOn(myNoteOn);
   
   sgtl5000_1.enable();
-  sgtl5000_1.volume(0.4);
+  sgtl5000_1.volume(0.6);
   square0.begin(WAVEFORM_SQUARE);
   square0.amplitude(0.75);
   
@@ -157,8 +157,7 @@ void setup() {
 
 //  chorus1.begin(20,4,5);
 }
-boolean up = true;
-  float x = 0.01;
+
 
 void loop() {
   // put your main code here, to run repeatedly:
