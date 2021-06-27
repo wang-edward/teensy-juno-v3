@@ -27,10 +27,10 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
       break;
     }
     break;
-//  case 10: // pan
-//    panorama = value/127.;
-//    updatePan();
-//    break;
+  case 10: // pan
+    panorama = value/127.;
+    updatePan();
+    break;
   case 12: // attack
     envAttack = value*200./127.;
     updateEnvelope();
@@ -39,15 +39,27 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     envRelease = value*200./127.;
     updateEnvelope();
     break;
-  case 14: // LOW PASS filter frequency
+  case 14: // filter frequency
     //filtFreq = value/2.5*AUDIO_SAMPLE_RATE_EXACT/127.;
-    lpfFreq = float(pow(value, 2));
+    filtFreq = float(pow(value, 2));
     //filtFreq = float(pow(value, 3)/127.);
-    updateLPF();
+    updateFilter();
     break;
-  case 15: // LOW PASS filter resonance
-    lpfReso = value*4.1/127.+0.9;
-    updateLPF();
+  case 15: // filter resonance
+    filtReso = value*4.1/127.+0.9;
+    updateFilter();
+    break;
+  case 16: // filter attenuation
+    filtAtt = value/127.;
+    updateFilterMode();
+    break;
+  case 17: // filter mode
+    if (value < FILTERMODE_N) {
+      filterMode = FilterMode_t(value);
+    } else {
+      filterMode = FilterMode_t((filterMode+1)%FILTERMODE_N);
+    }
+    updateFilterMode();
     break;
   case 18: // poly mode
     switch (value) {
@@ -73,11 +85,11 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     }
     updatePolyMode();
     break;
-//  case 19: // envelope mode
-//    allOff();
-//    envOn = !envOn;
-//    updateEnvelopeMode();
-//    break;
+  case 19: // envelope mode
+    allOff();
+    envOn = !envOn;
+    updateEnvelopeMode();
+    break;
   case 20: // delay
     envDelay = value*200./127.;
     updateEnvelope();
@@ -98,31 +110,29 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     pulseWidth = (value/127.)*0.9+0.05;
     updatePulseWidth();
     break;
-  case 25: // chorus toggle
-    if (value)
-//  case 25: // flanger toggle
-//    if (value < 2)
-//        flangerOn = bool(value);
-//    else
-//        flangerOn = !flangerOn;
-//    updateFlanger();
-//    break;
-//  case 26: // flanger offset
-//    flangerOffset = int(value/127.*8)*DELAY_LENGTH/8;
-//    updateFlanger();
-//    break;
-//  case 27: // flanger depth
-//    flangerDepth = int(value/127.*8)*DELAY_LENGTH/8;
-//    updateFlanger();
-//    break;
-//  case 28: // flanger coarse frequency
-//    flangerFreqCoarse = value/127.*10.;
-//    updateFlanger();
-//    break;
-//  case 29: // flanger fine frequency
-//    flangerFreqFine = value/127.;
-//    updateFlanger();
-//    break;
+  case 25: // flanger toggle
+    if (value < 2)
+        flangerOn = bool(value);
+    else
+        flangerOn = !flangerOn;
+    updateFlanger();
+    break;
+  case 26: // flanger offset
+    flangerOffset = int(value/127.*8)*DELAY_LENGTH/8;
+    updateFlanger();
+    break;
+  case 27: // flanger depth
+    flangerDepth = int(value/127.*8)*DELAY_LENGTH/8;
+    updateFlanger();
+    break;
+  case 28: // flanger coarse frequency
+    flangerFreqCoarse = value/127.*10.;
+    updateFlanger();
+    break;
+  case 29: // flanger fine frequency
+    flangerFreqFine = value/127.;
+    updateFlanger();
+    break;
   case 30: // pitch range in semitones
     pitchScale = 12./value;
     break;
@@ -143,14 +153,6 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
       if (oscs->note != -1) portamentoPos = oscs->note;
     }
     else portamentoOn = false;
-    break;
-  case 75: //hpf frequency change
-    hpfFreq = float(pow(value,2));
-    updateHPF();
-    break;
-  case 76: //hpf resonance change
-    hpfReso = value*4.1/127.+0.9;
-    updateHPF();
     break;
   case 84: // portamento control (start note)
     portamentoPos = value;

@@ -642,6 +642,9 @@ inline void printResources( float cpu, uint8_t mem) {
 
 void testSetup() {
   Serial.println("testing");
+  short delayBuffer[16*AUDIO_BLOCK_SAMPLES];
+//  chorus1.begin(delayBuffer,16*AUDIO_BLOCK_SAMPLES,2);
+  sawOn=false;
   for (int i=0;i<4;i++) {
     EnvMixer0.gain(i,1.0);
     EnvMixer1.gain(i,1.0);
