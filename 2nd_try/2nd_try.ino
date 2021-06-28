@@ -67,6 +67,19 @@ void OnAfterTouch(uint8_t channel, uint8_t pressure) {
 
 //#include "debug.h"
 
+void testSetup() {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  envOn = true;
+  updateEnvelopeMode();
+  do {
+    o->oscMixer->gain(1,1.0);
+    o->hpf->frequency(400);
+    o->lpf->frequency(10000);
+    o->saw->begin(WAVEFORM_SAWTOOTH);
+    o->pulseLFO->begin(WAVEFORM_PULSE);
+  } while (++o < end);
+}
+
 void setup() {
   SYNTH_COM.begin(115200);
 
@@ -74,6 +87,8 @@ void setup() {
   sgtl5000_1.enable();
   sgtl5000_1.volume(masterVolume);
 
+  testSetup();
+  
   resetAll();
 //  updateProgram();
 

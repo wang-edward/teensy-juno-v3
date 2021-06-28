@@ -31,15 +31,15 @@ inline void updateEnvelopeMode() {
   float noenv  = envOn ? 0 : 1;
   for (uint8_t i=0; i<2; ++i) {
     // env
+    EnvMixer0.gain(i,env);
     EnvMixer1.gain(i,env);
     EnvMixer2.gain(i,env);
     EnvMixer3.gain(i,env);
-    EnvMixer4.gain(i,env);
     // no env
+    EnvMixer0.gain(i+2,noenv);
     EnvMixer1.gain(i+2,noenv);
     EnvMixer2.gain(i+2,noenv);
     EnvMixer3.gain(i+2,noenv);
-    EnvMixer4.gain(i+2,noenv);
   }
 }
 
@@ -153,13 +153,18 @@ void resetAll() {
   omniOn     = false;
   velocityOn = true;
 
+  bool pulseOn = true;
+  bool sawOn = true;
+  bool noiseOn = false;
+
 //  filterMode     = FILTEROFF;
   sustainPressed = false;
   channelVolume  = 1.0;
-//  panorama       = 0.5;
+  panorama       = 0.5;
   pulseWidth     = 0.5;
   pitchBend      = 0;
   pitchScale     = 1;
+  octCorr        = 0;
 //  octCorr        = currentProgram == WAVEFORM_PULSE ? 1 : 0;
 
   // filter
