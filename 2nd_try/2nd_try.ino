@@ -6,9 +6,9 @@
 #include "global_variables.h"
 #include "notes_handling.h"
 
-#include "parameter_control.h"
-
 #include "osc_control.h"
+
+#include "parameter_control.h"
 
 #include "midi_handle.h"
 
@@ -65,7 +65,7 @@ void OnAfterTouch(uint8_t channel, uint8_t pressure) {
 #endif
 }
 
-#include "debug.h"
+//#include "debug.h"
 
 void setup() {
   SYNTH_COM.begin(115200);
@@ -90,9 +90,9 @@ void setup() {
   usbMIDI.setHandlePitchChange(OnPitchChange);
 //  usbMIDI.setHandleProgramChange(OnProgramChange);
   usbMIDI.setHandleAfterTouch(OnAfterTouch);
-  usbMIDI.setHandleSysEx(OnSysEx);
+//  usbMIDI.setHandleSysEx(OnSysEx);
   //usbMIDI.setHandleRealTimeSystem(OnRealTimeSystem);
-  usbMIDI.setHandleTimeCodeQuarterFrame(OnTimeCodeQFrame);
+//  usbMIDI.setHandleTimeCodeQuarterFrame(OnTimeCodeQFrame);
 #endif
   // see arduino/hardware/teensy/avr/libraries/MIDI/src/MIDI.h
   MIDI.begin();
@@ -120,9 +120,9 @@ void loop() {
   updateMasterVolume();
   updatePortamento();
 
-#if SYNTH_DEBUG > 0
-  performanceCheck();
-  while (SYNTH_COM.available())
-    selectCommand(SYNTH_COM.read());
-#endif
+//#if SYNTH_DEBUG > 0
+//  performanceCheck();
+//  while (SYNTH_COM.available())
+//    selectCommand(SYNTH_COM.read());
+//#endif
 }

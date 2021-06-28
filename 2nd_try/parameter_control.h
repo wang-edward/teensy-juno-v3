@@ -26,22 +26,22 @@ inline void updateEnvelope() {
   } while (++o < end);
 }
 
-//inline void updateEnvelopeMode() {
-//  float env    = envOn ? 1 : 0;
-//  float noenv  = envOn ? 0 : 1;
-//  for (uint8_t i=0; i<2; ++i) {
-//    // env
-//    envmixer1.gain(i,env);
-//    envmixer2.gain(i,env);
-//    envmixer3.gain(i,env);
-//    envmixer4.gain(i,env);
-//    // no env
-//    envmixer1.gain(i+2,noenv);
-//    envmixer2.gain(i+2,noenv);
-//    envmixer3.gain(i+2,noenv);
-//    envmixer4.gain(i+2,noenv);
-//  }
-//}
+inline void updateEnvelopeMode() {
+  float env    = envOn ? 1 : 0;
+  float noenv  = envOn ? 0 : 1;
+  for (uint8_t i=0; i<2; ++i) {
+    // env
+    EnvMixer1.gain(i,env);
+    EnvMixer2.gain(i,env);
+    EnvMixer3.gain(i,env);
+    EnvMixer4.gain(i,env);
+    // no env
+    EnvMixer1.gain(i+2,noenv);
+    EnvMixer2.gain(i+2,noenv);
+    EnvMixer3.gain(i+2,noenv);
+    EnvMixer4.gain(i+2,noenv);
+  }
+}
 
 void updateFlanger() {
   if (flangerOn) {
@@ -81,6 +81,18 @@ inline void updatePitch() {
   } while(++o < end);
 }
 
+inline void updatePan() {
+  float norm  = (polyOn && !portamentoOn) ? GAIN_POLY : GAIN_MONO;
+  float left=norm, right=norm;
+  if (panorama < 0.5) right *= 2*panorama;
+  else left *= 2*(1-panorama);
+
+  for (uint8_t i=0; i<4; ++i) {
+    mixerL.gain(i,left);
+    mixerR.gain(i,right);
+  }
+}
+
 inline void updateVolume() {
   Oscillator *o=oscs,*end=oscs+NVOICES;
   float velocity;
@@ -108,7 +120,7 @@ inline void updateMasterVolume() {
 inline void updatePolyMode() {
   allOff();
  updateEnvelopeMode();
-//  updatePan();
+  updatePan();
 }
 
 inline void updatePortamento()
@@ -183,5 +195,5 @@ void resetAll() {
   updatePolyMode();
 //  updateFilterMode();
   updateEnvelope();
-//  updatePan();
+  updatePan();
 }

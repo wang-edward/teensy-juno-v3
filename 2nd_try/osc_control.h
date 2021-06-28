@@ -1,9 +1,3 @@
-inline float noteToFreq(float note) {
-  // Sets all notes as an offset of A4 (#69)
-  if (portamentoOn) note = portamentoPos;
-  return SYNTH_TUNING*pow(2,(note - 69)/12.+pitchBend/pitchScale+octCorr);
-}
-
 inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
   float v = velocityOn ? velocity/127. : 1;
   if (osc.note!=note) {

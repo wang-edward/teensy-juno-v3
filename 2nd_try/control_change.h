@@ -39,27 +39,15 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     envRelease = value*200./127.;
     updateEnvelope();
     break;
-  case 14: // filter frequency
+  case 14: // LOW PASS filter frequency
     //filtFreq = value/2.5*AUDIO_SAMPLE_RATE_EXACT/127.;
-    filtFreq = float(pow(value, 2));
+    lpfFreq = float(pow(value, 2));
     //filtFreq = float(pow(value, 3)/127.);
-    updateFilter();
+    updateLPF();
     break;
-  case 15: // filter resonance
-    filtReso = value*4.1/127.+0.9;
-    updateFilter();
-    break;
-  case 16: // filter attenuation
-    filtAtt = value/127.;
-    updateFilterMode();
-    break;
-  case 17: // filter mode
-    if (value < FILTERMODE_N) {
-      filterMode = FilterMode_t(value);
-    } else {
-      filterMode = FilterMode_t((filterMode+1)%FILTERMODE_N);
-    }
-    updateFilterMode();
+  case 15: // LOW PASS filter resonance
+    lpfReso = value*4.1/127.+0.9;
+    updateLPF();
     break;
   case 18: // poly mode
     switch (value) {
@@ -153,6 +141,14 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
       if (oscs->note != -1) portamentoPos = oscs->note;
     }
     else portamentoOn = false;
+    break;
+  case 75: //hpf frequency change
+    hpfFreq = float(pow(value,2));
+    updateHPF();
+    break;
+  case 76: //hpf resonance change
+    hpfReso = value*4.1/127.+0.9;
+    updateHPF();
     break;
   case 84: // portamento control (start note)
     portamentoPos = value;

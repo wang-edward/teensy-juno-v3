@@ -65,3 +65,9 @@ inline bool notesFind(int8_t* notes, uint8_t note) {
   } while (++notes < end);
   return false;
 }
+
+inline float noteToFreq(float note) {
+  // Sets all notes as an offset of A4 (#69)
+  if (portamentoOn) note = portamentoPos;
+  return SYNTH_TUNING*pow(2,(note - 69)/12.+pitchBend/pitchScale+octCorr);
+}

@@ -47,9 +47,13 @@ bool  polyOn;
 bool  omniOn;
 bool  velocityOn;
 
+bool pulseOn = true;
+bool sawOn = true;
+bool noiseOn = false;
+
 bool  sustainPressed;
 float channelVolume;
-//float panorama;
+float panorama;
 float pulseWidth; // 0.05-0.95
 float pitchBend;  // -1/+1 oct
 float pitchScale;
