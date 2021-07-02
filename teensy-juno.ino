@@ -671,7 +671,7 @@ void setup() {
   usbMIDI.setHandleNoteOff(OnNoteOff);
   usbMIDI.setHandleNoteOn(OnNoteOn);
 
-  sgtl5000_1.enable();
+  sgtl5000_1.enable(); 
   sgtl5000_1.volume(masterVolume);
 
   testSetup();

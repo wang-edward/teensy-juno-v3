@@ -1,0 +1,204 @@
+inline void updateHPF() {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->hpf->frequency(hpfFreq);
+    o->hpf->resonance(hpfReso);
+  } while (++o < end);
+}
+
+inline void updateLPF() {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->lpf->frequency(lpfFreq);
+    o->lpf->resonance(lpfReso);
+  } while (++o < end);
+}
+
+inline void updateEnvelope() {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->env->delay(envDelay);
+    o->env->attack(envAttack);
+    o->env->hold(envHold);
+    o->env->decay(envDecay);
+    o->env->sustain(envSustain);
+    o->env->release(envRelease);
+  } while (++o < end);
+}
+
+inline void updateEnvelopeMode() {
+  float env    = envOn ? 1 : 0;
+  float noenv  = envOn ? 0 : 1;
+  for (uint8_t i=0; i<2; ++i) {
+    // env
+    EnvMixer0.gain(i,env);
+    EnvMixer1.gain(i,env);
+    EnvMixer2.gain(i,env);
+    EnvMixer3.gain(i,env);
+    // no env
+    EnvMixer0.gain(i+2,noenv);
+    EnvMixer1.gain(i+2,noenv);
+    EnvMixer2.gain(i+2,noenv);
+    EnvMixer3.gain(i+2,noenv);
+  }
+}
+
+void updateFlanger() {
+  if (flangerOn) {
+    AudioNoInterrupts();
+//    flangerL.voices(flangerOffset,flangerDepth,flangerFreqCoarse+flangerFreqFine);
+//    flangerR.voices(flangerOffset,flangerDepth,flangerFreqCoarse+flangerFreqFine);
+    AudioInterrupts();
+#if SYNTH_DEBUG > 0
+    SYNTH_COM.print("Flanger: offset=");
+    SYNTH_COM.print(flangerOffset);
+    SYNTH_COM.print(", depth=");
+    SYNTH_COM.print(flangerDepth);
+    SYNTH_COM.print(", freq=");
+    SYNTH_COM.println(flangerFreqCoarse+flangerFreqFine);
+#endif
+  } else {
+//    flangerL.voices(FLANGE_DELAY_PASSTHRU,0,0);
+//    flangerR.voices(FLANGE_DELAY_PASSTHRU,0,0);
+  }
+}
+
+inline void updatePulseWidth() {
+//  if (currentProgram!=WAVEFORM_PULSE) return;
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    if (o->note < 0) continue;
+    o->pulseLFO->pulseWidth(pulseWidth);
+  } while(++o < end);
+}
+
+inline void updatePitch() {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    if (o->note < 0) continue;
+    if (pulseOn) o->pulseLFO->frequency(noteToFreq(o->note));
+    if (sawOn) o->saw->frequency(noteToFreq(o->note));
+  } while(++o < end);
+}
+
+inline void updatePan() {
+  float norm  = (polyOn && !portamentoOn) ? GAIN_POLY : GAIN_MONO;
+  float left=norm, right=norm;
+  if (panorama < 0.5) right *= 2*panorama;
+  else left *= 2*(1-panorama);
+
+  for (uint8_t i=0; i<4; ++i) {
+    mixerL.gain(i,left);
+    mixerR.gain(i,right);
+  }
+}
+
+inline void updateVolume() {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  float velocity;
+  do {
+    if (o->note < 0) continue;
+    velocity = velocityOn ? o->velocity/127. : 1;
+    if (pulseOn) o->pulseLFO->amplitude(velocity*channelVolume*GAIN_OSC);
+    if (sawOn) o->saw->amplitude(velocity*channelVolume*GAIN_OSC);
+  } while(++o < end);
+}
+
+inline void updateMasterVolume() {
+  // read the volume knob
+  float vol = (float) analogRead(A1) / 1280.0;
+  if( fabs(vol-masterVolume) > 0.01) {
+    masterVolume = vol;
+    sgtl5000_1.volume(masterVolume);
+#if SYNTH_DEBUG > 0
+    SYNTH_COM.print("Volume: ");
+    SYNTH_COM.println(vol);
+#endif
+  }
+}
+
+inline void updatePolyMode() {
+  allOff();
+ updateEnvelopeMode();
+  updatePan();
+}
+
+inline void updatePortamento()
+{
+  if (portamentoDir == 0) return;
+  if (oscs->note < 0) {
+    portamentoDir = 0;
+    return;
+  }
+  if (portamentoDir < 0) {
+    portamentoPos -= portamentoStep;
+    if (portamentoPos < oscs->note) {
+      portamentoPos = oscs->note;
+      portamentoDir = 0;
+    }
+  }
+  else {
+    portamentoPos += portamentoStep;
+    if (portamentoPos > oscs->note) {
+      portamentoPos = oscs->note;
+      portamentoDir = 0;
+    }
+  }
+  if (pulseOn)oscs->pulseLFO->frequency(noteToFreq(portamentoPos));
+  if (sawOn)oscs->saw->frequency(noteToFreq(portamentoPos));
+}
+
+void resetAll() {
+  polyOn     = true;
+  omniOn     = false;
+  velocityOn = true;
+
+  pulseOn = true;
+  sawOn = true;
+  noiseOn = false;
+
+//  filterMode     = FILTEROFF;
+  sustainPressed = false;
+  channelVolume  = 1.0;
+  panorama       = 0.5;
+  pulseWidth     = 0.5;
+  pitchBend      = 0;
+  pitchScale     = 1;
+  octCorr        = 0;
+//  octCorr        = currentProgram == WAVEFORM_PULSE ? 1 : 0;
+
+  // filter
+  lpfFreq = 15000.;
+  lpfReso = 0.9;
+//  lpfAtt  = 1.;
+  hpfFreq = 50.;
+  hpfReso = 0.9;
+
+  // envelope
+  envOn      = true;
+  envDelay   = 0;
+  envAttack  = 20;
+  envHold    = 0;
+  envDecay   = 0;
+  envSustain = 1;
+  envRelease = 20;
+
+  // FX
+  flangerOn         = false;
+  flangerOffset     = DELAY_LENGTH/4;
+  flangerDepth      = DELAY_LENGTH/16;
+  flangerFreqCoarse = 0;
+  flangerFreqFine   = .5;
+
+  // portamento
+  portamentoOn   = false;
+  portamentoTime = 1000;
+  portamentoDir  = 0;
+  portamentoStep = 0;
+  portamentoPos  = -1;
+
+  updatePolyMode();
+//  updateFilterMode();
+  updateEnvelope();
+  updatePan();
+}
