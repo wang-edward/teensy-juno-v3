@@ -1,17 +1,17 @@
-#N canvas -341 -1009 1883 622 12;
-#X obj 85 107 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+#N canvas 0 23 1280 755 12;
+#X obj 148 112 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
-#X floatatom 74 257 5 0 0 0 - - -;
-#X obj 72 292 ctlout 101;
-#X obj 168 107 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+#X floatatom 137 262 5 0 0 0 - - -;
+#X obj 135 297 ctlout 101;
+#X obj 231 112 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
-#X floatatom 157 257 5 0 0 0 - - -;
-#X obj 155 292 ctlout 101;
-#X text 71 77 Rate;
-#X text 151 76 Delay Time;
+#X floatatom 220 262 5 0 0 0 - - -;
+#X obj 218 297 ctlout 101;
+#X text 134 82 Rate;
+#X text 214 81 Delay Time;
 #X obj 315 116 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
-#X text 118 40 LFO;
+#X text 181 45 LFO;
 #X text 448 42 DCO;
 #X obj 360 116 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
@@ -78,17 +78,17 @@
 #X text 1404 80 D;
 #X text 1442 83 S;
 #X text 1477 83 R;
-#X text 1676 51 CHORUS;
-#X obj 1597 148 vradio 15 1 0 4 empty empty empty 0 -8 0 10 -262144
+#X text 1647 46 CHORUS;
+#X obj 1568 143 vradio 15 1 0 4 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
-#X text 1556 178 I;
-#X text 1550 145 OFF;
-#X text 1556 195 II;
-#X obj 1653 107 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+#X text 1527 173 I;
+#X text 1521 140 OFF;
+#X text 1527 190 II;
+#X obj 1624 102 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
-#X obj 1695 107 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+#X obj 1666 102 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
-#X obj 1740 107 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+#X obj 1711 102 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X obj 343 377 vradio 15 1 0 3 empty empty empty 0 -8 0 10 -262144
 -1 -1 2;
@@ -117,18 +117,18 @@
 #X obj 1446 329 ctlout 23;
 #X floatatom 1479 251 5 0 0 0 - - -;
 #X obj 1479 274 ctlout 13;
-#X text 1552 162 MAN;
-#X floatatom 1595 268 5 0 0 0 - - -;
-#X obj 1595 291 ctlout 25;
-#X text 1638 77 rate;
-#X text 1683 80 depth;
-#X text 1732 80 time;
-#X floatatom 1653 243 5 0 0 0 - - -;
-#X obj 1653 266 ctlout 26;
-#X floatatom 1695 291 5 0 0 0 - - -;
-#X floatatom 1740 243 5 0 0 0 - - -;
-#X obj 1740 266 ctlout 28;
-#X obj 1695 314 ctlout 27;
+#X text 1523 157 MAN;
+#X floatatom 1566 263 5 0 0 0 - - -;
+#X obj 1566 286 ctlout 25;
+#X text 1609 72 rate;
+#X text 1654 75 depth;
+#X text 1703 75 time;
+#X floatatom 1624 238 5 0 0 0 - - -;
+#X obj 1624 261 ctlout 26;
+#X floatatom 1666 286 5 0 0 0 - - -;
+#X floatatom 1711 238 5 0 0 0 - - -;
+#X obj 1711 261 ctlout 28;
+#X obj 1666 309 ctlout 27;
 #X floatatom 1238 243 5 0 0 0 - - -;
 #X obj 1238 266 ctlout 7;
 #X floatatom 886 250 5 0 0 0 - - -;
