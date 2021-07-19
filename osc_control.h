@@ -36,3 +36,15 @@ inline void oscOff(Oscillator& osc) {
   osc.note = -1;
   osc.velocity = 0;
 }
+
+inline void allOff() {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    oscOff(*o);
+    o->pulseLFO->amplitude(0);
+    o->saw->amplitude(0);
+    o->noise->amplitude(0);
+    o->env->noteOff();
+  } while(++o < end);
+  notesReset(notesOn);
+}

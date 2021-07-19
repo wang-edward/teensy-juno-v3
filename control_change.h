@@ -98,31 +98,29 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     pulseWidth = (value/127.)*0.9+0.05;
     updatePulseWidth();
     break;
-  case 25: // chorus toggle
-    if (value)
-//  case 25: // flanger toggle
-//    if (value < 2)
-//        flangerOn = bool(value);
-//    else
-//        flangerOn = !flangerOn;
-//    updateFlanger();
-//    break;
-//  case 26: // flanger offset
-//    flangerOffset = int(value/127.*8)*DELAY_LENGTH/8;
-//    updateFlanger();
-//    break;
-//  case 27: // flanger depth
-//    flangerDepth = int(value/127.*8)*DELAY_LENGTH/8;
-//    updateFlanger();
-//    break;
-//  case 28: // flanger coarse frequency
-//    flangerFreqCoarse = value/127.*10.;
-//    updateFlanger();
-//    break;
-//  case 29: // flanger fine frequency
-//    flangerFreqFine = value/127.;
-//    updateFlanger();
-//    break;
+  case 25: // flanger toggle
+    if (value < 2)
+        flangerOn = bool(value);
+    else
+        flangerOn = !flangerOn;
+    updateFlanger();
+    break;
+  case 26: // flanger offset
+    flangerOffset = int(value/127.*8)*DELAY_LENGTH/8;
+    updateFlanger();
+    break;
+  case 27: // flanger depth
+    flangerDepth = int(value/127.*8)*DELAY_LENGTH/8;
+    updateFlanger();
+    break;
+  case 28: // flanger coarse frequency
+    flangerFreqCoarse = value/127.*10.;
+    updateFlanger();
+    break;
+  case 29: // flanger fine frequency
+    flangerFreqFine = value/127.;
+    updateFlanger();
+    break;
   case 30: // pitch range in semitones
     pitchScale = 12./value;
     break;

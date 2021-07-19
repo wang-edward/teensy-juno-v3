@@ -4,7 +4,7 @@
 MIDI_CREATE_DEFAULT_INSTANCE();
 
 //////////////////////////////////////////////////////////////////////
-// Data types and lookup tables
+// Data types and lookup tables`
 //////////////////////////////////////////////////////////////////////
 
 
@@ -23,12 +23,12 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 //////////////////////////////////////////////////////////////////////
 // Parameter control functions
 //////////////////////////////////////////////////////////////////////
-
+#include "osc_control.h"//111
 #include "parameter_control.h"
 
 //updateFilterMode(), updateFilter(), updateEnvelope(), updateEnvelopeMode(), updateFlanger(), resetAll()
 
-#include "osc_control.h"
+//#include "osc_control.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -48,20 +48,27 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 
 void testSetup() {
   Serial.println("testing");
-  short delayBuffer[16*AUDIO_BLOCK_SAMPLES];
+//  short delayBuffer[16*AUDIO_BLOCK_SAMPLES];
 //  chorus1.begin(delayBuffer,16*AUDIO_BLOCK_SAMPLES,2);
-  sawOn=false;
+  sawOn=true;
+  pulseOn=true;
+flangerOn = false;
   for (int i=0;i<4;i++) {
     EnvMixer0.gain(i,1.0);
     EnvMixer1.gain(i,1.0);
+    EnvMixer2.gain(i,1.0);
+    EnvMixer3.gain(i,1.0);
+    mixerL.gain(i,1.0);
+    mixerR.gain(i,1.0);
   }
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
-    o->oscMixer->gain(1,1.0);
-    o->hpf->frequency(400);
-    o->lpf->frequency(10000);
+    o->hpf->frequency(100);
+    o->lpf->frequency(8000);
     o->saw->begin(WAVEFORM_SAWTOOTH);
     o->pulseLFO->begin(WAVEFORM_PULSE);
+    o->oscMixer->gain(1,1.0);
+    o->oscMixer->gain(2,1.0);
   } while (++o < end);
 }
 
@@ -79,8 +86,8 @@ void setup() {
 
   sgtl5000_1.enable(); 
   sgtl5000_1.volume(masterVolume);
-
   testSetup();
+//  resetAll();
   
 //  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
   usbMIDI.setHandleControlChange(OnControlChange);

@@ -44,25 +44,32 @@ inline void updateEnvelopeMode() {
  }
 }
 
-//void updateFlanger() {
-//  if (flangerOn) {
-//    AudioNoInterrupts();
+void updateFlanger() {
+  if (flangerOn) {
+    AudioNoInterrupts();
+    Serial.print("offset: "); Serial.println(flangerOffset);
+    Serial.print("depth: "); Serial.println(flangerDepth);
+    Serial.print("freqCoarse: "); Serial.println(flangerFreqCoarse);
+    Serial.print("freqFine: "); Serial.println(flangerFreqFine);
+    //noflange
 //    flangerL.voices(flangerOffset,flangerDepth,flangerFreqCoarse+flangerFreqFine);
 //    flangerR.voices(flangerOffset,flangerDepth,flangerFreqCoarse+flangerFreqFine);
-//    AudioInterrupts();
-//#if SYNTH_DEBUG > 0
-//    SYNTH_COM.print("Flanger: offset=");
-//    SYNTH_COM.print(flangerOffset);
-//    SYNTH_COM.print(", depth=");
-//    SYNTH_COM.print(flangerDepth);
-//    SYNTH_COM.print(", freq=");
-//    SYNTH_COM.println(flangerFreqCoarse+flangerFreqFine);
-//#endif
-//  } else {
+    AudioInterrupts();
+#if SYNTH_DEBUG > 0
+    SYNTH_COM.print("Flanger: offset=");
+    SYNTH_COM.print(flangerOffset);
+    SYNTH_COM.print(", depth=");
+    SYNTH_COM.print(flangerDepth);
+    SYNTH_COM.print(", freq=");
+    SYNTH_COM.println(flangerFreqCoarse+flangerFreqFine);
+    SYNTH_COM.println(FLANGE_DELAY_PASSTHRU);
+#endif
+  } else {
+    //noflange
 //    flangerL.voices(FLANGE_DELAY_PASSTHRU,0,0);
 //    flangerR.voices(FLANGE_DELAY_PASSTHRU,0,0);
-//  }
-//}
+  }
+}
 
 inline void updatePulseWidth() {
 //  if (currentProgram!=WAVEFORM_PULSE) return;
