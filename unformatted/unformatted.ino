@@ -63,7 +63,7 @@ struct Oscillator {
 };
 
 // synth architecture in separate file
-#include "TestSynthArch.h"
+#include "synth_arch.h"
 
 #define NVOICES 8
 Oscillator oscs[NVOICES] = {
@@ -640,14 +640,32 @@ inline void printResources( float cpu, uint8_t mem) {
 // test setup
 //////////////////////////////////////////////////////////////////////
 
+#define FLANGE_DELAY_LENGTH (12*AUDIO_BLOCK_SAMPLES)
+  short l_delayline[FLANGE_DELAY_LENGTH];
+  short r_delayline[FLANGE_DELAY_LENGTH];
+
+  int s_idx = 3*FLANGE_DELAY_LENGTH/4;
+  int s_depth = FLANGE_DELAY_LENGTH/8;
+  double s_freq = 0.0625;
+  
 void testSetup() {
   Serial.println("testing");
-  short delayBuffer[16*AUDIO_BLOCK_SAMPLES];
+//  short delayBuffer[16*AUDIO_BLOCK_SAMPLES];
+  
+  flangerL.begin(l_delayline, FLANGE_DELAY_LENGTH, s_idx, s_depth, s_freq);
+  flangerR.begin(r_delayline, FLANGE_DELAY_LENGTH, s_idx, s_depth, s_freq);
 //  chorus1.begin(delayBuffer,16*AUDIO_BLOCK_SAMPLES,2);
   sawOn=false;
-  for (int i=0;i<4;i++) {
+  for (int i=0;i<=2;i+=2) {
     EnvMixer0.gain(i,1.0);
     EnvMixer1.gain(i,1.0);
+    EnvMixer2.gain(i,1.0);
+    EnvMixer3.gain(i,1.0);
+  }
+  for (int i=0;i<4;i++) {
+    
+    mixerL.gain(i,1.0);
+    mixerR.gain(i,1.0);
   }
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
@@ -657,6 +675,8 @@ void testSetup() {
     o->saw->begin(WAVEFORM_SAWTOOTH);
     o->pulseLFO->begin(WAVEFORM_PULSE);
   } while (++o < end);
+
+  
 }
 
 //////////////////////////////////////////////////////////////////////
