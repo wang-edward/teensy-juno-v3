@@ -241,6 +241,38 @@ inline void updateEnvelope() {
   } while (++o < end);
 }
 
+inline void updateEnvelopeMode() {
+  if (envOn) {
+    for (int i=0;i<=2;i+=2) {
+      //env
+      EnvMixer0.gain(i,1.0);
+      EnvMixer1.gain(i,1.0);
+      EnvMixer2.gain(i,1.0);
+      EnvMixer3.gain(i,1.0);
+
+      //gate
+      EnvMixer0.gain(i+1,0);
+      EnvMixer1.gain(i+1,0);
+      EnvMixer2.gain(i+1,0);
+      EnvMixer3.gain(i+1,0);
+    }
+  } else {
+    for (int i=0;i<=2;i+=2) {
+      //env
+      EnvMixer0.gain(i,0);
+      EnvMixer1.gain(i,0);
+      EnvMixer2.gain(i,0);
+      EnvMixer3.gain(i,0);      
+
+      //gate
+      EnvMixer0.gain(i+1,1.0);
+      EnvMixer1.gain(i+1,1.0);
+      EnvMixer2.gain(i+1,1.0);
+      EnvMixer3.gain(i+1,1.0);
+    }
+  }
+}
+
 //inline void updateEnvelopeMode() {
 //  float env    = envOn ? 1 : 0;
 //  float noenv  = envOn ? 0 : 1;
@@ -383,7 +415,7 @@ inline void updateMasterVolume() {
 
 inline void updatePolyMode() {
   allOff();
-//  updateEnvelopeMode();
+  updateEnvelopeMode();
 //  updatePan();
 }
 
@@ -640,7 +672,7 @@ inline void printResources( float cpu, uint8_t mem) {
 // test setup
 //////////////////////////////////////////////////////////////////////
 
-#define FLANGE_DELAY_LENGTH (12*AUDIO_BLOCK_SAMPLES)
+#define FLANGE_DELAY_LENGTH (16*AUDIO_BLOCK_SAMPLES)
   short l_delayline[FLANGE_DELAY_LENGTH];
   short r_delayline[FLANGE_DELAY_LENGTH];
 
@@ -654,6 +686,9 @@ void testSetup() {
   
   flangerL.begin(l_delayline, FLANGE_DELAY_LENGTH, s_idx, s_depth, s_freq);
   flangerR.begin(r_delayline, FLANGE_DELAY_LENGTH, s_idx, s_depth, s_freq);
+
+  flangerL.voices(FLANGE_DELAY_PASSTHRU,0,0);
+  flangerR.voices(FLANGE_DELAY_PASSTHRU,0,0);
 //  chorus1.begin(delayBuffer,16*AUDIO_BLOCK_SAMPLES,2);
   sawOn=false;
   for (int i=0;i<=2;i+=2) {

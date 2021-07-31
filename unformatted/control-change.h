@@ -73,11 +73,11 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     }
     updatePolyMode();
     break;
-//  case 19: // envelope mode
-//    allOff();
-//    envOn = !envOn;
-//    updateEnvelopeMode();
-//    break;
+  case 19: // envelope mode
+    allOff();
+    envOn = !envOn;
+    updateEnvelopeMode();
+    break;
   case 20: // delay
     envDelay = value*200./127.;
     updateEnvelope();
