@@ -1,4 +1,4 @@
-#N canvas 0 23 1280 755 12;
+#N canvas -13 -13 3840 1996 12;
 #X obj 148 112 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X floatatom 137 262 5 0 0 0 - - -;
@@ -137,6 +137,21 @@
 #X obj 921 320 ctlout 15;
 #X obj 822 433 midiin;
 #X obj 827 478 midiout;
+#X obj 194 578 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X floatatom 194 714 5 0 0 0 - - -;
+#X obj 194 737 ctlout 5;
+#X text 176 534 portamento time;
+#X obj 373 580 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X floatatom 373 716 5 0 0 0 - - -;
+#X obj 373 739 ctlout 65;
+#X text 367 535 portamento on off;
+#X obj 657 572 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 25500 1;
+#X floatatom 655 731 5 0 0 0 - - -;
+#X obj 655 754 ctlout 64;
+#X text 636 544 sustain pedal (>63=true);
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X connect 3 0 4 0;
@@ -178,3 +193,9 @@
 #X connect 104 0 105 0;
 #X connect 106 0 107 0;
 #X connect 108 0 109 0;
+#X connect 110 0 111 0;
+#X connect 111 0 112 0;
+#X connect 114 0 115 0;
+#X connect 115 0 116 0;
+#X connect 118 0 119 0;
+#X connect 119 0 120 0;

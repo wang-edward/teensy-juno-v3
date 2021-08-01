@@ -26,7 +26,11 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
 }
 
 inline void oscOff(Oscillator& osc) {
-  if (envOn) osc.env->noteOff();
+  Serial.println("OSCOFFFFF");
+  if (envOn) {
+    osc.env->noteOff();
+    Serial.println("ENV NOTE OFF");
+  }
   else {
     //turn oscillators off
     if (pulseOn) osc.pulseLFO->amplitude(0);
