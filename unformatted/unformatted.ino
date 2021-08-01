@@ -242,34 +242,13 @@ inline void updateEnvelope() {
 }
 
 inline void updateEnvelopeMode() {
-  if (envOn) {
-    for (int i=0;i<=2;i+=2) {
-      //env
-      EnvMixer0.gain(i,1.0);
-      EnvMixer1.gain(i,1.0);
-      EnvMixer2.gain(i,1.0);
-      EnvMixer3.gain(i,1.0);
-
-      //gate
-      EnvMixer0.gain(i+1,0);
-      EnvMixer1.gain(i+1,0);
-      EnvMixer2.gain(i+1,0);
-      EnvMixer3.gain(i+1,0);
-    }
-  } else {
-    for (int i=0;i<=2;i+=2) {
-      //env
-      EnvMixer0.gain(i,0);
-      EnvMixer1.gain(i,0);
-      EnvMixer2.gain(i,0);
-      EnvMixer3.gain(i,0);      
-
-      //gate
-      EnvMixer0.gain(i+1,1.0);
-      EnvMixer1.gain(i+1,1.0);
-      EnvMixer2.gain(i+1,1.0);
-      EnvMixer3.gain(i+1,1.0);
-    }
+  if (!envOn) {
+    envDelay   = 0;
+    envAttack  = 0;
+    envHold    = 0;
+    envDecay   = 0;
+    envSustain = 1;
+    envRelease = 0;
   }
 }
 
@@ -694,8 +673,8 @@ void testSetup() {
   for (int i=0;i<=2;i+=2) {
     EnvMixer0.gain(i,1.0);
     EnvMixer1.gain(i,1.0);
-    EnvMixer2.gain(i,1.0);
-    EnvMixer3.gain(i,1.0);
+//    EnvMixer2.gain(i,1.0);
+//    EnvMixer3.gain(i,1.0);
   }
   for (int i=0;i<4;i++) {
     
