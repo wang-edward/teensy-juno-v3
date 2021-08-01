@@ -12,6 +12,7 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
     if (pulseOn) osc.pulseLFO->amplitude(v*channelVolume*GAIN_OSC);
     if (sawOn) osc.saw->amplitude(v*channelVolume*GAIN_OSC);
     if (noiseOn) osc.noise->amplitude(v*channelVolume*GAIN_OSC);
+    Serial.print("oscialltor volume: ");
     Serial.println(v*channelVolume*GAIN_OSC);
     osc.velocity = velocity;
     osc.note = note;

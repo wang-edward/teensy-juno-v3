@@ -51,9 +51,8 @@ void updateFlanger() {
     Serial.print("depth: "); Serial.println(flangerDepth);
     Serial.print("freqCoarse: "); Serial.println(flangerFreqCoarse);
     Serial.print("freqFine: "); Serial.println(flangerFreqFine);
-    //noflange
-//    flangerL.voices(flangerOffset,flangerDepth,flangerFreqCoarse+flangerFreqFine);
-//    flangerR.voices(flangerOffset,flangerDepth,flangerFreqCoarse+flangerFreqFine);
+    flangerL.voices(flangerOffset,flangerDepth,flangerFreqCoarse+flangerFreqFine);
+    flangerR.voices(flangerOffset,flangerDepth,flangerFreqCoarse+flangerFreqFine);
     AudioInterrupts();
 #if SYNTH_DEBUG > 0
     SYNTH_COM.print("Flanger: offset=");
@@ -66,8 +65,8 @@ void updateFlanger() {
 #endif
   } else {
     //noflange
-//    flangerL.voices(FLANGE_DELAY_PASSTHRU,0,0);
-//    flangerR.voices(FLANGE_DELAY_PASSTHRU,0,0);
+    flangerL.voices(FLANGE_DELAY_PASSTHRU,0,0);
+    flangerR.voices(FLANGE_DELAY_PASSTHRU,0,0);
   }
 }
 
@@ -115,7 +114,7 @@ inline void updateMasterVolume() {
 
 inline void updatePolyMode() {
   allOff();
-//  updateEnvelopeMode();
+  updateEnvelopeMode();
 //  updatePan();
 }
 
@@ -189,6 +188,7 @@ void resetAll() {
   portamentoPos  = -1;
 
   updatePolyMode();
+  updateFlanger();
 //  updateFilterMode();
   updateEnvelope();
 //  updatePan();

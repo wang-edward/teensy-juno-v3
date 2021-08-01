@@ -46,18 +46,32 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 // test setup
 //////////////////////////////////////////////////////////////////////
 
+#define FLANGE_DELAY_LENGTH (16*AUDIO_BLOCK_SAMPLES)
+  short l_delayline[FLANGE_DELAY_LENGTH];
+  short r_delayline[FLANGE_DELAY_LENGTH];
+
+  int s_idx = 3*FLANGE_DELAY_LENGTH/4;
+  int s_depth = FLANGE_DELAY_LENGTH/8;
+  double s_freq = 0.0625;
+
 void testSetup() {
   Serial.println("testing");
 //  short delayBuffer[16*AUDIO_BLOCK_SAMPLES];
 //  chorus1.begin(delayBuffer,16*AUDIO_BLOCK_SAMPLES,2);
+
+  flangerL.begin(l_delayline, FLANGE_DELAY_LENGTH, s_idx, s_depth, s_freq);
+  flangerR.begin(r_delayline, FLANGE_DELAY_LENGTH, s_idx, s_depth, s_freq);
+  
   sawOn=true;
   pulseOn=true;
-flangerOn = false;
+  flangerOn = true;
+  envOn = true;
+  
   for (int i=0;i<4;i++) {
-    EnvMixer0.gain(i,1.0);
-    EnvMixer1.gain(i,1.0);
-    EnvMixer2.gain(i,1.0);
-    EnvMixer3.gain(i,1.0);
+//    EnvMixer0.gain(i,1.0);
+//    EnvMixer1.gain(i,1.0);
+//    EnvMixer2.gain(i,1.0);
+//    EnvMixer3.gain(i,1.0);
     mixerL.gain(i,1.0);
     mixerR.gain(i,1.0);
   }
@@ -70,6 +84,7 @@ flangerOn = false;
     o->oscMixer->gain(1,1.0);
     o->oscMixer->gain(2,1.0);
   } while (++o < end);
+  updateEnvelopeMode();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -87,7 +102,13 @@ void setup() {
   sgtl5000_1.enable(); 
   sgtl5000_1.volume(masterVolume);
   testSetup();
-//  resetAll();
+  resetAll();
+  for (int i=0;i<4;i++) {
+//    EnvMixer0.gain(i,0);
+    EnvMixer1.gain(i,0);
+    EnvMixer2.gain(i,0);
+    EnvMixer3.gain(i,0);
+  }
   
 //  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
   usbMIDI.setHandleControlChange(OnControlChange);
