@@ -23,7 +23,8 @@
 #define GAIN_MONO 0.25
 
 // define delay lines for modulation effects
-#define DELAY_LENGTH (16*AUDIO_BLOCK_SAMPLES)
+//#define DELAY_LENGTH (16*AUDIO_BLOCK_SAMPLES)
+#define DELAY_LENGTH (12*AUDIO_BLOCK_SAMPLES)
 short delaylineL[DELAY_LENGTH];
 short delaylineR[DELAY_LENGTH];
 
@@ -49,6 +50,10 @@ bool  velocityOn = true;
 bool pulseOn = true; //default to true
 bool sawOn = true;
 bool noiseOn = false; //start with false
+bool subOn = true;
+
+float noiseLevel;
+float subLevel;
 
 bool  sustainPressed;
 float channelVolume = 1.0;

@@ -81,6 +81,7 @@ void testSetup() {
     o->lpf->frequency(8000);
     o->saw->begin(WAVEFORM_SAWTOOTH);
     o->pulseLFO->begin(WAVEFORM_PULSE);
+    o->sub->begin(WAVEFORM_PULSE); // sub!
     o->oscMixer->gain(1,1.0);
     o->oscMixer->gain(2,1.0);
   } while (++o < end);

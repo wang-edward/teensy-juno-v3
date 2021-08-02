@@ -148,6 +148,9 @@ void resetAll() {
   omniOn     = false;
   velocityOn = true;
 
+  noiseLevel = 1;
+  subLevel = 1;
+
 //  filterMode     = FILTEROFF;
   sustainPressed = false;
   channelVolume  = 1.0;
