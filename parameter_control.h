@@ -151,7 +151,7 @@ void resetAll() {
 //  filterMode     = FILTEROFF;
   sustainPressed = false;
   channelVolume  = 1.0;
-//  panorama       = 0.5;
+  panorama       = 0.5;
   pulseWidth     = 0.5;
   pitchBend      = 0;
   pitchScale     = 1;
@@ -205,17 +205,17 @@ void resetAll() {
 //  } while (++o < end);
 //}
 
-//inline void updatePan() {
-//  float norm  = (polyOn && !portamentoOn) ? GAIN_POLY : GAIN_MONO;
-//  float left=norm, right=norm;
-//  if (panorama < 0.5) right *= 2*panorama;
-//  else left *= 2*(1-panorama);
-//
-//  for (uint8_t i=0; i<4; ++i) {
-//    mixerL.gain(i,left);
-//    mixerR.gain(i,right);
-//  }
-//}
+inline void updatePan() {
+  float norm  = (polyOn && !portamentoOn) ? GAIN_POLY : GAIN_MONO;
+  float left=norm, right=norm;
+  if (panorama < 0.5) right *= 2*panorama;
+  else left *= 2*(1-panorama);
+
+  for (uint8_t i=0; i<4; ++i) {
+    mixerL.gain(i,left);
+    mixerR.gain(i,right);
+  }
+}
 
 //inline void updateFilter() {
 //  Oscillator *o=oscs,*end=oscs+NVOICES;

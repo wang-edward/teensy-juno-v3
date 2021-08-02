@@ -27,10 +27,10 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
       break;
     }
     break;
-//  case 10: // pan
-//    panorama = value/127.;
-//    updatePan();
-//    break;
+  case 10: // pan
+     panorama = value/127.;
+    updatePan();
+    break;
   case 12: // attack
     envAttack = value*200./127.;
     updateEnvelope();
