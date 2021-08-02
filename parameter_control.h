@@ -27,21 +27,21 @@ inline void updateEnvelope() {
 }
 
 inline void updateEnvelopeMode() {
- float env    = envOn ? 1 : 0;
- float noenv  = envOn ? 0 : 1;
- for (uint8_t i=0; i<2; ++i) {
-   // env
-   EnvMixer0.gain(i,env);
-   EnvMixer1.gain(i,env);
-   EnvMixer2.gain(i,env);
-   EnvMixer3.gain(i,env);
-
-   // no env
-   EnvMixer0.gain(i+2,noenv);
-   EnvMixer1.gain(i+2,noenv);
-   EnvMixer2.gain(i+2,noenv);
-   EnvMixer3.gain(i+2,noenv);
- }
+// float env    = envOn ? 1 : 0;
+// float noenv  = envOn ? 0 : 1;
+// for (uint8_t i=0; i<2; ++i) {
+//   // env
+//   EnvMixer0.gain(i,env);
+//   EnvMixer1.gain(i,env);
+//   EnvMixer2.gain(i,env);
+//   EnvMixer3.gain(i,env);
+//
+//   // no env
+//   EnvMixer0.gain(i+2,noenv);
+//   EnvMixer1.gain(i+2,noenv);
+//   EnvMixer2.gain(i+2,noenv);
+//   EnvMixer3.gain(i+2,noenv);
+// }
 }
 
 void updateFlanger() {

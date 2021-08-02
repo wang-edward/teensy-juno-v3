@@ -68,8 +68,8 @@ void testSetup() {
   envOn = true;
   
   for (int i=0;i<4;i++) {
-//    EnvMixer0.gain(i,1.0);
-//    EnvMixer1.gain(i,1.0);
+    EnvMixer0.gain(i,1.0);
+    EnvMixer1.gain(i,1.0);
 //    EnvMixer2.gain(i,1.0);
 //    EnvMixer3.gain(i,1.0);
     mixerL.gain(i,1.0);
@@ -105,9 +105,9 @@ void setup() {
   resetAll();
   for (int i=0;i<4;i++) {
 //    EnvMixer0.gain(i,0);
-    EnvMixer1.gain(i,0);
-    EnvMixer2.gain(i,0);
-    EnvMixer3.gain(i,0);
+//    EnvMixer1.gain(i,0);
+//    EnvMixer2.gain(i,0);
+//    EnvMixer3.gain(i,0);
   }
   
 //  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
