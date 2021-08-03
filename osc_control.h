@@ -27,12 +27,12 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
       osc.saw->frequency(freq);
       osc.saw->amplitude(amp);
     }
-    if (subOn) {
+    if (subLevel>0) {
       osc.sub->frequency(freq/2);
       osc.sub->amplitude(amp * subLevel);
     }
-    if (noiseOn) {
-      osc.noise->amplitude(amp);
+    if (noiseLevel>0) {
+      osc.noise->amplitude(amp * noiseLevel);
     }
 
     Serial.print("oscialltor volume: ");
@@ -43,7 +43,8 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
     //turn oscillators on
     if (pulseOn) osc.pulseLFO->amplitude(amp);
     if (sawOn) osc.saw->amplitude(amp);
-    if (noiseOn) osc.noise->amplitude(amp);
+    if (subLevel>0) osc.sub->amplitude(amp * subLevel);
+    if (noiseLevel>0) osc.noise->amplitude(amp * noiseLevel);
     osc.velocity = velocity;
   }
 }

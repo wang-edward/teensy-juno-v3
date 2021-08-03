@@ -112,10 +112,22 @@ inline void updateMasterVolume() {
   }
 }
 
+inline void updatePan() {
+  float norm  = (polyOn && !portamentoOn) ? GAIN_POLY : GAIN_MONO;
+  float left=norm, right=norm;
+  if (panorama < 0.5) right *= 2*panorama;
+  else left *= 2*(1-panorama);
+
+  for (uint8_t i=0; i<4; ++i) {
+    mixerL.gain(i,left);
+    mixerR.gain(i,right);
+  }
+}
+
 inline void updatePolyMode() {
   allOff();
   updateEnvelopeMode();
-//  updatePan();
+  updatePan();
 }
 
 inline void updatePortamento()
@@ -148,6 +160,8 @@ void resetAll() {
   omniOn     = false;
   velocityOn = true;
 
+  sawOn = true;
+  pulseOn = true;
   noiseLevel = 1;
   subLevel = 1;
 
@@ -207,18 +221,6 @@ void resetAll() {
 //    }
 //  } while (++o < end);
 //}
-
-inline void updatePan() {
-  float norm  = (polyOn && !portamentoOn) ? GAIN_POLY : GAIN_MONO;
-  float left=norm, right=norm;
-  if (panorama < 0.5) right *= 2*panorama;
-  else left *= 2*(1-panorama);
-
-  for (uint8_t i=0; i<4; ++i) {
-    mixerL.gain(i,left);
-    mixerR.gain(i,right);
-  }
-}
 
 //inline void updateFilter() {
 //  Oscillator *o=oscs,*end=oscs+NVOICES;

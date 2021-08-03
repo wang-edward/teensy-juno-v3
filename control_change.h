@@ -170,6 +170,23 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
   case 84: // portamento control (start note)
     portamentoPos = value;
     break;
+  case 85: // oscillator select
+    switch (value) {
+      case 0: 
+        pulseOn = sawOn = false;
+      case 1:
+        pulseOn = true; sawOn = false;
+      case 2:
+        pulseOn = false; sawOn = true;
+      case 3:
+        pulseOn = sawOn = true;
+    }
+    break;
+  case 86: // sub level
+    subLevel = value/127.;
+    break;
+  case 87: // noise level
+    noiseLevel = value/127.;
   case 121: // controller reset
     resetAll();
     break;
