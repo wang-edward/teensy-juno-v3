@@ -36,7 +36,14 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
     }
 
     Serial.print("oscialltor volume: ");
-    Serial.println(freq);
+    Serial.println(amp);
+    Serial.print("sub volume: ");
+    Serial.println(amp*subLevel);
+    Serial.print("noise volume: ");
+    Serial.println(amp*noiseLevel);
+    if (pulseOn) Serial.println("pulseON");
+    if (sawOn) Serial.println("SAWON");
+    
     osc.velocity = velocity;
     osc.note = note;
   } else if (velocity > osc.velocity) {

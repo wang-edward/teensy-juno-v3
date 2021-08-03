@@ -160,10 +160,10 @@ void resetAll() {
   omniOn     = false;
   velocityOn = true;
 
-  sawOn = true;
-  pulseOn = true;
-  noiseLevel = 1;
-  subLevel = 1;
+//  sawOn = true;
+//  pulseOn = true;
+//  noiseLevel = 1;
+//  subLevel = 1;
 
 //  filterMode     = FILTEROFF;
   sustainPressed = false;
