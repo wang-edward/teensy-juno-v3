@@ -205,8 +205,8 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     updateOscVolume();
     break;
   case 87: // noise level
-    noiseLevel = value/127.;
-    updateNoiseVolume();
+    noiseLevel = max(0.01,value/127.);
+    updateOscVolume();
     break;
   case 121: // controller reset
     resetAll();

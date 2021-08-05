@@ -88,6 +88,27 @@ inline void updatePitch() {
   } while(++o < end);
 }
 
+inline void updateOscVolume() {
+  if (subLevel>0) {
+    Oscillator *o=oscs,*end=oscs+NVOICES;
+    float velocity;
+    do {
+      if (o->note < 0) continue;
+      velocity = velocityOn ? o->velocity/127. : 1;
+      o->sub->amplitude(velocity*channelVolume*GAIN_OSC*subLevel);
+    } while(++o < end);
+  }
+  if (noiseLevel>0) {
+    Oscillator *o=oscs,*end=oscs+NVOICES;
+    float velocity;
+    do {
+      if (o->note < 0) continue;
+      velocity = velocityOn ? o->velocity/127. : 1;
+      o->noise->amplitude(velocity*channelVolume*GAIN_OSC*noiseLevel);
+    } while(++o < end);
+  }
+}
+
 inline void updateVolume() {
   Oscillator *o=oscs,*end=oscs+NVOICES;
   float velocity;

@@ -62,12 +62,17 @@ inline void oscOff(Oscillator& osc) {
     osc.env->noteOff();
     Serial.println("ENV NOTE OFF");
   }
-  else {
-    //turn oscillators off
-    if (pulseOn) osc.pulseLFO->amplitude(0);
-    if (sawOn) osc.saw->amplitude(0);
-    if (noiseOn) osc.noise->amplitude(0);
-  }
+  if (!pulseOn) osc.pulseLFO->amplitude(0);
+  if (!sawOn) osc.saw->amplitude(0);
+  if (noiseLevel<=0.01) osc.noise->amplitude(0.01);
+  if (subLevel==0) osc.sub->amplitude(0);
+//  else {
+//    //turn oscillators off
+//    if (pulseOn) osc.pulseLFO->amplitude(0);
+//    if (sawOn) osc.saw->amplitude(0);
+//    if (noiseLevel<=0.01) osc.noise->amplitude(0.01);
+//    if (subLevel==0) osc.sub->amplitude(0);
+//  }
   notesDel(notesOn,osc.note);
   osc.note = -1;
   osc.velocity = 0;
