@@ -208,6 +208,8 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     noiseLevel = max(0.01,value/127.);
     updateOscVolume();
     break;
+  case 88: //lpf env level
+    
   case 121: // controller reset
     resetAll();
     break;
