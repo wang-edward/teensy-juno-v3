@@ -153,6 +153,10 @@ inline void updatePolyMode() {
 
 inline void updatePortamento()
 {
+  Serial.print("portamento pos:"); Serial.println(portamentoPos);
+  Serial.print("portamento dir:"); Serial.println(portamentoDir);
+  Serial.print("portamento time:"); Serial.println(portamentoTime);
+  Serial.print("portamento step:"); Serial.println(portamentoStep);
   if (portamentoDir == 0) return;
   if (oscs->note < 0) {
     portamentoDir = 0;
@@ -174,6 +178,7 @@ inline void updatePortamento()
   }
   if (pulseOn)oscs->pulseLFO->frequency(noteToFreq(portamentoPos));
   if (sawOn)oscs->saw->frequency(noteToFreq(portamentoPos));
+  if (subLevel>0)oscs->sub->frequency(noteToFreq(portamentoPos));
 }
 
 void resetAll() {

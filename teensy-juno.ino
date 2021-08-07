@@ -104,13 +104,27 @@ void setup() {
   sgtl5000_1.volume(masterVolume);
   testSetup();
   resetAll();
-  for (int i=0;i<4;i++) {
-//    EnvMixer0.gain(i,0);
-//    EnvMixer1.gain(i,0);
-//    EnvMixer2.gain(i,0);
-//    EnvMixer3.gain(i,0);
-  }
+  amp0.gain(0);
+  amp1.gain(0);
+  amp2.gain(0);
+  amp3.gain(0);
+  amp4.gain(0);
+  amp5.gain(0);
+  amp6.gain(0);
+  amp7.gain(0);
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->lpf->octaveControl(2.5);
+  } while (++o < end);
   
+//  amp0.gain(1);
+//  amp1.gain(1);
+//  amp2.gain(1);
+//  amp3.gain(1);
+//  amp4.gain(1);
+//  amp5.gain(1);
+//  amp6.gain(1);
+//  amp7.gain(1);
 //  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
   usbMIDI.setHandleControlChange(OnControlChange);
 //  usbMIDI.setHandlePitchChange(OnPitchChange);
@@ -124,4 +138,12 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   usbMIDI.read();
+//  updateMasterVolume();
+  updatePortamento();
+  
+//#if SYNTH_DEBUG > 0
+//  performanceCheck();
+//  while (Serial.available())
+//    selectCommand(Serial.read());
+//#endif
 }

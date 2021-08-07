@@ -71,6 +71,7 @@ void OnNoteOn(uint8_t channel, uint8_t note, uint8_t velocity) {
 
   Oscillator *o=oscs;
   if (portamentoOn) {
+    Serial.println("portamento on");
     if (portamentoTime == 0 || portamentoPos < 0) {
       portamentoPos = note;
       portamentoDir = 0;
@@ -104,7 +105,7 @@ void OnNoteOn(uint8_t channel, uint8_t note, uint8_t velocity) {
       curOsc = OnNoteOffReal(channel,*notesOn,velocity,true);
     }
     if (!curOsc) return;
-    Serial.println("done!");
+//    Serial.println("done!");
     oscOn(*curOsc, note, velocity);
   }
   else
