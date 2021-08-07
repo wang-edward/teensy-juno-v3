@@ -9,8 +9,9 @@ A clone of the JUNO-106 synthesizer with Teensy (currently 3.2 but should work o
 - HPF and LPF with resonance
 - ADSR Envelope
 - Pan
+- Portamento with variable time
 ## Coming soon?
 - LFO
-- Portamento that actually works
+  - Pitch, PWM, VCF, and portamento time?
 - Filter envelope modulation
 - and hardware
