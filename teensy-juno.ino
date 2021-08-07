@@ -138,4 +138,12 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   usbMIDI.read();
+//  updateMasterVolume();
+  updatePortamento();
+  
+//#if SYNTH_DEBUG > 0
+//  performanceCheck();
+//  while (Serial.available())
+//    selectCommand(Serial.read());
+//#endif
 }

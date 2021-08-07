@@ -35,14 +35,14 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
       osc.noise->amplitude(amp * noiseLevel);
     }
 
-    Serial.print("oscialltor volume: ");
-    Serial.println(amp);
-    Serial.print("sub volume: ");
-    Serial.println(amp*subLevel);
-    Serial.print("noise volume: ");
-    Serial.println(amp*noiseLevel);
-    if (pulseOn) Serial.println("pulseON");
-    if (sawOn) Serial.println("SAWON");
+//    Serial.print("oscialltor volume: ");
+//    Serial.println(amp);
+//    Serial.print("sub volume: ");
+//    Serial.println(amp*subLevel);
+//    Serial.print("noise volume: ");
+//    Serial.println(amp*noiseLevel);
+//    if (pulseOn) Serial.println("pulseON");
+//    if (sawOn) Serial.println("SAWON");
     
     osc.velocity = velocity;
     osc.note = note;
@@ -57,10 +57,10 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
 }
 
 inline void oscOff(Oscillator& osc) {
-  Serial.println("OSCOFFFFF");
+//  Serial.println("OSCOFFFFF");
   if (envOn) {
     osc.env->noteOff();
-    Serial.println("ENV NOTE OFF");
+//    Serial.println("ENV NOTE OFF");
   }
   if (!pulseOn) osc.pulseLFO->amplitude(0);
   if (!sawOn) osc.saw->amplitude(0);
