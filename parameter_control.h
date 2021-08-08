@@ -201,7 +201,7 @@ void resetAll() {
 //  octCorr        = currentProgram == WAVEFORM_PULSE ? 1 : 0;
 
   // filter
-  lpfFreq = 15000.;
+  lpfFreq = 10000.;
   lpfReso = 0.9;
 //  lpfAtt  = 1.;
   hpfFreq = 50.;

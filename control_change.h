@@ -41,7 +41,7 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     break;
   case 14: // LOW PASS filter frequency v
     //filtFreq = value/2.5*AUDIO_SAMPLE_RATE_EXACT/127.;
-    lpfFreq = float(pow(value, 2));
+    lpfFreq = min(float(pow(value, 2)),10000);
     //filtFreq = float(pow(value, 3)/127.);
     updateLPF();
     break;

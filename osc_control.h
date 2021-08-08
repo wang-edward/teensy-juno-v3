@@ -19,6 +19,9 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
     notesAdd(notesOn,note);
     if (envOn && !osc.velocity) osc.env->noteOn();
 
+    //!
+    lpfEnv.noteOn();
+
     if (pulseOn) {
       osc.pulseLFO->frequency(freq);
       osc.pulseLFO->amplitude(amp);

@@ -104,17 +104,13 @@ void setup() {
   sgtl5000_1.volume(masterVolume);
   testSetup();
   resetAll();
-  amp0.gain(0);
-  amp1.gain(0);
-  amp2.gain(0);
-  amp3.gain(0);
-  amp4.gain(0);
-  amp5.gain(0);
-  amp6.gain(0);
-  amp7.gain(0);
+
+  dc0.amplitude(1);
+  lpfEnv.attack(100);
+  
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
-    o->lpf->octaveControl(2.5);
+    o->lpf->octaveControl(3);
   } while (++o < end);
   
 //  amp0.gain(1);
