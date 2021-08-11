@@ -105,22 +105,21 @@ void setup() {
   testSetup();
   resetAll();
 
-  dc0.amplitude(1);
-  lpfEnv.attack(100);
+//  dc0.amplitude(1);
+//  lpfEnv.attack(100);
+
+  lfo.begin(WAVEFORM_TRIANGLE);
+  lfo.amplitude(1);
+  lfo.frequency(4);
+  pwmDc.amplitude(1);
+//  pwmMixer.gain(0,1);
+//  pwmMixer.gain(1,0);
   
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
     o->lpf->octaveControl(3);
   } while (++o < end);
   
-//  amp0.gain(1);
-//  amp1.gain(1);
-//  amp2.gain(1);
-//  amp3.gain(1);
-//  amp4.gain(1);
-//  amp5.gain(1);
-//  amp6.gain(1);
-//  amp7.gain(1);
 //  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
   usbMIDI.setHandleControlChange(OnControlChange);
 //  usbMIDI.setHandlePitchChange(OnPitchChange);

@@ -70,13 +70,16 @@ void updateFlanger() {
   }
 }
 
+//!update
 inline void updatePulseWidth() {
 //  if (currentProgram!=WAVEFORM_PULSE) return;
-  Oscillator *o=oscs,*end=oscs+NVOICES;
-  do {
-    if (o->note < 0) continue;
-    o->pulseLFO->pulseWidth(pulseWidth);
-  } while(++o < end);
+  pwmMixer.gain(0,oscLfoLevel); //lfo pwm
+  pwmMixer.gain(1,pulseWidth); //manual pwm
+//  Oscillator *o=oscs,*end=oscs+NVOICES;
+//  do {
+//    if (o->note < 0) continue;
+//    o->pulseLFO->pulseWidth(pulseWidth);
+//  } while(++o < end);
 }
 
 inline void updatePitch() {

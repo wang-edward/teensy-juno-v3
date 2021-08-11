@@ -20,7 +20,7 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
     if (envOn && !osc.velocity) osc.env->noteOn();
 
     //!
-    lpfEnv.noteOn();
+    vcfEnv.noteOn();
 
     if (pulseOn) {
       osc.pulseLFO->frequency(freq);
