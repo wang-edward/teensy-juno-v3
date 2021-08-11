@@ -38,7 +38,7 @@ short delaylineR[DELAY_LENGTH];
 
 #define SYNTH_COM Serial
 
-float   masterVolume   = 0.6;
+float   masterVolume   = 0.9;
 //uint8_t currentProgram = WAVEFORM_SAWTOOTH;
 
 bool  polyOn = true;
@@ -52,6 +52,9 @@ bool sawOn = true;
 bool noiseOn = false; //start with false
 bool subOn = true;
 
+float lfoRate;
+
+float oscLfoLevel;
 float noiseLevel;
 float subLevel;
 
@@ -68,6 +71,8 @@ int   octCorr;
 float lpfFreq; // 20-AUDIO_SAMPLE_RATE_EXACT/2.5
 float lpfReso; // 0.9-5.0
 float lpfEnvLevel; //AMOUNT OF MODULATION FROM ENVELOPE
+float lpfLfoLevel; //amt mod from lfo
+float lpfKybdLevel; //amt mod from keyboard
 //float lpfAtt;  // 0-1
 
 float hpfFreq; // 20-AUDIO_SAMPLE_RATE_EXACT/2.5

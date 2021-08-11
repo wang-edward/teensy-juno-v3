@@ -41,7 +41,7 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     break;
   case 14: // LOW PASS filter frequency v
     //filtFreq = value/2.5*AUDIO_SAMPLE_RATE_EXACT/127.;
-    lpfFreq = float(pow(value, 2));
+    lpfFreq = min(float(pow(value, 2)),10000);
     //filtFreq = float(pow(value, 3)/127.);
     updateLPF();
     break;
@@ -208,7 +208,18 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     noiseLevel = max(0.01,value/127.);
     updateOscVolume();
     break;
-  case 88: //lpf env level
+  case 88: //lpf env level v
+    break;
+  case 89: //lpf lfo level v
+    break;
+  case 90: //lpf keybd level v (modulation based on freq of note played)
+    break;
+  case 101: //lfo rate
+    break;
+  case 102: //dco lfo level
+    oscLfoLevel = (value/127.);
+    updatePulseWidth();
+    break;
     
   case 121: // controller reset
     resetAll();

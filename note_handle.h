@@ -1,7 +1,7 @@
 struct Oscillator {
-  AudioSynthWaveform*  pulseLFO;
-  AudioSynthWaveform*  saw;
-  AudioSynthWaveform*  sub;
+  AudioSynthWaveformModulated*  pulseLFO;
+  AudioSynthWaveformModulated*  saw;
+  AudioSynthWaveformModulated*  sub;
   AudioSynthNoiseWhite*          noise;
 
   AudioMixer4*                  oscMixer;
