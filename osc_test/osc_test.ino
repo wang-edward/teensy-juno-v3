@@ -15,92 +15,22 @@ struct Oscillator {
   AudioMixer4* mixer;
 };
 
-// GUItool: begin automatically generated code
-//AudioSynthWaveform       saw0;           //xy=171,171
-//AudioSynthNoiseWhite     noise0;         //xy=193,242
-//AudioSynthWaveform       square0;        //xy=201,104
-//AudioMixer4              mixer0;         //xy=354,185
-//AudioFilterStateVariable hpf0;           //xy=513,197
-//AudioFilterStateVariable lpf0;           //xy=655,205
-//AudioEffectChorus        chorus1;        //xy=828.75,208.75
-//AudioOutputI2S           i2s1;           //xy=1013,230.50003051757812
-//AudioConnection          patchCord1(saw0, 0, mixer0, 1);
-//AudioConnection          patchCord2(noise0, 0, mixer0, 2);
-//AudioConnection          patchCord3(square0, 0, mixer0, 0);
-//AudioConnection          patchCord4(mixer0, 0, hpf0, 0);
-//AudioConnection          patchCord5(hpf0, 2, lpf0, 0);
-//AudioConnection          patchCord6(lpf0, 0, chorus1, 0);
-//AudioConnection          patchCord7(chorus1, 0, i2s1, 0);
-//AudioConnection          patchCord8(chorus1, 0, i2s1, 1);
-//AudioControlSGTL5000     sgtl5000_1;     //xy=473,351
-// GUItool: end automatically generated code
-
-
-
-/////////////////////////////////////////////
-
-// !CHORUS!
 
 // GUItool: begin automatically generated code
-#include <Audio.h>
-#include <Wire.h>
-#include <SPI.h>
-#include <SD.h>
-#include <SerialFlash.h>
-
-// GUItool: begin automatically generated code
-AudioSynthWaveform       squareDC;       //xy=271,251
-AudioSynthNoiseWhite     noise0;         //xy=315,403
-AudioSynthWaveform       saw0;           //xy=327,332
-AudioSynthWaveformDc     dc1;            //xy=367,553
-AudioSynthWaveform       square0;        //xy=455,237
-AudioMixer4              mixer0;         //xy=519,338
-AudioEffectEnvelope      vcfEnv;      //xy=551,540
-AudioFilterStateVariable hpf0;           //xy=678,350
-AudioFilterStateVariable lpf0;           //xy=815,351
-AudioEffectEnvelope      envelope0;      //xy=956,358
-AudioEffectChorus        chorus1;        //xy=1142,384
-AudioOutputI2S           i2s1;           //xy=1303,379
-AudioConnection          patchCord1(squareDC, 0, square0, 1);
-AudioConnection          patchCord2(noise0, 0, mixer0, 2);
+AudioSynthWaveform       squareDC;      //xy=150,214
+AudioSynthWaveform       sawDC; //xy=201.76666259765625,302.3666687011719
+AudioSynthWaveformModulated saw0;   //xy=381.3666687011719,266.3666687011719
+AudioSynthWaveformModulated square0;   //xy=391.3666687011719,195.36666870117188
+AudioMixer4              mixer0;         //xy=552.3666381835938,287.3666687011719
+AudioOutputI2S           i2s1;           //xy=846.36669921875,331.3666687011719
+AudioConnection          patchCord1(squareDC, 0, square0, 0);
+AudioConnection          patchCord2(sawDC, 0, saw0, 0);
 AudioConnection          patchCord3(saw0, 0, mixer0, 1);
-AudioConnection          patchCord4(dc1, vcfEnv);
-AudioConnection          patchCord5(square0, 0, mixer0, 0);
-AudioConnection          patchCord6(mixer0, 0, hpf0, 0);
-AudioConnection          patchCord7(vcfEnv, 0, lpf0, 1);
-AudioConnection          patchCord8(hpf0, 2, lpf0, 0);
-AudioConnection          patchCord9(lpf0, 0, envelope0, 0);
-AudioConnection          patchCord10(envelope0, chorus1);
-AudioConnection          patchCord11(chorus1, 0, i2s1, 0);
-AudioConnection          patchCord12(chorus1, 0, i2s1, 1);
-AudioControlSGTL5000     sgtl5000_1;     //xy=1081,577
+AudioConnection          patchCord4(square0, 0, mixer0, 0);
+AudioConnection          patchCord5(mixer0, 0, i2s1, 0);
+AudioConnection          patchCord6(mixer0, 0, i2s1, 1);
+AudioControlSGTL5000     sgtl5000_1;     //xy=1113.3666687011719,524.3666687011719
 // GUItool: end automatically generated code
-
-//////////////////////////////////////////
-
-//modulated square!
-// GUItool: begin automatically generated code
-//AudioSynthWaveform       squareDC;      //xy=1358.5714285714284,1019.9999999999999
-//AudioSynthNoiseWhite     noise0;         //xy=1402.142780303955,1171.571496963501
-//AudioSynthWaveform       saw0;           //xy=1414.4286346435547,1100.5714626312256
-//AudioSynthWaveformModulated square0;   //xy=1542.857135772705,1005.714277267456
-//AudioMixer4              mixer0;         //xy=1606,1106
-//AudioFilterStateVariable hpf0;           //xy=1765,1118
-//AudioFilterStateVariable lpf0;           //xy=1902,1119
-//AudioEffectEnvelope      envelope0;      //xy=2043,1126
-//AudioOutputI2S           i2s1;           //xy=2245,1143
-//AudioConnection          patchCord1(squareDC, 0, square0, 1);
-//AudioConnection          patchCord2(noise0, 0, mixer0, 2);
-//AudioConnection          patchCord3(saw0, 0, mixer0, 1);
-//AudioConnection          patchCord4(square0, 0, mixer0, 0);
-//AudioConnection          patchCord5(mixer0, 0, hpf0, 0);
-//AudioConnection          patchCord6(hpf0, 2, lpf0, 0);
-//AudioConnection          patchCord7(lpf0, 0, envelope0, 0);
-//AudioConnection          patchCord8(envelope0, 0, i2s1, 0);
-//AudioConnection          patchCord9(envelope0, 0, i2s1, 1);
-//AudioControlSGTL5000     sgtl5000_1;     //xy=1725,1272
-// GUItool: end automatically generated code
-
 
 
 
@@ -119,18 +49,20 @@ void myNoteOn(uint8_t channel, uint8_t note, uint8_t velocity) {
     isPlaying = true;
     square0.frequency(noteToFreq(note));
     saw0.frequency(noteToFreq(note));
-//    square0.amplitude(1.0);
-//    saw0.amplitude(1.0);
-    envelope0.noteOn();
+    square0.amplitude(1.0);
+    saw0.amplitude(1.0);
+//    envelope0.noteOn();
   }
 }
 
 void myNoteOff(uint8_t channel, uint8_t note, uint8_t velocity) {
-  Serial.println("note off!");
+
   isPlaying = false;
-  Serial.print("BEFORE");
-  envelope0.noteOff();
-  Serial.println("AFTER");
+
+//  envelope0.noteOff();
+  square0.amplitude(0);
+    saw0.amplitude(0);
+  
 }
 
 void setup() {
@@ -144,33 +76,16 @@ void setup() {
   square0.begin(WAVEFORM_SQUARE);
   square0.amplitude(0.75);
   
-  squareDC.begin(WAVEFORM_SQUARE);
-  squareDC.pulseWidth(0.85);
-
+  //squareDC.begin(0.5, 1, WAVEFORM_TRIANGLE);
+  squareDC.begin(0.5, 1, WAVEFORM_SINE);
   saw0.begin(WAVEFORM_SAWTOOTH);
   saw0.amplitude(0.75);
-  saw0.pulseWidth(0.15);
-
-  noise0.amplitude(1.0);
   
   mixer0.gain(0,1.0);
-  mixer0.gain(1,1.0);
+  mixer0.gain(1,0);
   mixer0.gain(2,0);
 
-  hpf0.frequency(0);
-  lpf0.frequency(2000);
-  lpf0.octaveControl(2.5);
-  
-//  envelope0.delay(0);
-//  envelope0.hold(0);
-  
-  envelope0.attack(100);
-  envelope0.release(100);
 
-  vcfEnv.attack(500);
-  dc1.amplitude(1);
-
-//  chorus1.begin(20,4,5);
 }
 
 

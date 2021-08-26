@@ -109,13 +109,13 @@ void setup() {
 //  lpfEnv.attack(100);
 
   lfo.begin(WAVEFORM_TRIANGLE);
-  lfo.amplitude(1);
-  lfo.offset(1);
-  lfo.frequency(0.05);
+  lfo.amplitude(10);
+  lfo.offset(0);
+  lfo.frequency(1);
   dcoPitchAmp.gain(100);
 //  pwmDc.amplitude(0);
-  pwmMixer.gain(0,10);
-  pwmMixer.gain(1,0);
+  //  pwmMixer.gain(0,10);
+  //  pwmMixer.gain(1,0);
 //  dcoPitchAmp.gain(0);
   
   Oscillator *o=oscs,*end=oscs+NVOICES;
