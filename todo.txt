@@ -1,7 +1,7 @@
 what inputs and control change i gotta do
 - main lfo
 - lfo mod destinations
-- vcf mod amt sliders
+- vcf mod amt sliders !
 pwm modulation
 - lfo and dc
 - inputs and control-change
@@ -10,3 +10,6 @@ lfo delay
 - need to research https://arduino.cc/en/Tutorial/BlinkWithoutDelay
 filter modulation
 - mixer destinations
+
+
+!! Make gains only 0.25 to avoid clipping (0.25 * 4 == 1)

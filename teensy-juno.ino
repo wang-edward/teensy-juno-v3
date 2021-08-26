@@ -110,13 +110,18 @@ void setup() {
 
   lfo.begin(WAVEFORM_TRIANGLE);
   lfo.amplitude(1);
-  lfo.frequency(4);
-  pwmDc.amplitude(1);
-//  pwmMixer.gain(0,1);
-//  pwmMixer.gain(1,0);
+  lfo.offset(1);
+  lfo.frequency(0.05);
+  dcoPitchAmp.gain(100);
+//  pwmDc.amplitude(0);
+  pwmMixer.gain(0,10);
+  pwmMixer.gain(1,0);
+//  dcoPitchAmp.gain(0);
   
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
+    o->pulseLFO->frequencyModulation(12);
+    o->sub->frequencyModulation(12);
     o->lpf->octaveControl(3);
   } while (++o < end);
   
@@ -134,7 +139,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   usbMIDI.read();
 //  updateMasterVolume();
-  updatePortamento();
+//  updatePortamento();
   
 //#if SYNTH_DEBUG > 0
 //  performanceCheck();
