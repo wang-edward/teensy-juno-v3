@@ -1,5 +1,5 @@
 # teensy-juno
-A clone of the JUNO-106 synthesizer with Teensy (currently 3.2 but should work on all >3.2)
+A Teensy 3.x/4.x based polyphonic synthesizer, modelled after the Juno-106
 ## Features
 - 8 Voice polyphony
 - Flanger! 
@@ -10,8 +10,6 @@ A clone of the JUNO-106 synthesizer with Teensy (currently 3.2 but should work o
 - ADSR Envelope
 - Pan
 - Portamento with variable time
+- LFO, PWM and VCF modulation
 ## Coming soon?
-- LFO
-  - Pitch, PWM, VCF, and portamento time?
-- Filter envelope modulation
-- and hardware
+- hardware
