@@ -15,23 +15,23 @@ struct Oscillator {
   AudioMixer4* mixer;
 };
 
-
 // GUItool: begin automatically generated code
-AudioSynthWaveform       squareDC;      //xy=150,214
-AudioSynthWaveform       sawDC; //xy=201.76666259765625,302.3666687011719
-AudioSynthWaveformModulated saw0;   //xy=381.3666687011719,266.3666687011719
-AudioSynthWaveformModulated square0;   //xy=391.3666687011719,195.36666870117188
-AudioMixer4              mixer0;         //xy=552.3666381835938,287.3666687011719
-AudioOutputI2S           i2s1;           //xy=846.36669921875,331.3666687011719
-AudioConnection          patchCord1(squareDC, 0, square0, 0);
-AudioConnection          patchCord2(sawDC, 0, saw0, 0);
-AudioConnection          patchCord3(saw0, 0, mixer0, 1);
-AudioConnection          patchCord4(square0, 0, mixer0, 0);
-AudioConnection          patchCord5(mixer0, 0, i2s1, 0);
-AudioConnection          patchCord6(mixer0, 0, i2s1, 1);
-AudioControlSGTL5000     sgtl5000_1;     //xy=1113.3666687011719,524.3666687011719
+AudioSynthWaveform       squareDC;       //xy=118.44999694824219,119
+AudioSynthWaveform       sawDC;          //xy=182.4499969482422,250
+AudioAmplifier           squareAmp;           //xy=192.4499969482422,184.4499969482422
+AudioSynthWaveformModulated saw0;           //xy=362.4499969482422,214
+AudioSynthWaveformModulated square0;        //xy=372.4499969482422,143
+AudioMixer4              mixer0;         //xy=533.4499969482422,235
+AudioOutputI2S           i2s1;           //xy=827.4499969482422,279
+AudioConnection          patchCord1(squareDC, squareAmp);
+AudioConnection          patchCord2(squareAmp, 0, square0, 0);
+AudioConnection          patchCord3(squareAmp, 0, saw0, 0);
+AudioConnection          patchCord4(saw0, 0, mixer0, 1);
+AudioConnection          patchCord5(square0, 0, mixer0, 0);
+AudioConnection          patchCord6(mixer0, 0, i2s1, 0);
+AudioConnection          patchCord7(mixer0, 0, i2s1, 1);
+AudioControlSGTL5000     sgtl5000_1;     //xy=1094.4499969482422,472
 // GUItool: end automatically generated code
-
 
 
 boolean isPlaying = false;
@@ -50,7 +50,7 @@ void myNoteOn(uint8_t channel, uint8_t note, uint8_t velocity) {
     square0.frequency(noteToFreq(note));
     saw0.frequency(noteToFreq(note));
     square0.amplitude(1.0);
-    saw0.amplitude(1.0);
+//    saw0.amplitude(1.0);
 //    envelope0.noteOn();
   }
 }
@@ -72,12 +72,13 @@ void setup() {
   usbMIDI.setHandleNoteOn(myNoteOn);
   
   sgtl5000_1.enable();
-  sgtl5000_1.volume(0.6);
+  sgtl5000_1.volume(0.025);
   square0.begin(WAVEFORM_SQUARE);
   square0.amplitude(0.75);
   
   //squareDC.begin(0.5, 1, WAVEFORM_TRIANGLE);
   squareDC.begin(0.5, 1, WAVEFORM_SINE);
+  squareAmp.gain(0.5);
   saw0.begin(WAVEFORM_SAWTOOTH);
   saw0.amplitude(0.75);
   
@@ -87,7 +88,6 @@ void setup() {
 
 
 }
-
 
 void loop() {
   // put your main code here, to run repeatedly:
