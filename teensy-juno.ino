@@ -66,14 +66,13 @@ void testSetup() {
   pulseOn=true;
   flangerOn = true;
   envOn = true;
-  
+
+  //reduce clipping
   for (int i=0;i<4;i++) {
-    EnvMixer0.gain(i,1.0);
-    EnvMixer1.gain(i,1.0);
-//    EnvMixer2.gain(i,1.0);
-//    EnvMixer3.gain(i,1.0);
-    mixerL.gain(i,1.0);
-    mixerR.gain(i,1.0);
+    EnvMixer0.gain(i,0.25);
+    EnvMixer1.gain(i,0.25);
+    mixerL.gain(i,0.5);
+    mixerR.gain(i,0.5);
   }
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
@@ -82,8 +81,12 @@ void testSetup() {
     o->saw->begin(WAVEFORM_SAWTOOTH);
     o->pulseLFO->begin(WAVEFORM_PULSE);
     o->sub->begin(WAVEFORM_PULSE); // sub!
-    o->oscMixer->gain(1,1.0);
-    o->oscMixer->gain(2,1.0);
+
+    //reduce clipping
+    o->oscMixer->gain(0,0.25);
+    o->oscMixer->gain(1,0.25);
+    o->oscMixer->gain(2,0.25);
+    o->oscMixer->gain(3,0.25);
   } while (++o < end);
   updateEnvelopeMode();
 }
@@ -108,17 +111,19 @@ void setup() {
 //  dc0.amplitude(1);
 //  lpfEnv.attack(100);
 
-  lfo.begin(WAVEFORM_TRIANGLE);
-  lfo.amplitude(1);
-  lfo.frequency(4);
-  pwmDc.amplitude(1);
-//  pwmMixer.gain(0,1);
-//  pwmMixer.gain(1,0);
+//  lfo.begin(0.5, 1, WAVEFORM_SINE);
+  dcoPitchAmp.gain(0.5);
+//  pwmDc.amplitude(0);
+  //  pwmMixer.gain(0,10);
+  //  pwmMixer.gain(1,0);
+//  dcoPitchAmp.gain(0);
   
-  Oscillator *o=oscs,*end=oscs+NVOICES;
-  do {
-    o->lpf->octaveControl(3);
-  } while (++o < end);
+//  Oscillator *o=oscs,*end=oscs+NVOICES;
+//  do {
+//    o->pulseLFO->frequencyModulation(12);
+//    o->sub->frequencyModulation(12);
+//    o->lpf->octaveControl(3);
+//  } while (++o < end);
   
 //  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
   usbMIDI.setHandleControlChange(OnControlChange);
@@ -134,7 +139,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   usbMIDI.read();
 //  updateMasterVolume();
-  updatePortamento();
+//  updatePortamento();
   
 //#if SYNTH_DEBUG > 0
 //  performanceCheck();

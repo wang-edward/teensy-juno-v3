@@ -38,7 +38,7 @@ short delaylineR[DELAY_LENGTH];
 
 #define SYNTH_COM Serial
 
-float   masterVolume   = 0.9;
+float   masterVolume   = 0.8;
 //uint8_t currentProgram = WAVEFORM_SAWTOOTH;
 
 bool  polyOn = true;

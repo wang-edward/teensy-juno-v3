@@ -155,11 +155,16 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
       case 0: //none
         break;
       case 1:
+        flangerOffset     = DELAY_LENGTH/4;
+        flangerDepth      = DELAY_LENGTH/16;
+        flangerFreqCoarse = 0;
+        flangerFreqFine   = .5;
+      case 2:
         flangerOffset = 2*DELAY_LENGTH/4;
         flangerDepth = DELAY_LENGTH/4;
         flangerFreqCoarse = 3;
         flangerFreqFine = 0;
-      case 2:
+      case 3:
         flangerOffset = 3*DELAY_LENGTH/4;
         flangerDepth = DELAY_LENGTH/8;
         flangerFreqCoarse = 0.0625;

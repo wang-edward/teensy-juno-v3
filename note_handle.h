@@ -1,4 +1,4 @@
-struct Oscillator {
+  struct Oscillator {
   AudioSynthWaveformModulated*  pulseLFO;
   AudioSynthWaveformModulated*  saw;
   AudioSynthWaveformModulated*  sub;
