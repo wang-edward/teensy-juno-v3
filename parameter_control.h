@@ -73,13 +73,30 @@ void updateFlanger() {
 //!update
 inline void updatePulseWidth() {
 //  if (currentProgram!=WAVEFORM_PULSE) return;
-  pwmMixer.gain(0,oscLfoLevel); //lfo pwm
-  pwmMixer.gain(1,pulseWidth); //manual pwm
+
+  if (pwmLfoOn) {
+    //amount of lfo mod gets controlled by pwm slider
+    pwmMixer.gain(0,pulseWidth); //set lfo pwm
+    pwmMixer.gain(1,0); // turn off manual pwm
+  } else {
+    //manually set pulse width
+    pwmMixer.gain(1,pulseWidth);
+    pwmMixer.gain(0,0); // turn off manual pwm
+  }
+  
 //  Oscillator *o=oscs,*end=oscs+NVOICES;
 //  do {
 //    if (o->note < 0) continue;
 //    o->pulseLFO->pulseWidth(pulseWidth);
 //  } while(++o < end);
+}
+
+inline void updateLfo() {
+  lfo.frequency(lfoRate);
+}
+
+inline void updateOscLfo() {
+  oscLfoAmp.gain(oscLfoLevel);
 }
 
 inline void updatePitch() {

@@ -105,15 +105,16 @@ void setup() {
 
   sgtl5000_1.enable(); 
   sgtl5000_1.volume(masterVolume);
+  sgtl5000_1.volume(0.9);
   testSetup();
   resetAll();
 
 //  dc0.amplitude(1);
 //  lpfEnv.attack(100);
 
-//  lfo.begin(0.5, 1, WAVEFORM_SINE);
-  dcoPitchAmp.gain(0.5);
-//  pwmDc.amplitude(0);
+  lfo.begin(0.5, 1, WAVEFORM_SINE);
+  oscLfoAmp.gain(0.5);
+  pwmDc.amplitude(1);
   //  pwmMixer.gain(0,10);
   //  pwmMixer.gain(1,0);
 //  dcoPitchAmp.gain(0);

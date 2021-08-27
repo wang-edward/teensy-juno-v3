@@ -52,8 +52,11 @@ bool sawOn = true;
 bool noiseOn = false; //start with false
 bool subOn = true;
 
-float lfoRate;
+bool pwmLfoOn;
 
+float lfoRate;
+float lfoDelay; // not yet
+float pulseWidth; // 0.05-0.95
 float oscLfoLevel;
 float noiseLevel;
 float subLevel;
@@ -61,7 +64,6 @@ float subLevel;
 bool  sustainPressed;
 float channelVolume = 1.0;
 float panorama;
-float pulseWidth; // 0.05-0.95
 float pitchBend;  // -1/+1 oct
 float pitchScale;
 int   octCorr;

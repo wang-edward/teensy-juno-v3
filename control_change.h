@@ -94,7 +94,7 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     envSustain = value/127.;
     updateEnvelope();
     break;
-  case 24: // pulse width v
+  case 24: // pulse width manual v
     pulseWidth = (value/127.)*0.9+0.05;
     updatePulseWidth();
     break;
@@ -220,10 +220,12 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
   case 90: //lpf keybd level v (modulation based on freq of note played)
     break;
   case 101: //lfo rate
+    lfoRate = 30 * (pow((value/127.),2)); //curved scaling so it's easier to input lower frequencies
+    updateLfo();
     break;
-  case 102: //dco lfo level
-    oscLfoLevel = (value/127.);
-    updatePulseWidth();
+  case 102: //dco lfo level 
+    oscLfoLevel = (pow((value/127.),2)); //curved scaling so it's easier to input lower frequencies
+    updateOscLfo();
     break;
     
   case 121: // controller reset
