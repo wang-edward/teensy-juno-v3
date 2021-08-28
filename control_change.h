@@ -124,6 +124,13 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
   case 30: // pitch range in semitones v
     pitchScale = 12./value;
     break;
+  case 31: //lfo man switch
+    if (value==0) {
+      pwmLfoOn = true;
+    } else if (value==1) {
+      pwmLfoOn = false;
+    }
+    updatePulseWidth();
   case 64: // sustain/damper pedal ?
     if (value > 63) sustainPressed = true;
     else {
@@ -214,10 +221,16 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     updateOscVolume();
     break;
   case 88: //lpf env level v
+    lpfEnvLevel = (value/127.)*0.25;
+    updateLpfEnvLevel();
     break;
   case 89: //lpf lfo level v
+    lpfLfoLevel = (value/127.)*0.25;
+    updateLpfLfoLevel();
     break;
   case 90: //lpf keybd level v (modulation based on freq of note played)
+    lpfKbdLevel = (value/127.)*0.25;
+    updateLpfKbdLevel();
     break;
   case 101: //lfo rate
     lfoRate = 30 * (pow((value/127.),2)); //curved scaling so it's easier to input lower frequencies
@@ -227,7 +240,12 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     oscLfoLevel = (pow((value/127.),2)); //curved scaling so it's easier to input lower frequencies
     updateOscLfo();
     break;
-    
+  case 103: // vcf env inversion
+    if (value==0) {
+      vcfEnvDc.amplitude(1);
+    } else if (value==1) {
+      vcfEnvDc.amplitude(-1);
+    }
   case 121: // controller reset
     resetAll();
     break;

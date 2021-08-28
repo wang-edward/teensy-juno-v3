@@ -14,6 +14,18 @@ inline void updateLPF() {
   } while (++o < end);
 }
 
+inline void updateLpfEnvLevel() {
+  
+}
+
+inline void updateLpfLfoLevel() {
+  
+}
+
+inline void updateLpfKbdLevel() {
+  
+}
+
 inline void updateEnvelope() {
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {

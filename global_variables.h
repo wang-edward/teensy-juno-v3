@@ -72,9 +72,10 @@ int   octCorr;
 //FilterMode_t filterMode;
 float lpfFreq; // 20-AUDIO_SAMPLE_RATE_EXACT/2.5
 float lpfReso; // 0.9-5.0
-float lpfEnvLevel; //AMOUNT OF MODULATION FROM ENVELOPE
 float lpfLfoLevel; //amt mod from lfo
-float lpfKybdLevel; //amt mod from keyboard
+float lpfEnvLevel; //AMOUNT OF MODULATION FROM ENVELOPE
+float lpfKbdLevel; //amt mod from keyboard
+float lpfModWheelLevel; // modulation from mod wheel
 //float lpfAtt;  // 0-1
 
 float hpfFreq; // 20-AUDIO_SAMPLE_RATE_EXACT/2.5
