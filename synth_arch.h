@@ -5,92 +5,92 @@
 #include <SerialFlash.h>
 
 // GUItool: begin automatically generated code
-AudioSynthWaveformDc     pwmDc;          //xy=341.3333435058594,581.3333129882812
-AudioSynthWaveform       lfo;            //xy=415.3333435058594,391.33331298828125
-AudioAmplifier           oscLfoAmp;      //xy=437.3333435058594,1131.3333129882812
-AudioMixer4              pwmMixer;       //xy=437.3333435058594,1227.3333129882812
-AudioSynthWaveformModulated sub7;           //xy=638.3333435058594,1849.3333129882812
-AudioSynthWaveformModulated sub4;           //xy=640.3333435058594,1351.3333129882812
-AudioSynthWaveformModulated saw7;           //xy=639.3333435058594,1810.3333129882812
-AudioSynthWaveformModulated saw4;           //xy=641.3333435058594,1312.3333129882812
-AudioSynthWaveformModulated sub6;           //xy=640.3333435058594,1683.3333129882812
-AudioSynthWaveformModulated saw6;           //xy=641.3333435058594,1644.3333129882812
-AudioSynthWaveformModulated sub5;           //xy=644.3333435058594,1519.3333129882812
-AudioSynthWaveformModulated sub3;           //xy=646.3333435058594,1186.3333129882812
-AudioSynthWaveformModulated saw5;           //xy=645.3333435058594,1480.3333129882812
-AudioSynthNoiseWhite     noise7;         //xy=644.3333435058594,1888.3333129882812
-AudioSynthNoiseWhite     noise4;         //xy=646.3333435058594,1390.3333129882812
-AudioSynthWaveformModulated saw3;           //xy=647.3333435058594,1147.3333129882812
-AudioSynthNoiseWhite     noise6;         //xy=646.3333435058594,1722.3333129882812
-AudioSynthWaveformModulated pulseLFO7;      //xy=648.3333435058594,1769.3333129882812
-AudioSynthWaveformModulated sub2;           //xy=651.3333435058594,1020.3333129882812
-AudioSynthWaveformModulated pulseLFO4;      //xy=650.3333435058594,1271.3333129882812
-AudioSynthWaveformModulated saw2;           //xy=652.3333435058594,981.3333129882812
-AudioSynthNoiseWhite     noise5;         //xy=650.3333435058594,1558.3333129882812
-AudioSynthWaveformModulated pulseLFO6;      //xy=650.3333435058594,1603.3333129882812
-AudioSynthWaveformModulated sub0;           //xy=654.3333435058594,676.3333129882812
-AudioSynthNoiseWhite     noise3;         //xy=652.3333435058594,1225.3333129882812
-AudioSynthWaveformModulated saw0;           //xy=655.3333435058594,637.3333129882812
-AudioSynthWaveformModulated sub1;           //xy=655.3333435058594,849.3333129882812
-AudioSynthWaveformModulated saw1;           //xy=656.3333435058594,810.3333129882812
-AudioSynthWaveformModulated pulseLFO5;      //xy=654.3333435058594,1439.3333129882812
-AudioSynthWaveformModulated pulseLFO3;      //xy=656.3333435058594,1106.3333129882812
-AudioSynthNoiseWhite     noise2;         //xy=657.3333435058594,1059.3333129882812
-AudioSynthNoiseWhite     noise0;         //xy=661.3333435058594,716.3333129882812
-AudioSynthNoiseWhite     noise1;         //xy=661.3333435058594,888.3333129882812
-AudioSynthWaveformModulated pulseLFO2;      //xy=661.3333435058594,940.3333129882812
-AudioSynthWaveformModulated pulseLFO0;      //xy=664.3333435058594,596.3333129882812
-AudioSynthWaveformModulated pulseLFO1;      //xy=665.3333435058594,769.3333129882812
-AudioSynthWaveformDc     vcfEnvDc;       //xy=708.3333435058594,460.33331298828125
-AudioSynthWaveformDc     vcfKeyboardDc;  //xy=783.3333435058594,509.33331298828125
-AudioEffectEnvelope      vcfEnv;         //xy=846.3333435058594,463.33331298828125
-AudioMixer4              oscMixer7;      //xy=849.3333435058594,1839.3333129882812
-AudioMixer4              oscMixer4;      //xy=851.3333435058594,1341.3333129882812
-AudioMixer4              oscMixer6;      //xy=851.3333435058594,1673.3333129882812
-AudioMixer4              oscMixer5;      //xy=855.3333435058594,1509.3333129882812
-AudioMixer4              oscMixer3;      //xy=857.3333435058594,1176.3333129882812
-AudioMixer4              oscMixer2;      //xy=862.3333435058594,1010.3333129882812
-AudioMixer4              oscMixer0;      //xy=866.3333435058594,667.3333129882812
-AudioMixer4              oscMixer1;      //xy=866.3333435058594,839.3333129882812
-AudioSynthWaveformDc     vcfModWheelDc;  //xy=877.3333435058594,548.3333129882812
-AudioFilterStateVariable hpf7;           //xy=992.3333435058594,1850.3333129882812
-AudioFilterStateVariable hpf4;           //xy=994.3333435058594,1352.3333129882812
-AudioFilterStateVariable hpf6;           //xy=994.3333435058594,1684.3333129882812
-AudioFilterStateVariable hpf5;           //xy=998.3333435058594,1520.3333129882812
-AudioFilterStateVariable hpf3;           //xy=1000.3333435058594,1187.3333129882812
-AudioFilterStateVariable hpf2;           //xy=1005.3333435058594,1021.3333129882812
-AudioFilterStateVariable hpf0;           //xy=1009.3333435058594,678.3333129882812
-AudioFilterStateVariable hpf1;           //xy=1009.3333435058594,850.3333129882812
-AudioMixer4              vcfModMixer;    //xy=1100.3333435058594,478.33331298828125
-AudioFilterStateVariable lpf7;           //xy=1125.3333435058594,1870.3333129882812
-AudioFilterStateVariable lpf4;           //xy=1127.3333435058594,1372.3333129882812
-AudioFilterStateVariable lpf6;           //xy=1127.3333435058594,1704.3333129882812
-AudioFilterStateVariable lpf5;           //xy=1131.3333435058594,1540.3333129882812
-AudioFilterStateVariable lpf3;           //xy=1133.3333435058594,1207.3333129882812
-AudioFilterStateVariable lpf2;           //xy=1138.3333435058594,1041.3333129882812
-AudioFilterStateVariable lpf0;           //xy=1142.3333435058594,698.3333129882812
-AudioFilterStateVariable lpf1;           //xy=1142.3333435058594,870.3333129882812
-AudioEffectEnvelope      env7;           //xy=1263.3333435058594,1870.3333129882812
-AudioEffectEnvelope      env4;           //xy=1265.3333435058594,1372.3333129882812
-AudioAmplifier           vcfPolarity;    //xy=1269.3333435058594,546.3333129882812
-AudioEffectEnvelope      env6;           //xy=1265.3333435058594,1704.3333129882812
-AudioEffectEnvelope      env5;           //xy=1269.3333435058594,1540.3333129882812
-AudioEffectEnvelope      env3;           //xy=1271.3333435058594,1207.3333129882812
-AudioEffectEnvelope      env2;           //xy=1276.3333435058594,1041.3333129882812
-AudioEffectEnvelope      env0;           //xy=1280.3333435058594,698.3333129882812
-AudioEffectEnvelope      env1;           //xy=1280.3333435058594,870.3333129882812
-AudioMixer4              EnvMixer0;      //xy=1521.3333435058594,972.3333129882812
-AudioMixer4              EnvMixer1;      //xy=1544.3333435058594,1650.3333129882812
-AudioMixer4              mixerL;         //xy=1774.3333435058594,1256.3333129882812
-AudioMixer4              mixerR;         //xy=1781.3333435058594,1492.3333129882812
-AudioEffectFlange        flangerL;       //xy=1954.3333435058594,1344.3333129882812
-AudioEffectFlange        flangerR;       //xy=1959.3333435058594,1469.3333129882812
-AudioAnalyzePeak         peak;           //xy=1978.3333435058594,820.3333129882812
-AudioOutputI2S           i2s1;           //xy=2150.3333435058594,1396.3333129882812
+AudioSynthWaveformDc     pwmDc;          //xy=176.3333282470703,276
+AudioSynthWaveform       lfo;            //xy=250.3333282470703,86
+AudioAmplifier           oscLfoAmp;      //xy=272.3333282470703,826
+AudioMixer4              pwmMixer;       //xy=272.3333282470703,922
+AudioSynthWaveformModulated sub7;           //xy=473.3333282470703,1544
+AudioSynthWaveformModulated sub4;           //xy=475.3333282470703,1046
+AudioSynthWaveformModulated saw7;           //xy=474.3333282470703,1505
+AudioSynthWaveformModulated saw4;           //xy=476.3333282470703,1007
+AudioSynthWaveformModulated sub6;           //xy=475.3333282470703,1378
+AudioSynthWaveformModulated saw6;           //xy=476.3333282470703,1339
+AudioSynthWaveformModulated sub5;           //xy=479.3333282470703,1214
+AudioSynthWaveformModulated sub3;           //xy=481.3333282470703,881
+AudioSynthWaveformModulated saw5;           //xy=480.3333282470703,1175
+AudioSynthNoiseWhite     noise7;         //xy=479.3333282470703,1583
+AudioSynthNoiseWhite     noise4;         //xy=481.3333282470703,1085
+AudioSynthWaveformModulated saw3;           //xy=482.3333282470703,842
+AudioSynthNoiseWhite     noise6;         //xy=481.3333282470703,1417
+AudioSynthWaveformModulated pulseLFO7;      //xy=483.3333282470703,1464
+AudioSynthWaveformModulated sub2;           //xy=486.3333282470703,715
+AudioSynthWaveformModulated pulseLFO4;      //xy=485.3333282470703,966
+AudioSynthWaveformModulated saw2;           //xy=487.3333282470703,676
+AudioSynthNoiseWhite     noise5;         //xy=485.3333282470703,1253
+AudioSynthWaveformModulated pulseLFO6;      //xy=485.3333282470703,1298
+AudioSynthWaveformModulated sub0;           //xy=489.3333282470703,371
+AudioSynthNoiseWhite     noise3;         //xy=487.3333282470703,920
+AudioSynthWaveformModulated saw0;           //xy=490.3333282470703,332
+AudioSynthWaveformModulated sub1;           //xy=490.3333282470703,544
+AudioSynthWaveformModulated saw1;           //xy=491.3333282470703,505
+AudioSynthWaveformModulated pulseLFO5;      //xy=489.3333282470703,1134
+AudioSynthWaveformModulated pulseLFO3;      //xy=491.3333282470703,801
+AudioSynthNoiseWhite     noise2;         //xy=492.3333282470703,754
+AudioSynthNoiseWhite     noise0;         //xy=496.3333282470703,411
+AudioSynthNoiseWhite     noise1;         //xy=496.3333282470703,583
+AudioSynthWaveformModulated pulseLFO2;      //xy=496.3333282470703,635
+AudioSynthWaveformModulated pulseLFO0;      //xy=499.3333282470703,291
+AudioSynthWaveformModulated pulseLFO1;      //xy=500.3333282470703,464
+AudioSynthWaveformDc     vcfKeyboardDc;  //xy=583.3333129882812,202
+AudioSynthWaveformDc     vcfEnvDc;       //xy=613.3334045410156,92.00000762939453
+AudioSynthWaveformDc     vcfModWheelDc;  //xy=669.3333129882812,249
+AudioMixer4              oscMixer7;      //xy=684.3333282470703,1534
+AudioMixer4              oscMixer4;      //xy=686.3333282470703,1036
+AudioMixer4              oscMixer6;      //xy=686.3333282470703,1368
+AudioMixer4              oscMixer5;      //xy=690.3333282470703,1204
+AudioMixer4              oscMixer3;      //xy=692.3333282470703,871
+AudioMixer4              oscMixer2;      //xy=697.3333282470703,705
+AudioMixer4              oscMixer0;      //xy=701.3333282470703,362
+AudioMixer4              oscMixer1;      //xy=701.3333282470703,534
+AudioEffectEnvelope      vcfEnv;         //xy=748.3333129882812,116.00000762939453
+AudioFilterStateVariable hpf7;           //xy=827.3333282470703,1545
+AudioFilterStateVariable hpf4;           //xy=829.3333282470703,1047
+AudioFilterStateVariable hpf6;           //xy=829.3333282470703,1379
+AudioFilterStateVariable hpf5;           //xy=833.3333282470703,1215
+AudioFilterStateVariable hpf3;           //xy=835.3333282470703,882
+AudioFilterStateVariable hpf2;           //xy=840.3333282470703,716
+AudioFilterStateVariable hpf0;           //xy=844.3333282470703,373
+AudioFilterStateVariable hpf1;           //xy=844.3333282470703,545
+AudioMixer4              vcfModMixer;    //xy=923.3333129882812,162
+AudioFilterStateVariable lpf7;           //xy=960.3333282470703,1565
+AudioFilterStateVariable lpf4;           //xy=962.3333282470703,1067
+AudioFilterStateVariable lpf6;           //xy=962.3333282470703,1399
+AudioFilterStateVariable lpf5;           //xy=966.3333282470703,1235
+AudioFilterStateVariable lpf3;           //xy=968.3333282470703,902
+AudioFilterStateVariable lpf2;           //xy=973.3333282470703,736
+AudioFilterStateVariable lpf0;           //xy=977.3333282470703,393
+AudioFilterStateVariable lpf1;           //xy=977.3333282470703,565
+AudioEffectEnvelope      env7;           //xy=1098.3333282470703,1565
+AudioEffectEnvelope      env4;           //xy=1100.3333282470703,1067
+AudioAmplifier           vcfPolarity;    //xy=1104.3333282470703,241
+AudioEffectEnvelope      env6;           //xy=1100.3333282470703,1399
+AudioEffectEnvelope      env5;           //xy=1104.3333282470703,1235
+AudioEffectEnvelope      env3;           //xy=1106.3333282470703,902
+AudioEffectEnvelope      env2;           //xy=1111.3333282470703,736
+AudioEffectEnvelope      env0;           //xy=1115.3333282470703,393
+AudioEffectEnvelope      env1;           //xy=1115.3333282470703,565
+AudioMixer4              EnvMixer0;      //xy=1356.3333282470703,667
+AudioMixer4              EnvMixer1;      //xy=1379.3333282470703,1345
+AudioMixer4              mixerL;         //xy=1609.3333282470703,951
+AudioMixer4              mixerR;         //xy=1616.3333282470703,1187
+AudioEffectFlange        flangerL;       //xy=1789.3333282470703,1039
+AudioEffectFlange        flangerR;       //xy=1794.3333282470703,1164
+AudioAnalyzePeak         peak;           //xy=1813.3333282470703,515
+AudioOutputI2S           i2s1;           //xy=1985.3333282470703,1091
 AudioConnection          patchCord1(pwmDc, 0, pwmMixer, 1);
-AudioConnection          patchCord2(lfo, 0, vcfModMixer, 0);
-AudioConnection          patchCord3(lfo, oscLfoAmp);
-AudioConnection          patchCord4(lfo, 0, pwmMixer, 0);
+AudioConnection          patchCord2(lfo, oscLfoAmp);
+AudioConnection          patchCord3(lfo, 0, pwmMixer, 0);
+AudioConnection          patchCord4(lfo, 0, vcfModMixer, 1);
 AudioConnection          patchCord5(oscLfoAmp, 0, pulseLFO0, 0);
 AudioConnection          patchCord6(oscLfoAmp, 0, sub0, 0);
 AudioConnection          patchCord7(oscLfoAmp, 0, pulseLFO1, 0);
@@ -163,9 +163,9 @@ AudioConnection          patchCord73(noise1, 0, oscMixer1, 3);
 AudioConnection          patchCord74(pulseLFO2, 0, oscMixer2, 0);
 AudioConnection          patchCord75(pulseLFO0, 0, oscMixer0, 0);
 AudioConnection          patchCord76(pulseLFO1, 0, oscMixer1, 0);
-AudioConnection          patchCord77(vcfEnvDc, vcfEnv);
-AudioConnection          patchCord78(vcfKeyboardDc, 0, vcfModMixer, 2);
-AudioConnection          patchCord79(vcfEnv, 0, vcfModMixer, 1);
+AudioConnection          patchCord77(vcfKeyboardDc, 0, vcfModMixer, 2);
+AudioConnection          patchCord78(vcfEnvDc, vcfEnv);
+AudioConnection          patchCord79(vcfModWheelDc, 0, vcfModMixer, 3);
 AudioConnection          patchCord80(oscMixer7, 0, hpf7, 0);
 AudioConnection          patchCord81(oscMixer4, 0, hpf4, 0);
 AudioConnection          patchCord82(oscMixer6, 0, hpf6, 0);
@@ -174,7 +174,7 @@ AudioConnection          patchCord84(oscMixer3, 0, hpf3, 0);
 AudioConnection          patchCord85(oscMixer2, 0, hpf2, 0);
 AudioConnection          patchCord86(oscMixer0, 0, hpf0, 0);
 AudioConnection          patchCord87(oscMixer1, 0, hpf1, 0);
-AudioConnection          patchCord88(vcfModWheelDc, 0, vcfModMixer, 3);
+AudioConnection          patchCord88(vcfEnv, 0, vcfModMixer, 0);
 AudioConnection          patchCord89(hpf7, 2, lpf7, 0);
 AudioConnection          patchCord90(hpf4, 2, lpf4, 0);
 AudioConnection          patchCord91(hpf6, 2, lpf6, 0);
@@ -183,30 +183,38 @@ AudioConnection          patchCord93(hpf3, 2, lpf3, 0);
 AudioConnection          patchCord94(hpf2, 2, lpf2, 0);
 AudioConnection          patchCord95(hpf0, 2, lpf0, 0);
 AudioConnection          patchCord96(hpf1, 2, lpf1, 0);
-AudioConnection          patchCord97(lpf7, 0, env7, 0);
-AudioConnection          patchCord98(lpf4, 0, env4, 0);
-AudioConnection          patchCord99(lpf6, 0, env6, 0);
-AudioConnection          patchCord100(lpf5, 0, env5, 0);
-AudioConnection          patchCord101(lpf3, 0, env3, 0);
-AudioConnection          patchCord102(lpf2, 0, env2, 0);
-AudioConnection          patchCord103(lpf0, 0, env0, 0);
-AudioConnection          patchCord104(lpf1, 0, env1, 0);
-AudioConnection          patchCord105(env7, 0, EnvMixer1, 3);
-AudioConnection          patchCord106(env4, 0, EnvMixer1, 0);
-AudioConnection          patchCord107(env6, 0, EnvMixer1, 2);
-AudioConnection          patchCord108(env5, 0, EnvMixer1, 1);
-AudioConnection          patchCord109(env3, 0, EnvMixer0, 3);
-AudioConnection          patchCord110(env2, 0, EnvMixer0, 2);
-AudioConnection          patchCord111(env0, 0, EnvMixer0, 0);
-AudioConnection          patchCord112(env1, 0, EnvMixer0, 1);
-AudioConnection          patchCord113(EnvMixer0, peak);
-AudioConnection          patchCord114(EnvMixer0, 0, mixerL, 0);
-AudioConnection          patchCord115(EnvMixer0, 0, mixerR, 0);
-AudioConnection          patchCord116(EnvMixer1, 0, mixerL, 1);
-AudioConnection          patchCord117(EnvMixer1, 0, mixerR, 1);
-AudioConnection          patchCord118(mixerL, flangerL);
-AudioConnection          patchCord119(mixerR, flangerR);
-AudioConnection          patchCord120(flangerL, 0, i2s1, 0);
-AudioConnection          patchCord121(flangerR, 0, i2s1, 1);
-AudioControlSGTL5000     sgtl5000_1;     //xy=1931.3333435058594,1150.3333129882812
+AudioConnection          patchCord97(vcfModMixer, 0, lpf0, 1);
+AudioConnection          patchCord98(vcfModMixer, 0, lpf1, 1);
+AudioConnection          patchCord99(vcfModMixer, 0, lpf2, 1);
+AudioConnection          patchCord100(vcfModMixer, 0, lpf3, 1);
+AudioConnection          patchCord101(vcfModMixer, 0, lpf4, 1);
+AudioConnection          patchCord102(vcfModMixer, 0, lpf5, 1);
+AudioConnection          patchCord103(vcfModMixer, 0, lpf6, 1);
+AudioConnection          patchCord104(vcfModMixer, 0, lpf7, 1);
+AudioConnection          patchCord105(lpf7, 0, env7, 0);
+AudioConnection          patchCord106(lpf4, 0, env4, 0);
+AudioConnection          patchCord107(lpf6, 0, env6, 0);
+AudioConnection          patchCord108(lpf5, 0, env5, 0);
+AudioConnection          patchCord109(lpf3, 0, env3, 0);
+AudioConnection          patchCord110(lpf2, 0, env2, 0);
+AudioConnection          patchCord111(lpf0, 0, env0, 0);
+AudioConnection          patchCord112(lpf1, 0, env1, 0);
+AudioConnection          patchCord113(env7, 0, EnvMixer1, 3);
+AudioConnection          patchCord114(env4, 0, EnvMixer1, 0);
+AudioConnection          patchCord115(env6, 0, EnvMixer1, 2);
+AudioConnection          patchCord116(env5, 0, EnvMixer1, 1);
+AudioConnection          patchCord117(env3, 0, EnvMixer0, 3);
+AudioConnection          patchCord118(env2, 0, EnvMixer0, 2);
+AudioConnection          patchCord119(env0, 0, EnvMixer0, 0);
+AudioConnection          patchCord120(env1, 0, EnvMixer0, 1);
+AudioConnection          patchCord121(EnvMixer0, peak);
+AudioConnection          patchCord122(EnvMixer0, 0, mixerL, 0);
+AudioConnection          patchCord123(EnvMixer0, 0, mixerR, 0);
+AudioConnection          patchCord124(EnvMixer1, 0, mixerL, 1);
+AudioConnection          patchCord125(EnvMixer1, 0, mixerR, 1);
+AudioConnection          patchCord126(mixerL, flangerL);
+AudioConnection          patchCord127(mixerR, flangerR);
+AudioConnection          patchCord128(flangerL, 0, i2s1, 0);
+AudioConnection          patchCord129(flangerR, 0, i2s1, 1);
+AudioControlSGTL5000     sgtl5000_1;     //xy=1766.3333282470703,845
 // GUItool: end automatically generated code

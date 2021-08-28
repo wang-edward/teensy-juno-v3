@@ -15,27 +15,35 @@ inline void updateLPF() {
 }
 
 inline void updateLpfEnvLevel() {
-  
+  vcfModMixer.gain(0,lpfEnvLevel * 100);
 }
 
 inline void updateLpfLfoLevel() {
-  
+  vcfModMixer.gain(1,lpfLfoLevel);
 }
 
 inline void updateLpfKbdLevel() {
-  
+  vcfModMixer.gain(2,lpfKbdLevel);
+}
+
+inline void updateLpfModWheelLevel() {
+  vcfModMixer.gain(3,lpfModWheelLevel);
 }
 
 inline void updateEnvelope() {
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
-    o->env->delay(envDelay);
-    o->env->attack(envAttack);
-    o->env->hold(envHold);
-    o->env->decay(envDecay);
-    o->env->sustain(envSustain);
-    o->env->release(envRelease);
+//    o->env->delay(envDelay);
+//    o->env->attack(envAttack);
+//    o->env->hold(envHold);
+//    o->env->decay(envDecay);
+//    o->env->sustain(envSustain);
+//    o->env->release(envRelease);
   } while (++o < end);
+  vcfEnv.attack(envAttack);
+  vcfEnv.decay(envDecay);
+  vcfEnv.sustain(envSustain);
+  vcfEnv.release(envRelease);
 }
 
 inline void updateEnvelopeMode() {

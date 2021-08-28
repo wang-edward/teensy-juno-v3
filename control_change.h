@@ -221,15 +221,17 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     updateOscVolume();
     break;
   case 88: //lpf env level v
-    lpfEnvLevel = (value/127.)*0.25;
+//    lpfEnvLevel = (value/127.)*0.5;
+    lpfEnvLevel = (value/127.);
     updateLpfEnvLevel();
     break;
   case 89: //lpf lfo level v
-    lpfLfoLevel = (value/127.)*0.25;
+//    lpfLfoLevel = (value/127.)*0.5;
+    lpfLfoLevel = (value/127.);
     updateLpfLfoLevel();
     break;
   case 90: //lpf keybd level v (modulation based on freq of note played)
-    lpfKbdLevel = (value/127.)*0.25;
+    lpfKbdLevel = (value/127.)*0.5;
     updateLpfKbdLevel();
     break;
   case 101: //lfo rate

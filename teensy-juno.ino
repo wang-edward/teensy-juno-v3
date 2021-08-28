@@ -109,7 +109,7 @@ void setup() {
   testSetup();
   resetAll();
 
-//  dc0.amplitude(1);
+  vcfEnvDc.amplitude(5);
 //  lpfEnv.attack(100);
 
   lfo.begin(0.5, 1, WAVEFORM_SINE);
@@ -140,7 +140,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   usbMIDI.read();
 //  updateMasterVolume();
-//  updatePortamento();
+  updatePortamento();
   
 //#if SYNTH_DEBUG > 0
 //  performanceCheck();
