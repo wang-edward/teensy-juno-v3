@@ -20,7 +20,14 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
     if (envOn && !osc.velocity) osc.env->noteOn();
 
     //!
-    vcfEnv.noteOn();
+    if (lpfEnvLevel>0) {
+      osc.lpfEnv->noteOn();  
+      Serial.println("lpf ENV OscOn");
+    }
+    if (lpfLfoLevel>0) {
+      osc.lfoEnv->noteOn();
+      Serial.println("lpf LFO OscOn");
+    }
 
     if (pulseOn) {
       osc.pulseLFO->frequency(freq);
@@ -50,7 +57,8 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
     osc.velocity = velocity;
     osc.note = note;
   } else if (velocity > osc.velocity) {
-    //turn oscillators on
+    //change amplitude to new level
+    //i think this has to do with aftertouch
     if (pulseOn) osc.pulseLFO->amplitude(amp);
     if (sawOn) osc.saw->amplitude(amp);
     if (subLevel>0) osc.sub->amplitude(amp * subLevel);
@@ -61,11 +69,13 @@ inline void oscOn(Oscillator& osc, int8_t note, uint8_t velocity) {
 
 inline void oscOff(Oscillator& osc) {
 //  Serial.println("OSCOFFFFF");
-  if (envOn) {
-    osc.env->noteOff();
+  if (envOn) osc.env->noteOff();
 //    Serial.println("ENV NOTE OFF");
-  }
-  vcfEnv.noteOff();
+
+  osc.lpfEnv->noteOff(); osc.lfoEnv->noteOff();
+//  if (lpfEnvLevel>0) osc.lpfEnv->noteOff();
+//  if (lpfLfoLevel>0) osc.lfoEnv->noteOff();
+  
   if (!pulseOn) osc.pulseLFO->amplitude(0);
   if (!sawOn) osc.saw->amplitude(0);
   if (noiseLevel<=0.01) osc.noise->amplitude(0.01);
@@ -90,6 +100,7 @@ inline void allOff() {
     o->saw->amplitude(0);
     o->noise->amplitude(0);
     o->env->noteOff();
+    o->lpfEnv->noteOff();
   } while(++o < end);
   notesReset(notesOn);
 }

@@ -242,11 +242,11 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     oscLfoLevel = (pow((value/127.),2)); //curved scaling so it's easier to input lower frequencies
     updateOscLfo();
     break;
-  case 103: // vcf env inversion
+  case 103: // lpf env inversion
     if (value==0) {
-      vcfEnvDc.amplitude(1);
+      lpfEnvDc.amplitude(1);
     } else if (value==1) {
-      vcfEnvDc.amplitude(-1);
+      lpfEnvDc.amplitude(-1);
     }
   case 121: // controller reset
     resetAll();

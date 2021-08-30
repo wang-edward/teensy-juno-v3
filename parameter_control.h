@@ -15,19 +15,32 @@ inline void updateLPF() {
 }
 
 inline void updateLpfEnvLevel() {
-  vcfModMixer.gain(0,lpfEnvLevel * 2);
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->lpfModMixer->gain(0,lpfEnvLevel * 1);
+  } while (++o < end);
+  
 }
 
 inline void updateLpfLfoLevel() {
-  vcfModMixer.gain(1,lpfLfoLevel);
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->lpfModMixer->gain(1,lpfLfoLevel);
+  } while (++o < end);
 }
 
 inline void updateLpfKbdLevel() {
-  vcfModMixer.gain(2,lpfKbdLevel);
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->lpfModMixer->gain(2,lpfKbdLevel);
+  } while (++o < end);
 }
 
 inline void updateLpfModWheelLevel() {
-  vcfModMixer.gain(3,lpfModWheelLevel);
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->lpfModMixer->gain(3,lpfModWheelLevel);
+  } while (++o < end);
 }
 
 inline void updateEnvelope() {
@@ -39,11 +52,11 @@ inline void updateEnvelope() {
 //    o->env->decay(envDecay);
 //    o->env->sustain(envSustain);
 //    o->env->release(envRelease);
+      o->lpfEnv->attack(envAttack);
+      o->lpfEnv->decay(envDecay);
+      o->lpfEnv->sustain(envSustain);
+      o->lpfEnv->release(envRelease);
   } while (++o < end);
-  vcfEnv.attack(envAttack);
-  vcfEnv.decay(envDecay);
-  vcfEnv.sustain(envSustain);
-  vcfEnv.release(envRelease);
 }
 
 inline void updateEnvelopeMode() {

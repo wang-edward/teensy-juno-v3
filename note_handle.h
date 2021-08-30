@@ -8,7 +8,10 @@
   
   AudioFilterStateVariable*     hpf;
   AudioFilterStateVariable*     lpf;
-
+  
+  AudioMixer4*                  lpfModMixer;
+  AudioEffectEnvelope*          lpfEnv;
+  AudioEffectEnvelope*          lfoEnv;
   AudioEffectEnvelope*          env;
   
   int8_t  note;
@@ -17,14 +20,14 @@
 
 #define NVOICES 8
 Oscillator oscs[NVOICES] = {
-  { &pulseLFO0, &saw0, &sub0, &noise0, &oscMixer0, &hpf0, &lpf0, &env0, -1, 0},
-  { &pulseLFO1, &saw1, &sub1, &noise1, &oscMixer1, &hpf1, &lpf1, &env1, -1, 0},
-  { &pulseLFO2, &saw2, &sub2, &noise2, &oscMixer2, &hpf2, &lpf2, &env2, -1, 0},
-  { &pulseLFO3, &saw3, &sub3, &noise3, &oscMixer3, &hpf3, &lpf3, &env3, -1, 0},
-  { &pulseLFO4, &saw4, &sub4, &noise4, &oscMixer4, &hpf4, &lpf4, &env4, -1, 0},
-  { &pulseLFO5, &saw5, &sub5, &noise5, &oscMixer5, &hpf5, &lpf5, &env5, -1, 0},
-  { &pulseLFO6, &saw6, &sub6, &noise6, &oscMixer6, &hpf6, &lpf6, &env6, -1, 0},
-  { &pulseLFO7, &saw7, &sub7, &noise7, &oscMixer7, &hpf7, &lpf7, &env7, -1, 0},
+  { &pulseLFO0, &saw0, &sub0, &noise0, &oscMixer0, &hpf0, &lpf0, &lpfModMixer0, & lpfEnv0, &lfoEnv0, &env0, -1, 0},
+  { &pulseLFO1, &saw1, &sub1, &noise1, &oscMixer1, &hpf1, &lpf1, &lpfModMixer1, & lpfEnv1, &lfoEnv1, &env1, -1, 0},
+  { &pulseLFO2, &saw2, &sub2, &noise2, &oscMixer2, &hpf2, &lpf2, &lpfModMixer2, & lpfEnv2, &lfoEnv2, &env2, -1, 0},
+  { &pulseLFO3, &saw3, &sub3, &noise3, &oscMixer3, &hpf3, &lpf3, &lpfModMixer3, & lpfEnv3, &lfoEnv3, &env3, -1, 0},
+  { &pulseLFO4, &saw4, &sub4, &noise4, &oscMixer4, &hpf4, &lpf4, &lpfModMixer4, & lpfEnv4, &lfoEnv4, &env4, -1, 0},
+  { &pulseLFO5, &saw5, &sub5, &noise5, &oscMixer5, &hpf5, &lpf5, &lpfModMixer5, & lpfEnv5, &lfoEnv5, &env5, -1, 0},
+  { &pulseLFO6, &saw6, &sub6, &noise6, &oscMixer6, &hpf6, &lpf6, &lpfModMixer6, & lpfEnv6, &lfoEnv6, &env6, -1, 0},
+  { &pulseLFO7, &saw7, &sub7, &noise7, &oscMixer7, &hpf7, &lpf7, &lpfModMixer7, & lpfEnv7, &lfoEnv7, &env7, -1, 0},
 };
 
 int8_t notesOn[NVOICES]      = { -1, -1, -1, -1, -1, -1, -1, -1, };

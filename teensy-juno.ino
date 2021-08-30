@@ -109,13 +109,13 @@ void setup() {
   testSetup();
   resetAll();
 
-  vcfEnvDc.amplitude(5);
+  lpfEnvDc.amplitude(5);
 //  lpfEnv.attack(100);
 
   lfo.begin(1, 1, WAVEFORM_SINE);
   oscLfoAmp.gain(0.5);
   pwmDc.amplitude(1);
-  vcfEnvDc.amplitude(1);
+  lpfEnvDc.amplitude(1);
   //turn off lfo mod to start off
   lpfLfoLevel = 0;
   updateLpfLfoLevel();
@@ -134,7 +134,10 @@ void setup() {
   lpfEnvLevel = 0.98;
   updateLPF();
   updateLpfEnvLevel();
-//  vcfKeyboardDc.amplitude(1);
+//  lpfModMixer.gain(1,0);
+//  lpfModMixer.gain(2,0);
+//  lpfModMixer.gain(3,0);
+//  lpfKeyboardDc.amplitude(1);
   //  pwmMixer.gain(0,10);
   //  pwmMixer.gain(1,0);
 //  dcoPitchAmp.gain(0);
@@ -144,7 +147,7 @@ void setup() {
 //    o->pulseLFO->frequencyModulation(12);
 //    o->sub->frequencyModulation(12);
     o->lpf->octaveControl(7);
-    
+    o->lfoEnv->delay(500);
   } while (++o < end);
   
 //  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
