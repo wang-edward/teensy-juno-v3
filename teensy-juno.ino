@@ -112,19 +112,40 @@ void setup() {
   vcfEnvDc.amplitude(5);
 //  lpfEnv.attack(100);
 
-  lfo.begin(0.5, 1, WAVEFORM_SINE);
+  lfo.begin(1, 1, WAVEFORM_SINE);
   oscLfoAmp.gain(0.5);
   pwmDc.amplitude(1);
+  vcfEnvDc.amplitude(1);
+  //turn off lfo mod to start off
+  lpfLfoLevel = 0;
+  updateLpfLfoLevel();
+  oscLfoLevel = 0;
+  updateOscLfo();
+
+  //filter envelope test
+  pulseOn = false;
+  envAttack = 100;
+  envDecay = 500;
+  envSustain = 0;
+  envRelease = 150;
+  updateEnvelope();
+  lpfFreq = 300;
+  lpfReso = 3.49;
+  lpfEnvLevel = 0.98;
+  updateLPF();
+  updateLpfEnvLevel();
+//  vcfKeyboardDc.amplitude(1);
   //  pwmMixer.gain(0,10);
   //  pwmMixer.gain(1,0);
 //  dcoPitchAmp.gain(0);
   
-//  Oscillator *o=oscs,*end=oscs+NVOICES;
-//  do {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
 //    o->pulseLFO->frequencyModulation(12);
 //    o->sub->frequencyModulation(12);
-//    o->lpf->octaveControl(3);
-//  } while (++o < end);
+    o->lpf->octaveControl(7);
+    
+  } while (++o < end);
   
 //  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
   usbMIDI.setHandleControlChange(OnControlChange);

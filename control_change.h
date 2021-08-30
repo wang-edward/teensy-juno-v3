@@ -222,12 +222,12 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     break;
   case 88: //lpf env level v
 //    lpfEnvLevel = (value/127.)*0.5;
-    lpfEnvLevel = (value/127.);
+    lpfEnvLevel = (value/127.) * 2;
     updateLpfEnvLevel();
     break;
   case 89: //lpf lfo level v
 //    lpfLfoLevel = (value/127.)*0.5;
-    lpfLfoLevel = (value/127.);
+    lpfLfoLevel = (value/127.) * 2;
     updateLpfLfoLevel();
     break;
   case 90: //lpf keybd level v (modulation based on freq of note played)

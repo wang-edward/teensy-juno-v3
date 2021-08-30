@@ -65,6 +65,7 @@ inline void oscOff(Oscillator& osc) {
     osc.env->noteOff();
 //    Serial.println("ENV NOTE OFF");
   }
+  vcfEnv.noteOff();
   if (!pulseOn) osc.pulseLFO->amplitude(0);
   if (!sawOn) osc.saw->amplitude(0);
   if (noiseLevel<=0.01) osc.noise->amplitude(0.01);

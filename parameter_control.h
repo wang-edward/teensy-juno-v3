@@ -15,7 +15,7 @@ inline void updateLPF() {
 }
 
 inline void updateLpfEnvLevel() {
-  vcfModMixer.gain(0,lpfEnvLevel * 100);
+  vcfModMixer.gain(0,lpfEnvLevel * 2);
 }
 
 inline void updateLpfLfoLevel() {
@@ -193,10 +193,10 @@ inline void updatePolyMode() {
 
 inline void updatePortamento()
 {
-  Serial.print("portamento pos:"); Serial.println(portamentoPos);
-  Serial.print("portamento dir:"); Serial.println(portamentoDir);
-  Serial.print("portamento time:"); Serial.println(portamentoTime);
-  Serial.print("portamento step:"); Serial.println(portamentoStep);
+//  Serial.print("portamento pos:"); Serial.println(portamentoPos);
+//  Serial.print("portamento dir:"); Serial.println(portamentoDir);
+//  Serial.print("portamento time:"); Serial.println(portamentoTime);
+//  Serial.print("portamento step:"); Serial.println(portamentoStep);
   if (portamentoDir == 0) return;
   if (oscs->note < 0) {
     portamentoDir = 0;
@@ -254,7 +254,7 @@ void resetAll() {
   envHold    = 0;
   envDecay   = 0;
   envSustain = 1;
-  envRelease = 20;
+  envRelease = 0;
 
   // FX
   flangerOn         = false;
