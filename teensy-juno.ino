@@ -40,7 +40,7 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 
 //DEBUG!!
 
-#include "debug.h"
+//#include "debug.h"
 
 //////////////////////////////////////////////////////////////////////
 // test setup
@@ -90,6 +90,8 @@ void testSetup() {
   } while (++o < end);
   updateEnvelopeMode();
 }
+
+#include "debug.h"
 
 //////////////////////////////////////////////////////////////////////
 // setup() and loop()
@@ -165,9 +167,8 @@ void loop() {
   usbMIDI.read();
 //  updateMasterVolume();
   updatePortamento();
-  
 //#if SYNTH_DEBUG > 0
-//  performanceCheck();
+  performanceCheck();
 //  while (Serial.available())
 //    selectCommand(Serial.read());
 //#endif

@@ -128,6 +128,13 @@ inline void updateLfo() {
   lfo.frequency(lfoRate);
 }
 
+inline void updateLfoDelay() {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->lfoEnv->delay(lfoDelay);
+  } while(++o < end);
+}
+
 inline void updateOscLfo() {
   oscLfoAmp.gain(oscLfoLevel);
 }

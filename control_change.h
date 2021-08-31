@@ -32,11 +32,12 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     updatePan();
     break;
   case 12: // attack v
-    envAttack = value*200./127.;
+    envAttack = 1000 * (pow((value/127.),2));;
+    
     updateEnvelope();
     break;
   case 13: // release v
-    envRelease = value*200./127.;
+    envRelease = 1000 * (pow((value/127.),2));;
     updateEnvelope();
     break;
   case 14: // LOW PASS filter frequency v
@@ -248,6 +249,9 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     } else if (value==1) {
       lpfEnvDc.amplitude(-1);
     }
+  case 104: //lfo delay
+    lfoDelay = 2000 * (pow((value/127.),2));
+    updateLfoDelay();
   case 121: // controller reset
     resetAll();
     break;
