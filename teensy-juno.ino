@@ -136,6 +136,10 @@ void setup() {
   lpfEnvLevel = 0.98;
   updateLPF();
   updateLpfEnvLevel();
+
+  lpfModWheelLevel = 0;
+  lpfLfoLevel = 0;
+  lpfKbdLevel = 0;
 //  lpfModMixer.gain(1,0);
 //  lpfModMixer.gain(2,0);
 //  lpfModMixer.gain(3,0);
@@ -143,12 +147,13 @@ void setup() {
   //  pwmMixer.gain(0,10);
   //  pwmMixer.gain(1,0);
 //  dcoPitchAmp.gain(0);
-  
+
+  lpfOctaveControl = 7;
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
 //    o->pulseLFO->frequencyModulation(12);
 //    o->sub->frequencyModulation(12);
-    o->lpf->octaveControl(7);
+    o->lpf->octaveControl(lpfOctaveControl);
     o->lfoEnv->delay(500);
   } while (++o < end);
   

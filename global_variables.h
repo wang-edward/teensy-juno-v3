@@ -1,5 +1,5 @@
 // set SYNTH_DEBUG to enable debug logging (0=off,1=most,2=all messages)
-#define SYNTH_DEBUG 2
+#define SYNTH_DEBUG 0
 
 // define MIDI channel
 #define SYNTH_MIDICHANNEL 1
@@ -77,6 +77,10 @@ float lpfEnvLevel; //AMOUNT OF MODULATION FROM ENVELOPE
 float lpfKbdLevel; //amt mod from keyboard
 float lpfModWheelLevel; // modulation from mod wheel
 //float lpfAtt;  // 0-1
+
+float lpfOctaveControl;
+float sumLpfLevels; 
+float maxLpfMod; // maximum amount of modulation without clipping
 
 float hpfFreq; // 20-AUDIO_SAMPLE_RATE_EXACT/2.5
 float hpfReso; // 0.9-5.0

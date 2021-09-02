@@ -14,44 +14,85 @@ inline void updateLPF() {
   } while (++o < end);
 }
 
+inline void updateSumLpfLevels() {
+  sumLpfLevels = lpfEnvLevel + lpfLfoLevel + lpfKbdLevel + lpfModWheelLevel;
+}
+
+inline void calcMaxLpfMod() {
+  maxLpfMod = log(20000/lpfFreq)/(lpfOctaveControl * log(2));
+}
+
+//inline float calcModLevel(float levelIn) {
+//  updateSumLpfLevels(); //14.28 is log base 2 of 20k (upper bound)
+//  return min((levelIn / sumLpfLevels) * (14.2877123 - (log(lpfFreq) / log(2)) / lpfOctaveControl), levelIn);
+//}
+
+float lpfEnvGain, lpfLfoGain, lpfKbdGain, lpfModWheelGain;
+
 inline void updateLpfEnvLevel() {
+  lpfEnvGain = lpfEnvLevel/sumLpfLevels * maxLpfMod;
+
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
-    o->lpfModMixer->gain(0,lpfEnvLevel * 1);
+    o->lpfModMixer->gain(0,lpfEnvGain);
   } while (++o < end);
-  
 }
 
 inline void updateLpfLfoLevel() {
+  lpfLfoGain = lpfLfoLevel/sumLpfLevels * maxLpfMod;
+  
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
-    o->lpfModMixer->gain(1,lpfLfoLevel);
+    o->lpfModMixer->gain(1,lpfLfoGain);
   } while (++o < end);
 }
 
 inline void updateLpfKbdLevel() {
+  lpfKbdGain = lpfKbdLevel/sumLpfLevels * maxLpfMod;
+  
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
-    o->lpfModMixer->gain(2,lpfKbdLevel);
+    o->lpfModMixer->gain(2,lpfKbdGain);
   } while (++o < end);
 }
 
 inline void updateLpfModWheelLevel() {
+  lpfModWheelGain = lpfModWheelLevel/sumLpfLevels * maxLpfMod;
+  
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
-    o->lpfModMixer->gain(3,lpfModWheelLevel);
+    o->lpfModMixer->gain(3,lpfModWheelGain);
   } while (++o < end);
 }
+
+inline void debugLpf() {
+  Serial.print("env: "); Serial.println(lpfEnvGain);
+  Serial.print("lfo: "); Serial.println(lpfLfoGain);
+  Serial.print("kbd: "); Serial.println(lpfKbdGain);
+  Serial.print("mod: "); Serial.println(lpfModWheelGain);
+}
+
+inline void updateLpfMod() {
+  calcMaxLpfMod();
+  updateSumLpfLevels();
+  updateLpfEnvLevel();
+  updateLpfLfoLevel();
+  updateLpfKbdLevel();
+  updateLpfModWheelLevel();
+  
+//  debugLpf();
+}
+
 
 inline void updateEnvelope() {
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
 //    o->env->delay(envDelay);
-//    o->env->attack(envAttack);
+    o->env->attack(envAttack);
 //    o->env->hold(envHold);
-//    o->env->decay(envDecay);
-//    o->env->sustain(envSustain);
-//    o->env->release(envRelease);
+    o->env->decay(envDecay);
+    o->env->sustain(envSustain);
+    o->env->release(envRelease);
       o->lpfEnv->attack(envAttack);
       o->lpfEnv->decay(envDecay);
       o->lpfEnv->sustain(envSustain);

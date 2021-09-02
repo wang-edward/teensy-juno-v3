@@ -45,6 +45,7 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     lpfFreq = min(float(pow(value, 2)),10000);
     //filtFreq = float(pow(value, 3)/127.);
     updateLPF();
+    updateLpfMod();
     break;
   case 15: // LOW PASS filter resonance v
     lpfReso = value*4.1/127.+0.9;
@@ -224,16 +225,16 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
   case 88: //lpf env level v
 //    lpfEnvLevel = (value/127.)*0.5;
     lpfEnvLevel = (value/127.) * 2;
-    updateLpfEnvLevel();
+    updateLpfMod();
     break;
   case 89: //lpf lfo level v
 //    lpfLfoLevel = (value/127.)*0.5;
     lpfLfoLevel = (value/127.) * 2;
-    updateLpfLfoLevel();
+    updateLpfMod();
     break;
   case 90: //lpf keybd level v (modulation based on freq of note played)
     lpfKbdLevel = (value/127.)*0.5;
-    updateLpfKbdLevel();
+    updateLpfMod();
     break;
   case 101: //lfo rate
     lfoRate = 30 * (pow((value/127.),2)); //curved scaling so it's easier to input lower frequencies
