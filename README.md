@@ -10,6 +10,9 @@ A Teensy 3.x/4.x based polyphonic synthesizer, modelled after the Juno-106
 - ADSR Envelope
 - Pan
 - Portamento with variable time
-- LFO, PWM and VCF modulation
+- LFO with delay
+- PWM modulation
+- VCF mod by Envelope, Lfo and Mod Wheel
 ## Coming soon?
 - hardware
+- vcf key tracking?
