@@ -16,3 +16,4 @@ A Teensy 3.x/4.x based polyphonic synthesizer, modelled after the Juno-106
 ## Coming soon?
 - hardware
 - vcf key tracking?
+- moog ladder filter emulation (needs teensy 4.0)
