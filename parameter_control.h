@@ -27,8 +27,6 @@ inline void calcMaxLpfMod() {
 //  return min((levelIn / sumLpfLevels) * (14.2877123 - (log(lpfFreq) / log(2)) / lpfOctaveControl), levelIn);
 //}
 
-float lpfEnvGain, lpfLfoGain, lpfKbdGain, lpfModWheelGain;
-
 inline void updateLpfEnvLevel() {
   lpfEnvGain = lpfEnvLevel/sumLpfLevels * maxLpfMod;
 

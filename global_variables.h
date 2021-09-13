@@ -82,6 +82,11 @@ float lpfOctaveControl;
 float sumLpfLevels; 
 float maxLpfMod; // maximum amount of modulation without clipping
 
+float lpfEnvGain;
+float lpfLfoGain; 
+float lpfKbdGain;
+float lpfModWheelGain;
+
 float hpfFreq; // 20-AUDIO_SAMPLE_RATE_EXACT/2.5
 float hpfReso; // 0.9-5.0
 //float hpfAtt;  // 0-1
