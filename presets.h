@@ -19,7 +19,7 @@ struct Preset {
     float noiseLevel;
     float subLevel;
 
-    bool  sustainPressed;
+    // bool  sustainPressed;
     float channelVolume;
     float panorama;
     float pitchBend;
@@ -34,8 +34,8 @@ struct Preset {
     float lpfModWheelLevel; 
 
     float lpfOctaveControl;
-    float sumLpfLevels; 
-    float maxLpfMod;
+    // float sumLpfLevels; - should be recalculated 
+    // float maxLpfMod; - should be recalculated
 
     float hpfFreq; 
     float hpfReso;
