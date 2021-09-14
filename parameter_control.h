@@ -187,6 +187,22 @@ inline void updatePitch() {
   } while(++o < end);
 }
 
+inline void updateOscOn (byte value) {
+  if (value==0) {
+    Serial.println("0 0");
+    pulseOn = false; sawOn = false;
+  } else if (value==1) {
+    Serial.println("1 0");
+      pulseOn = true; sawOn = false;
+  } else if (value==2) {
+    Serial.println("0 1");
+      pulseOn = false; sawOn = true;
+  } else if (value ==3) {
+    Serial.println("1 1");
+      pulseOn = true; sawOn = true;
+  }
+}
+
 inline void updateOscVolume() {
   if (subLevel>0) {
     Oscillator *o=oscs,*end=oscs+NVOICES;
@@ -334,6 +350,42 @@ void resetAll() {
 //  updateFilterMode();
   updateEnvelope();
 //  updatePan();
+}
+
+void updatePreset(Preset preset) {
+  polyOn = preset.polyOn;
+  omniOn = preset.omniOn;
+  velocityOn = preset.velocityOn;
+
+  pulseOn = preset.pulseOn;
+  sawOn = preset.sawOn;
+  noiseOn = preset.sawOn;
+  subOn = preset.subOn;
+  
+  pwmLfoOn = preset.pwmLfoOn;
+
+  lfoRate = preset.lfoRate;
+  lfoDelay = preset.lfoDelay;
+  pulseWidth = preset.pulseWidth;
+  oscLfoLevel = preset.oscLfoLevel;
+  noiseLevel = preset.noiseLevel;
+  subLevel = preset.subLevel;
+
+//  sustainPressed = preset.sustainPressed;
+  channelVolume = preset.channelVolume;
+  panorama = preset.panorama;
+
+  updatePolyMode();
+//  updateOscOn();
+  updateLfo();
+  updateLfoDelay();
+  updatePulseWidth();
+  updateOscVolume();
+  
+  updateFlanger();
+  updateEnvelope();
+  
+  updatePan();
 }
 
 //inline void updateFilterMode() {

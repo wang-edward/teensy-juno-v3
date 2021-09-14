@@ -185,19 +185,7 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     portamentoPos = value;
     break;
   case 85: // oscillator select
-    if (value==0) {
-      Serial.println("0 0");
-      pulseOn = false; sawOn = false;
-    } else if (value==1) {
-      Serial.println("1 0");
-        pulseOn = true; sawOn = false;
-    } else if (value==2) {
-      Serial.println("0 1");
-        pulseOn = false; sawOn = true;
-    } else if (value ==3) {
-      Serial.println("1 1");
-        pulseOn = true; sawOn = true;
-    }
+    updateOscOn(value);
 //    switch (value) {
 //      case 0: // 0 0
 //        Serial.println("0 0");

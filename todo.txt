@@ -6,5 +6,4 @@ what inputs and control change i gotta do
 filter modulation
 - mixer destinations
 
-
-!! Make gains only 0.25 to avoid clipping (0.25 * 4 == 1)
+make channel volume VCA volume and master volume seperate knob!

@@ -54,7 +54,7 @@ struct Preset {
     float flangerFreqCoarse;
     float flangerFreqFine;
 
-    bool     portamentoOn = false;
+    bool     portamentoOn;
     uint16_t portamentoTime;
     int8_t   portamentoDir;
     float    portamentoStep;
