@@ -374,18 +374,65 @@ void updatePreset(Preset preset) {
 //  sustainPressed = preset.sustainPressed;
   channelVolume = preset.channelVolume;
   panorama = preset.panorama;
+  pitchBend = preset.pitchBend; // do this
+  octCorr = preset.octCorr; // do this
 
-  updatePolyMode();
+  lpfFreq = preset.lpfFreq;
+  lpfReso = preset.lpfReso;
+  lpfLfoLevel = preset.lpfLfoLevel;
+  lpfEnvLevel = preset.lpfEnvLevel;
+  lpfKbdLevel = preset.lpfKbdLevel;
+  lpfModWheelLevel = preset.lpfModWheelLevel;
+
+  lpfOctaveControl = preset.lpfOctaveControl;
+//  sumLpfLevels = preset.sumLpfLevels;
+//  maxLpfMod = preset.maxLpfMod;
+
+  //updateHpf()
+  hpfFreq = preset.hpfFreq;
+  hpfReso = preset.hpfReso;
+
+  //updateEnvelope()
+  envOn = preset.envOn;
+  envDelay = preset.envDelay;
+  envAttack = preset.envAttack;
+  envHold = preset.envHold;
+  envDecay = preset.envDecay;
+  envSustain = preset.envSustain;
+  envRelease = preset.envRelease;
+
+  //updateFlanger()
+  flangerOn = preset.flangerOn;
+  flangerOffset = preset.flangerOffset;
+  flangerDepth = preset.flangerOffset;
+  flangerFreqCoarse = preset.flangerFreqCoarse;
+  flangerFreqFine = preset.flangerFreqFine;
+
+  //updatePortamento()
+  portamentoOn = preset.portamentoOn;
+  portamentoTime = preset.portamentoTime;
+  portamentoDir = preset.portamentoDir;
+  portamentoStep = preset.portamentoStep;
+  portamentoPos = preset.portamentoPos;
+
+  updatePolyMode(); //idk lol
 //  updateOscOn();
   updateLfo();
   updateLfoDelay();
   updatePulseWidth();
   updateOscVolume();
+  updatePan();
+  //pitch bend and octCorr
+  updateLpf();
+
+  updateLpfMod(); // calcs max, updates sum, updates 4 input levels
+  updateHpf();
+  
+  updateEnvelope(); // env and lpf env
   
   updateFlanger();
-  updateEnvelope();
   
-  updatePan();
+  updatePortamento();
 }
 
 //inline void updateFilterMode() {
