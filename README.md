@@ -1,5 +1,6 @@
 # teensy-juno
 A Teensy 3.x/4.x based polyphonic synthesizer, modelled after the Juno-106
+![gui architecture](https://github.com/wang-edward/teensy-juno/blob/main/pics/arch_4k.png)
 ## Features
 - 8 Voice polyphony
 - Flanger! 
