@@ -60,4 +60,3 @@ struct Preset {
     float    portamentoStep;
     float    portamentoPos;
 };
-

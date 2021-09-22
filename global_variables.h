@@ -109,7 +109,7 @@ float flangerFreqFine;
 
 // portamento
 bool     portamentoOn = false;
-uint16_t portamentoTime;
+uint16_t portamentoTime; //ms ?
 int8_t   portamentoDir;
 float    portamentoStep;
 float    portamentoPos;
