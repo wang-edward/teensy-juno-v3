@@ -7,8 +7,8 @@ struct Preset {
 
     bool pulseOn;
     bool sawOn;
-    bool noiseOn;
-    bool subOn;
+//    bool noiseOn;
+//    bool subOn;
 
     bool pwmLfoOn;
     

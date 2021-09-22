@@ -49,8 +49,8 @@ bool  velocityOn = true;
 
 bool pulseOn = true; //default to true
 bool sawOn = true;
-bool noiseOn = false; //start with false
-bool subOn = true;
+//bool noiseOn = false; //start with false
+//bool subOn = true;
 
 bool pwmLfoOn;
 

@@ -1,6 +1,7 @@
 #include <Audio.h>
 
 #include <MIDI.h>
+#include <ArduinoJson.h>
 MIDI_CREATE_DEFAULT_INSTANCE();
 
 //////////////////////////////////////////////////////////////////////

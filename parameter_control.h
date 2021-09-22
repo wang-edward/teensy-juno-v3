@@ -352,15 +352,15 @@ void resetAll() {
 //  updatePan();
 }
 
-void updatePreset(Preset preset) {
+inline void updatePreset(Preset preset) {
   polyOn = preset.polyOn;
   omniOn = preset.omniOn;
   velocityOn = preset.velocityOn;
 
   pulseOn = preset.pulseOn;
   sawOn = preset.sawOn;
-  noiseOn = preset.sawOn;
-  subOn = preset.subOn;
+//  noiseOn = preset.sawOn;
+//  subOn = preset.subOn;
   
   pwmLfoOn = preset.pwmLfoOn;
 
@@ -433,6 +433,11 @@ void updatePreset(Preset preset) {
   updateFlanger();
   
   updatePortamento();
+}
+
+inline void loadPreset () {
+  
+  
 }
 
 //inline void updateFilterMode() {
