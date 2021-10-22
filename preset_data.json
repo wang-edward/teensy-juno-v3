@@ -65,5 +65,139 @@
             48.756080,
             2.302038
         ]
+    },
+    "1": {
+        "name": "first",
+        "polyOn": true,
+        "omniOn": false,
+        "velocityOn": true,
+
+        "pulseOn": true,
+        "sawOn": true,
+        
+        "pwmLfoOn": false,
+        
+        "lfoRate": 1,
+        "lfoDelay": 100, 
+        "pulseWidth": 0.5,
+        "oscLfoLevel": 0.1,
+        "noiseLevel": 0,
+        "subLevel": 0,
+
+        "sustainPressed": false,
+        "channelVolume": 1.0,
+        "panorama": 0.5,
+        "pitchBend": 0,
+        "pitchScale": 1,
+        "octCorr": 0,
+
+        "lpfFreq": 400, 
+        "lpfReso": 0.9, 
+        "lpfLfoLevel": 0, 
+        "lpfEnvLevel": 0, 
+        "lpfKbdLevel": 0, 
+        "lpfModWheelLevel": 0, 
+
+        "lpfOctaveControl": 7,
+        "sumLpfLevels": 0, 
+        "maxLpfMod": 0, 
+
+        "hpfFreq": 0, 
+        "hpfReso": 0.9,
+
+        "envOn": true,
+        "envDelay": 0,    
+        "envAttack": 1,   
+        "envHold": 0,     
+        "envDecay": 1,    
+        "envSustain": 1,
+        "envRelease": 1,  
+
+        "flangerOn": false,
+        "flangerOffset": "3*DELAY_LENGTH/4",
+        "flangerDepth": "DELAY_LENGTH/8",
+        "flangerFreqCoarse": 0.0625,
+        "flangerFreqFine": 0,
+
+        "portamentoOn": false,
+        "portamentoTime": 1000,
+        "portamentoDir": 0,
+        "portamentoStep": 0,
+        "portamentoPos": -1,
+
+
+        "sensor": "gps",
+        "time": 1351824120,
+        "data": [
+            48.756080,
+            2.302038
+        ]
+    },
+    "2": {
+        "name": "first",
+        "polyOn": true,
+        "omniOn": false,
+        "velocityOn": true,
+
+        "pulseOn": true,
+        "sawOn": true,
+        
+        "pwmLfoOn": false,
+        
+        "lfoRate": 1,
+        "lfoDelay": 100, 
+        "pulseWidth": 0.5,
+        "oscLfoLevel": 0.1,
+        "noiseLevel": 0,
+        "subLevel": 0,
+
+        "sustainPressed": false,
+        "channelVolume": 1.0,
+        "panorama": 0.5,
+        "pitchBend": 0,
+        "pitchScale": 1,
+        "octCorr": 0,
+
+        "lpfFreq": 400, 
+        "lpfReso": 0.9, 
+        "lpfLfoLevel": 0, 
+        "lpfEnvLevel": 0, 
+        "lpfKbdLevel": 0, 
+        "lpfModWheelLevel": 0, 
+
+        "lpfOctaveControl": 7,
+        "sumLpfLevels": 0, 
+        "maxLpfMod": 0, 
+
+        "hpfFreq": 0, 
+        "hpfReso": 0.9,
+
+        "envOn": true,
+        "envDelay": 0,    
+        "envAttack": 1,   
+        "envHold": 0,     
+        "envDecay": 1,    
+        "envSustain": 1,
+        "envRelease": 1,  
+
+        "flangerOn": false,
+        "flangerOffset": "3*DELAY_LENGTH/4",
+        "flangerDepth": "DELAY_LENGTH/8",
+        "flangerFreqCoarse": 0.0625,
+        "flangerFreqFine": 0,
+
+        "portamentoOn": false,
+        "portamentoTime": 1000,
+        "portamentoDir": 0,
+        "portamentoStep": 0,
+        "portamentoPos": -1,
+
+
+        "sensor": "gps",
+        "time": 1351824120,
+        "data": [
+            48.756080,
+            2.302038
+        ]
     }
 }

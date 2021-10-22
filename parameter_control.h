@@ -423,10 +423,10 @@ inline void updatePreset(Preset preset) {
   updateOscVolume();
   updatePan();
   //pitch bend and octCorr
-  updateLpf();
+  updateLPF();
 
   updateLpfMod(); // calcs max, updates sum, updates 4 input levels
-  updateHpf();
+  updateHPF();
   
   updateEnvelope(); // env and lpf env
   
@@ -447,15 +447,15 @@ inline void loadPreset () {
 //  file.close();
 
 
-  char json[MAX_FILE_SIZE];
-  readFile("gg.json", json, MAX_FILE_SIZE);
+//  char json[MAX_FILE_SIZE];
+//  readFile("gg.json", json, MAX_FILE_SIZE);
 
-  Serial.println(json); // <- SHOW ME THE OUTPUT OF THIS!!!!!
+//  Serial.println(json); // <- SHOW ME THE OUTPUT OF THIS!!!!!
 
-  StaticJsonBuffer<JSON_BUFFER_SIZE> jsonBuffer;
+//  StaticJsonBuffer<JSON_BUFFER_SIZE> jsonBuffer;
 }
 
-void readFile(const char *fileName, char *buffer, size_t maxSize) {
+inline void readFile(const char *fileName, char *buffer, size_t maxSize) {
   File file = SD.open(fileName, FILE_READ);
   file.readBytes(buffer, maxSize);
   file.close();

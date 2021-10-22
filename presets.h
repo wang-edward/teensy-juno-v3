@@ -1,5 +1,5 @@
 struct Preset {
-    byte position;
+    byte order;
 
     bool polyOn;
     bool omniOn;
@@ -59,4 +59,4 @@ struct Preset {
     int8_t   portamentoDir;
     float    portamentoStep;
     float    portamentoPos;
-}
+};
