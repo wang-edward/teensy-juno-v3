@@ -1,3 +1,6 @@
+GET RID OF HPF RES
+
+
 what inputs and control change i gotta do
 - lfo man switch v
 - inverted vcf env mod switch v
