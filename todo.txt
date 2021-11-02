@@ -1,6 +1,13 @@
 GET RID OF HPF RES
 add mono jack with switch for guitar input? and also led/switch for guitar mode
 
+Writing flow
+- Led above write button means that current preset has been edited
+- Press to write to that bank, or press and hold, then select location
+
+Note off flow
+- press to turn off all notes
+- press and hold 3 secs to reset to preset
 
 what inputs and control change i gotta do
 - lfo man switch v
