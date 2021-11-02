@@ -1,4 +1,5 @@
 GET RID OF HPF RES
+add mono jack with switch for guitar input? and also led/switch for guitar mode
 
 
 what inputs and control change i gotta do
