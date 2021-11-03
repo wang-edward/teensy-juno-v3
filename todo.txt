@@ -1,5 +1,19 @@
-GET RID OF HPF RES
-add mono jack with switch for guitar input? and also led/switch for guitar mode
+--------------------------------------------------------------------------------------
+HARDWARE
+--------------------------------------------------------------------------------------
+get 16 io mux
+get leds
+get resistors for leds
+
+
+connect audio shield
+get rid of custom audio board
+connect switches to mux
+connect rotary pots to mux
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
 
 Writing flow
 - Led above write button means that current preset has been edited
@@ -9,12 +23,20 @@ Note off flow
 - press to turn off all notes
 - press and hold 3 secs to reset to preset
 
-what inputs and control change i gotta do
-- lfo man switch v
-- inverted vcf env mod switch v
-- lfo delay
 
-filter modulation
-- mixer destinations
+
+
+--------------------------------------------------------------------------------------
+CODE
+--------------------------------------------------------------------------------------
+lineinL is guitar input
+preset bank
+long term preset storage - sd card not ram!?
+
+GET RID OF HPF RES
+add mono jack with switch for guitar input? and also led/switch for guitar mode
 
 make channel volume VCA volume and master volume seperate knob!
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
