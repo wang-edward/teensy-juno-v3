@@ -1,6 +1,7 @@
 --------------------------------------------------------------------------------------
 HARDWARE
 --------------------------------------------------------------------------------------
+ADD MOUNTING HOLES
 recheck analog/digital pins
 recheck audio shield connections
 test midi circuit (does 5v work)
