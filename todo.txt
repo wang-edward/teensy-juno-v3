@@ -19,8 +19,14 @@ Note off flow
 - press to turn off all notes
 - press and hold 3 secs to reset to preset
 
-
-
+--------------------------------------------------------------------------------------
+price improvements
+--------------------------------------------------------------------------------------
+LED's can be way cheaper $0.66 -> $0.04
+Custom DAC instead of audio board $22 -> $10?
+jacks are kind of expensive, not sure what to do about that
+Rotary pots could be cheaper
+Buy tape * reel ICs instead of tube
 
 --------------------------------------------------------------------------------------
 CODE
