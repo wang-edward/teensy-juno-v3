@@ -39,6 +39,9 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 //////////////////////////////////////////////////////////////////////
 #include "midi_handle.h"
 
+#include "pins.h"
+#include "analog_control.h"
+
 #include "control_change.h"
 
 //DEBUG!!
