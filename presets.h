@@ -59,4 +59,4 @@ struct Preset {
     int8_t   portamentoDir;
     float    portamentoStep;
     float    portamentoPos;
-}
+};

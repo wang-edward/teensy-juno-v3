@@ -1,7 +1,12 @@
-#include "global_variables.h"
-#include "pins.h"
+// #include "pins.h"
 void analogControl() {
-    if (analogRead(channelVolumePin)/127 != channelVolume) {
-        onControlChange(0,7)
+//    if()
+}
+
+int readPot(int pin, double value) {
+    int pos = analogRead(pin)/1023;
+    if (pos != value) {
+        return pos;
     }
+    return -1;
 }

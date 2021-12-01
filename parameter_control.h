@@ -423,10 +423,10 @@ inline void updatePreset(Preset preset) {
   updateOscVolume();
   updatePan();
   //pitch bend and octCorr
-  updateLpf();
+  updateLPF();
 
   updateLpfMod(); // calcs max, updates sum, updates 4 input levels
-  updateHpf();
+  updateHPF();
   
   updateEnvelope(); // env and lpf env
   
@@ -435,31 +435,31 @@ inline void updatePreset(Preset preset) {
   updatePortamento();
 }
 
-#define MAX_FILE_SIZE 1024
-#define JSON_BUFFER_SIZE 200
-
-inline void loadPreset () {
-  //write -----
-//  File file = SD.open(preset_data.json, FILE_WRITE);
-//  DynamicJsonDocument<256> doc;
-//  doc["hello"] = "world";
-//  serializeJson(doc, file);
+//#define MAX_FILE_SIZE 1024
+//#define JSON_BUFFER_SIZE 200
+//
+//inline void loadPreset () {
+//  //write -----
+////  File file = SD.open(preset_data.json, FILE_WRITE);
+////  DynamicJsonDocument<256> doc;
+////  doc["hello"] = "world";
+////  serializeJson(doc, file);
+////  file.close();
+//
+//
+//  char json[MAX_FILE_SIZE];
+//  readFile("gg.json", json, MAX_FILE_SIZE);
+//
+//  Serial.println(json); // <- SHOW ME THE OUTPUT OF THIS!!!!!
+//
+//  StaticJsonBuffer<JSON_BUFFER_SIZE> jsonBuffer;
+//}
+//
+//void readFile(const char *fileName, char *buffer, size_t maxSize) {
+//  File file = SD.open(fileName, FILE_READ);
+//  file.readBytes(buffer, maxSize);
 //  file.close();
-
-
-  char json[MAX_FILE_SIZE];
-  readFile("gg.json", json, MAX_FILE_SIZE);
-
-  Serial.println(json); // <- SHOW ME THE OUTPUT OF THIS!!!!!
-
-  StaticJsonBuffer<JSON_BUFFER_SIZE> jsonBuffer;
-}
-
-void readFile(const char *fileName, char *buffer, size_t maxSize) {
-  File file = SD.open(fileName, FILE_READ);
-  file.readBytes(buffer, maxSize);
-  file.close();
-}
+//}
 
 //inline void updateFilterMode() {
 //  Serial.print("FILTER MODE");

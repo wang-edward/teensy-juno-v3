@@ -1,7 +1,9 @@
 #include <Audio.h>
 
 #include <MIDI.h>
-#include <ArduinoJson.h>
+#include "Mux.h"
+using namespace admux;
+//#include <ArduinoJson.h>
 MIDI_CREATE_DEFAULT_INSTANCE();
 
 //////////////////////////////////////////////////////////////////////
@@ -177,6 +179,15 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   usbMIDI.read();
+
+  Mux mux(Pin(24, INPUT, PinType::Analog),Pinset(29,30,31,32));
+  int data = (1023-mux.read(0))/8;
+
+  lpfFreq = min(float(pow(data, 2)),10000);
+  updateLPF();
+  updateLpfMod();
+
+  
 //  updateMasterVolume();
   updatePortamento();
 //#if SYNTH_DEBUG > 0
