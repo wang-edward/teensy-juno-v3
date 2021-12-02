@@ -4,7 +4,7 @@
 #include "Mux.h"
 using namespace admux;
 //#include <ArduinoJson.h>
-MIDI_CREATE_DEFAULT_INSTANCE();
+//MIDI_CREATE_DEFAULT_INSTANCE();
 
 //////////////////////////////////////////////////////////////////////
 // Data types and lookup tables`
@@ -106,14 +106,23 @@ void testSetup() {
 // setup() and loop()
 //////////////////////////////////////////////////////////////////////
 
+MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   AudioMemory(AMEMORY);
 
-  usbMIDI.setHandleNoteOff(OnNoteOff);
-  usbMIDI.setHandleNoteOn(OnNoteOn);
+  
+  MIDI.begin(MIDI_CHANNEL_OMNI);
+  MIDI.setHandleNoteOn(OnNoteOn);
+  MIDI.setHandleNoteOff(OnNoteOff);
+  
+  MIDI.setHandleControlChange(OnControlChange);
 
+//  usbMIDI.setHandleNoteOff(OnNoteOff);
+//  usbMIDI.setHandleNoteOn(OnNoteOn);
+//usbMIDI.setHandleControlChange(OnControlChange);
   sgtl5000_1.enable(); 
   sgtl5000_1.volume(masterVolume);
   sgtl5000_1.volume(0.9);
@@ -167,7 +176,7 @@ void setup() {
   } while (++o < end);
   
 //  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
-  usbMIDI.setHandleControlChange(OnControlChange);
+//  usbMIDI.setHandleControlChange(OnControlChange);
 //  usbMIDI.setHandlePitchChange(OnPitchChange);
 //  usbMIDI.setHandleProgramChange(OnProgramChange);
 //  usbMIDI.setHandleAfterTouch(OnAfterTouch);
@@ -178,7 +187,12 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  usbMIDI.read();
+//  usbMIDI.read();
+  if(MIDI.read()) {
+    Serial.println("AAA");
+    
+  }
+  MIDI.read();
 
   Mux mux(Pin(24, INPUT, PinType::Analog),Pinset(29,30,31,32));
   int data = (1023-mux.read(0))/8;
