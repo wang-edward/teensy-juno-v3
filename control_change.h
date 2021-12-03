@@ -41,9 +41,7 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     updateEnvelope();
     break;
   case 14: // LOW PASS filter frequency v
-    //filtFreq = value/2.5*AUDIO_SAMPLE_RATE_EXACT/127.;
     lpfFreq = min(float(pow(value, 2)),10000);
-    //filtFreq = float(pow(value, 3)/127.);
     updateLPF();
     updateLpfMod();
     break;
@@ -186,21 +184,6 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     break;
   case 85: // oscillator select
     updateOscOn(value);
-//    switch (value) {
-//      case 0: // 0 0
-//        Serial.println("0 0");
-//        pulseOn = false; sawOn = false;
-//        break;
-//      case 1: // 1 0
-//        Serial.println("1 0");
-//        pulseOn = true; sawOn = false;
-//      case 2: // 0 1
-//        Serial.println("0 1");
-//        pulseOn = false; sawOn = true;
-//      case 3: // 1 1
-//        Serial.println("1 1");
-//        pulseOn = true; sawOn = true;
-//    }
     break;
   case 86: // sub level
     subLevel = value/127.;
@@ -211,12 +194,10 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     updateOscVolume();
     break;
   case 88: //lpf env level v
-//    lpfEnvLevel = (value/127.)*0.5;
     lpfEnvLevel = (value/127.) * 2;
     updateLpfMod();
     break;
   case 89: //lpf lfo level v
-//    lpfLfoLevel = (value/127.)*0.5;
     lpfLfoLevel = (value/127.) * 2;
     updateLpfMod();
     break;
