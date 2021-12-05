@@ -40,7 +40,7 @@ using namespace admux;
 // MIDI handlers
 //////////////////////////////////////////////////////////////////////
 #include "midi_handle.h"
-
+#include "parameter.h"
 #include "pins.h"
 #include "analog_control.h"
 

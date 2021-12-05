@@ -1,16 +1,28 @@
-inline void updateHPF() {
+inline void updateHPFFreq(int value) {
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
-    o->hpf->frequency(hpfFreq);
-    o->hpf->resonance(hpfReso);
+    o->hpf->frequency(value);
   } while (++o < end);
 }
 
-inline void updateLPF() {
+inline void updateHPFReso(int value) {
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
-    o->lpf->frequency(lpfFreq);
-    o->lpf->resonance(lpfReso);
+    o->hpf->resonance(value);
+  } while (++o < end);
+}
+
+inline void updateLPFFreq(int value) {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->lpf->frequency(value);
+  } while (++o < end);
+}
+
+inline void updateLPFReso(int value) {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->lpf->resonance(value);
   } while (++o < end);
 }
 
@@ -82,19 +94,35 @@ inline void updateLpfMod() {
 }
 
 
-inline void updateEnvelope() {
+inline void updateEnvelopeAttack(int value) {
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
-//    o->env->delay(envDelay);
-    o->env->attack(envAttack);
-//    o->env->hold(envHold);
-    o->env->decay(envDecay);
-    o->env->sustain(envSustain);
-    o->env->release(envRelease);
-      o->lpfEnv->attack(envAttack);
-      o->lpfEnv->decay(envDecay);
-      o->lpfEnv->sustain(envSustain);
-      o->lpfEnv->release(envRelease);
+    o->env->attack(value);
+      o->lpfEnv->attack(value);
+  } while (++o < end);
+}
+
+inline void updateEnvelopeDecay(int value) {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->env->decay(value);
+      o->lpfEnv->decay(value);
+  } while (++o < end);
+}
+
+inline void updateEnvelopeSustain(int value) {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->env->sustain(value);
+      o->lpfEnv->sustain(value);
+  } while (++o < end);
+}
+
+inline void updateEnvelopeRelease(int value) {
+  Oscillator *o=oscs,*end=oscs+NVOICES;
+  do {
+    o->env->release(value);
+      o->lpfEnv->release(value);
   } while (++o < end);
 }
 

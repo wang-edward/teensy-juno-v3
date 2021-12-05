@@ -1,3 +1,10 @@
+//#include <Mux.h>
+Mux mux_array[] = {
+    Mux(Pin(24, INPUT, PinType::Analog),Pinset(29,30,31,32)), 
+    Mux(Pin(25, INPUT, PinType::Analog),Pinset(29,30,31,32)),
+    Mux(Pin(26, INPUT, PinType::Analog),Pinset(29,30,31,32))
+};
+
 // set SYNTH_DEBUG to enable debug logging (0=off,1=most,2=all messages)
 #define SYNTH_DEBUG 0
 

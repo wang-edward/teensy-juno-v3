@@ -1,26 +1,21 @@
-#include <Mux.h>
+//#include "parameter.h"
 
-
-using namespace admux;
-extern Mux mux_array[] = {
-    Mux(Pin(24, INPUT, PinType::Analog),Pinset(29,30,31,32)), 
-    Mux(Pin(25, INPUT, PinType::Analog),Pinset(29,30,31,32)),
-    Mux(Pin(26, INPUT, PinType::Analog),Pinset(29,30,31,32))
-};
 
 const int num_params = 22;
 
-const int DELAY_LENGTH = 1;
+//const int DELAY_LENGTH = 1;
 
 //virtual params
 
 parameter hpf_resonance (76, -1, -1, [](int value) -> int {
     return value*4.1/127.+0.9;
-});
+},&updateHPF
+);
 
 parameter lpf_mod_wheel_level (1, -1, -1, [](int value) -> int {
     return (value/127.)*2;
-});
+},
+);
 
 //REAL PARAMS
 
@@ -116,3 +111,28 @@ parameter envelope_sustain(22, 1, 3, [](int value) -> int {
 parameter envelope_release(13, 1, 4, [](int value) -> int {
     return 1000 * (pow((value/127.),2));
 });
+
+parameter* parameters[22] = {
+        &master_volume,
+        &lfo_rate,
+        &lfo_delay,
+        &osc_lfo_level,
+        &pulse_width,
+        &sub_level,
+        &noise_level,
+        &hpf_frequency,
+        &lpf_frequency,
+        &lpf_resonance,
+        &lpf_env_level,
+        &lpf_lfo_level,
+        &lpf_keyboard_level,
+        &channel_volume,
+        &flanger_offset,
+        &flanger_depth,
+        &flanger_frequency,
+        &flanger_frequency_fine,
+        &envelope_attack,
+        &envelope_decay,
+        &envelope_sustain,
+        &envelope_release
+    };
