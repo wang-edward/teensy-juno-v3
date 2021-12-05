@@ -14,6 +14,9 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     channelVolume = value/127.;
     updateVolume();
     break;
+  case 8:
+    masterVolume = value/127.;
+    //TODO
   case 9: // velocity v
     switch (value) {
     case 0:
@@ -32,12 +35,12 @@ void OnControlChange(uint8_t channel, uint8_t control, uint8_t value) {
     updatePan();
     break;
   case 12: // attack v
-    envAttack = 1000 * (pow((value/127.),2));;
+    envAttack = 1000 * (pow((value/127.),2));
     
     updateEnvelope();
     break;
   case 13: // release v
-    envRelease = 1000 * (pow((value/127.),2));;
+    envRelease = 1000 * (pow((value/127.),2));
     updateEnvelope();
     break;
   case 14: // LOW PASS filter frequency v
