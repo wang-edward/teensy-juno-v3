@@ -1,44 +1,14 @@
 #include <Audio.h>
-
 #include <MIDI.h>
 #include "Mux.h"
 using namespace admux;
-//#include <ArduinoJson.h>
-//MIDI_CREATE_DEFAULT_INSTANCE();
 
-//////////////////////////////////////////////////////////////////////
-// Data types and lookup tables`
-//////////////////////////////////////////////////////////////////////
-
-
-// synth architecture in separate file
 #include "synth_arch.h"
-
-
 #include "global_variables.h"
-
 #include "presets.h"
-
-//////////////////////////////////////////////////////////////////////
-// Handling of sounding and pressed notes
-//////////////////////////////////////////////////////////////////////
-
 #include "note_handle.h"
-
-//////////////////////////////////////////////////////////////////////
-// Parameter control functions
-//////////////////////////////////////////////////////////////////////
 #include "osc_control.h"//111
 #include "parameter_control.h"
-
-//updateFilterMode(), updateFilter(), updateEnvelope(), updateEnvelopeMode(), updateFlanger(), resetAll()
-
-//#include "osc_control.h"
-
-
-//////////////////////////////////////////////////////////////////////
-// MIDI handlers
-//////////////////////////////////////////////////////////////////////
 #include "midi_handle.h"
 
 #include "pins.h"
@@ -183,6 +153,10 @@ void setup() {
 //  usbMIDI.setHandleSysEx(OnSysEx);
   //usbMIDI.setHandleRealTimeSystem(OnRealTimeSystem);
 //  usbMIDI.setHandleTimeCodeQuarterFrame(OnTimeCodeQFrame);
+    oscLfoLevel = 10;
+    updateOscLfo();
+    lfoRate = 50;
+    updateLfo();
 }
 
 void loop() {
@@ -193,19 +167,13 @@ void loop() {
     
   }
   MIDI.read();
-
-  Mux mux(Pin(24, INPUT, PinType::Analog),Pinset(29,30,31,32));
-  int data = (1023-mux.read(0))/8;
-
-  lpfFreq = min(float(pow(data, 2)),10000);
-  updateLPF();
-  updateLpfMod();
-
-  
+  analogControl();
+  Serial.println(readPos(0,0));
+//  checkSliders();
 //  updateMasterVolume();
-  updatePortamento();
+//  updatePortamento();
 //#if SYNTH_DEBUG > 0
-  performanceCheck();
+//  performanceCheck();
 //  while (Serial.available())
 //    selectCommand(Serial.read());
 //#endif

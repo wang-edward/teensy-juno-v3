@@ -236,16 +236,7 @@ inline void updateVolume() {
 }
 
 inline void updateMasterVolume() {
-  // read the volume knob
-  float vol = (float) analogRead(A1) / 1280.0;
-  if( fabs(vol-masterVolume) > 0.01) {
-    masterVolume = vol;
-    sgtl5000_1.volume(masterVolume);
-#if SYNTH_DEBUG > 0
-    SYNTH_COM.print("Volume: ");
-    SYNTH_COM.println(vol);
-#endif
-  }
+  sgtl5000_1.volume(masterVolume);
 }
 
 inline void updatePan() {
