@@ -93,12 +93,12 @@ float hpfReso; // 0.9-5.0
 
 // envelope
 bool  envOn = true;
-float envDelay;   // 0-200
-float envAttack;  // 0-200
-float envHold;    // 0-200
-float envDecay;   // 0-200
-float envSustain; // 0-1
-float envRelease; // 0-200
+double envDelay;   // 0-200
+double envAttack;  // 0-200
+double envHold;    // 0-200
+double envDecay;   // 0-200
+double envSustain; // 0-1
+double envRelease; // 0-200
 
 // FX
 bool  flangerOn;

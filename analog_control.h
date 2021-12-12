@@ -1,6 +1,6 @@
 // #include "pins.h"
 double readPos(int muxAddress, int muxPosition) {
-    return (1023-(muxArray[muxAddress].Mux::read(muxPosition)));
+    return (1023-(muxArray[muxAddress].Mux::read(muxPosition)))/1023.;
 }
 
 void analogControl() {
@@ -13,59 +13,58 @@ void checkSliders() {
     
     value =  (pow(readPos(0,0),2));
     if (value != lfoRate) {
-      Serial.println("lfo rate update");
+      delay(1);
         lfoRate = value;
         updateLfo();
     }
 
-//    value = 2000 * (pow(readPos(0,1),2));
-//    if (value != lfoDelay) {
-//        lfoDelay = value;
-//        updateLfoDelay();
-//    }
-//
-//    value = (pow(readPos(0,2),2));
-//    if (value != oscLfoLevel) {
-//        Serial.println("osc lfo level update");
-//        oscLfoLevel = value;
-//        updateOscLfo();
-//    }
-//
-//    value = (readPos(0,3))*0.9+0.05;
-//    if (value != pulseWidth) {
-//        pulseWidth = value;
-//        updatePulseWidth();
-//    }
-//
-//    value = readPos(0,4);
-//    if (value != subLevel) {
-//        subLevel = value;
-//        updateOscVolume();
-//    }
-//
-//    value = readPos(0,5);
-//    if (value != noiseLevel) {
-//        noiseLevel = value;
-//        updateOscVolume();
-//    }
-//    //hpf frequency
-//    value = pow(readPos(0,6),2);
-//    if (value != hpfFreq) {
-//        hpfFreq = value;
-//        updateHPF();
-//    }
-//    //lpf frequency
-//    value = min((pow(readPos(0,7),2)),10000);
-//    if (value != lpfFreq) {
-//        lpfFreq = value;
-//        updateLPF();
-//    }
-//    //lpf resonance
-//    value = readPos(0,8)*4.1/127.+0.9;
-//    if (value != lpfReso) {
-//            lpfReso = value;
-//            updateLPF();
-//        }
+    value = 2000 * (pow(readPos(0,1),2));
+    if (value != lfoDelay) {
+        lfoDelay = value;
+        updateLfoDelay();
+    }
+
+    value = (pow(readPos(0,2),2));
+    if (value != oscLfoLevel) {
+        oscLfoLevel = value;
+        updateOscLfo();
+    }
+
+    value = (readPos(0,3))*0.9+0.05;
+    if (value != pulseWidth) {
+        pulseWidth = value;
+        updatePulseWidth();
+    }
+
+    value = readPos(0,4);
+    if (value != subLevel) {
+        subLevel = value;
+        updateOscVolume();
+    }
+
+    value = readPos(0,5);
+    if (value != noiseLevel) {
+        noiseLevel = value;
+        updateOscVolume();
+    }
+    //hpf frequency
+    value = pow(readPos(0,6) * 141,2);
+    if (value != hpfFreq) {
+        hpfFreq = value;
+        updateHPF();
+    }
+    //lpf frequency
+    value = (pow(readPos(0,7) * 100,2));
+    if (value != lpfFreq) {
+        lpfFreq = value;
+        updateLPF();
+    }
+    //lpf resonance
+    value = readPos(0,8)*4.1+0.9;
+    if (value != lpfReso) {
+            lpfReso = value;
+            updateLPF();
+        }
 //    //lpf envelope level
 //    value = readPos(0,9)*2;
 //    if (value != lpfEnvLevel) {
@@ -84,12 +83,12 @@ void checkSliders() {
 //            lpfKbdLevel = value;
 //            updateLpfMod();
 //        }
-//    //channel volume
-//    value = readPos(0,12);
-//    if (value != channelVolume) {
-//            channelVolume = value;
-//            updateVolume();
-//        }
+    //channel volume
+    value = readPos(0,12);
+    if (value != channelVolume) {
+            channelVolume = value;
+            updateVolume();
+        }
 //    //flanger offset
 //    value = int (readPos(0,13)*8)*DELAY_LENGTH/8;
 //    if (value != flangerOffset) {
@@ -114,36 +113,41 @@ void checkSliders() {
 //            flangerFreqFine = value;
 //            updateFlanger();
 //        }
-//    //envelope attack
-//    value = pow(readPos(1,1),2) * 1000;
-//    if (value != envAttack) {
-//            envAttack = value;
-//            updateEnvelope();
-//        }
-//    //envelope decay
-//    value = readPos(1,2) * 200;
-//    if (value != envDecay) {
-//            envDecay = value;
-//            updateEnvelope();
-//        }
-//    //envelope sustain
+    //envelope attack
+    value = pow(readPos(1,1),2) * 1000;
+    Serial.print("1: "); Serial.println(value);
+    if (value != envAttack) {
+            envAttack = value;
+            updateEnvelope();
+        }
+    //envelope decay
+    value = readPos(1,2) * 200;
+    Serial.print("2: "); Serial.println(value);
+    if (value != envDecay) {
+            envDecay = value;
+            updateEnvelope();
+        }
+    //envelope sustain
+    value = muxArray[1].Mux::read(3)/1023.;
 //    value = readPos(1,3);
-//    if (value != envSustain) {
-//            envDecay = value;
-//            updateEnvelope();
-//        }
-//    //envelope release
-//    value = readPos(1,4);
-//    if (value != envRelease) {
-//            envRelease = value;
-//            updateEnvelope();
-//        }
-    
+    Serial.print("3: "); Serial.println(value);
+    if (value != envSustain) {
+            envSustain = value;
+            updateEnvelope();
+        }
+    //envelope release
+    value = readPos(1,4) * 1000;
+    Serial.print("4: "); Serial.println(value);
+    if (value != envRelease) {
+            envRelease = value;
+            updateEnvelope();
+        }
+    Serial.println("\n\n");
 
     //master volume
-//    value = readPos(1,8);
-//    if (value != masterVolume) {
-//        masterVolume = value;
-//        updateMasterVolume();
-//    }
+    value = readPos(1,8);
+    if (value != masterVolume) {
+        masterVolume = value;
+        updateMasterVolume();
+    }
 }

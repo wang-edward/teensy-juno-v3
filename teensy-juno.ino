@@ -12,6 +12,7 @@ using namespace admux;
 #include "midi_handle.h"
 
 #include "pins.h"
+#include "button.h"
 #include "analog_control.h"
 
 #include "control_change.h"
@@ -128,35 +129,58 @@ void setup() {
   lpfModWheelLevel = 0;
   lpfLfoLevel = 0;
   lpfKbdLevel = 0;
-//  lpfModMixer.gain(1,0);
-//  lpfModMixer.gain(2,0);
-//  lpfModMixer.gain(3,0);
-//  lpfKeyboardDc.amplitude(1);
-  //  pwmMixer.gain(0,10);
-  //  pwmMixer.gain(1,0);
-//  dcoPitchAmp.gain(0);
 
   lpfOctaveControl = 7;
   Oscillator *o=oscs,*end=oscs+NVOICES;
   do {
-//    o->pulseLFO->frequencyModulation(12);
-//    o->sub->frequencyModulation(12);
     o->lpf->octaveControl(lpfOctaveControl);
     o->lfoEnv->delay(500);
   } while (++o < end);
-  
-//  usbMIDI.setHandleVelocityChange(OnAfterTouchPoly);
-//  usbMIDI.setHandleControlChange(OnControlChange);
-//  usbMIDI.setHandlePitchChange(OnPitchChange);
-//  usbMIDI.setHandleProgramChange(OnProgramChange);
-//  usbMIDI.setHandleAfterTouch(OnAfterTouch);
-//  usbMIDI.setHandleSysEx(OnSysEx);
-  //usbMIDI.setHandleRealTimeSystem(OnRealTimeSystem);
-//  usbMIDI.setHandleTimeCodeQuarterFrame(OnTimeCodeQFrame);
+
     oscLfoLevel = 10;
     updateOscLfo();
     lfoRate = 50;
     updateLfo();
+    velocityOn = false;
+    envSustain = 1;
+    updateEnvelope();
+    t_init();
+
+  Button MBU1(M1, 0, 0, 70, 1, 5);
+}
+
+void t_init() {
+  for(int i=29;i<33;i++) {
+    pinMode(i, OUTPUT);
+  }
+}
+
+float t_read(int k) {
+    char buff[65];
+    String s = itoa(k, buff, 2);
+    for (int i=((int)(s.length()));i<=4;i++) {
+      s = "0" + s;
+    }
+    for(int i=3;i>0;i--) {
+//      Serial.print(s); Serial.print(" ");
+//      Serial.println(s[i]);
+      if(s[i]=='1') {
+        digitalWrite(i+29,HIGH);
+      } else {
+        digitalWrite(i+29,LOW);
+      }
+    }
+    Serial.println(s);
+    return analogRead(25);
+}
+
+void all_read() {
+  for(int i=0;i<16;i++) {
+    Serial.print(i);Serial.print(": ");
+      Serial.println(t_read(i));
+    delay(100);
+  }
+  Serial.println("\n\n\n");
 }
 
 void loop() {
@@ -167,9 +191,32 @@ void loop() {
     
   }
   MIDI.read();
+//  Serial.println(t_read(0));
+  int j = 11;
+//  Serial.println(muxArray[1].Mux::read(j));
+//  delay(50);
   analogControl();
-  Serial.println(readPos(0,0));
 //  checkSliders();
+  updateButtons();
+//    delay(10);
+//    float a = muxArray[1].Mux::read(0)/1023.;
+//    delay(10);
+//    float b = muxArray[1].Mux::read(1)/1023.;
+//    delay(10);
+//    float c = muxArray[1].Mux::read(2)/1023.;
+//    delay(10);
+//    float d = muxArray[1].Mux::read(3)/1023.;
+//    delay(10);
+//    float e = muxArray[1].Mux::read(4)/1023.;
+//    delay(10);
+//    Serial.print("0: ");    Serial.println(a);
+//    Serial.print("1: ");    Serial.println(b);
+//    Serial.print("2: ");    Serial.println(c);
+//    Serial.print("3: ");    Serial.println(d);
+//    Serial.print("4: ");    Serial.println(e);
+//    
+//    Serial.println();
+//  delay(5);
 //  updateMasterVolume();
 //  updatePortamento();
 //#if SYNTH_DEBUG > 0
