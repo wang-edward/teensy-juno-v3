@@ -145,8 +145,6 @@ void setup() {
     envSustain = 1;
     updateEnvelope();
     t_init();
-
-  Button MBU1(M1, 0, 0, 70, 1, 5);
 }
 
 void t_init() {
@@ -197,7 +195,7 @@ void loop() {
 //  delay(50);
   analogControl();
 //  checkSliders();
-  updateButtons();
+//  updateButtons();
 //    delay(10);
 //    float a = muxArray[1].Mux::read(0)/1023.;
 //    delay(10);

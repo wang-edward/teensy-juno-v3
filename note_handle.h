@@ -7,7 +7,7 @@
   AudioMixer4*                  oscMixer;
   
   AudioFilterStateVariable*     hpf;
-  AudioFilterStateVariable*     lpf;
+  AudioFilterLadder*     lpf;
   
   AudioMixer4*                  lpfModMixer;
   AudioEffectEnvelope*          lpfEnv;
